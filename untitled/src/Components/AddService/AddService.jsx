@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 
 
 const AddService = () => {
+    const [service, setService] = useState();
   const [inputValue , setInputValue] = useState({
       Service : "",
       category : "",
@@ -20,10 +21,15 @@ const AddService = () => {
     form_data.append("Price", inputValue.price);
     form_data.append("category", inputValue.category);
 
-    axios.post(`https://amirmohammadkomijani.pythonanywhere.com/barber/service/`, form_data, {
+    axios.post(`https://amirmohammadkomijani.pythonanywhere.com/barber/categories/1/service/`, {
       headers: {
           "Content-Type": "multipart/form-data",
       },
+      data: {
+        service: inputValue.Service,
+        price: inputValue.price,
+        servicePic: "",
+    }
   }).then((res) => {
     console.log(res)
 }).catch((error) => {
@@ -37,6 +43,7 @@ event.preventDefault();
       switch (event.target.name){
           case "Service" :
               setInputValue({...inputValue , Service : event.target.value})
+                // setService(event.target.value);
               //formData.append("Service" , event.target.value);
           
               break;
