@@ -11,6 +11,9 @@ import Tab from "@mui/material/Tab";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
+import Stack from "@mui/material/Stack";
+import Button from "@mui/material/Button";
+import "./ImageSlider.css";
 
 function ImageSlider({ slides }, props) {
   const [currentTabIndex, setCurrentTabIndex] = useState(0);
@@ -25,7 +28,6 @@ function ImageSlider({ slides }, props) {
       ...ShowComponent,
       [event.target.name]: !ShowComponent[event.target.name],
     });
-    
   };
 
   const [servicefront, setServicefront] = useState([]);
@@ -36,7 +38,7 @@ function ImageSlider({ slides }, props) {
   let nailarray = [];
   let makeuparray = [];
   let skinarray = [];
-  let access_token =localStorage.getItem('acctoken');
+  let access_token = localStorage.getItem("acctoken");
 
   useEffect(() => {
     axios
@@ -63,8 +65,6 @@ function ImageSlider({ slides }, props) {
       })
       .catch((err) => console.log(err));
 
-
-      
     //Axios config
     // axios.defaults.baseUrl = "";
     // axios.interceptors.request.use((request) => {
@@ -81,12 +81,12 @@ function ImageSlider({ slides }, props) {
   // }, [servicefront]);
 
   return (
-    <>
+    <div className="All_Slider">
       <div className="wholebarber">
         <div>
           <div />
-          <div>
-            <Tabs value={currentTabIndex} onChange={handleTabChange} centered>
+          <div className="hairdressers">
+            <Tabs value={currentTabIndex} onChange={handleTabChange} centered textColor="primary">
               {servicefront.map((item, index) => (
                 <Tab key={item.category} label={item.category} />
               ))}
@@ -100,11 +100,13 @@ function ImageSlider({ slides }, props) {
                   <Grid item xs={12} sm={6} md={4} key={x.service}>
                     <Card
                       sx={{
-                        maxWidth: 345,
+                        maxWidth: 250,
                         bgcolor: "#ffecee",
                         fontFamily: "Roboto",
                         color: "#120c1e",
                         borderRadius: 3,
+                        margin: 2,
+
                       }}
                     >
                       <CardMedia
@@ -126,26 +128,33 @@ function ImageSlider({ slides }, props) {
               </div>
             ))}
           </div>
-        </div>
-      </div>
-      <div className={style.mainContainer}>
-        <div className={style.btnComponentController}>
-          <div
-            style={{
-              display: "flex",
-              marginLeft: "480PX",
-              alignItems: "center",
-              rowGap: "20px",
-            }}
-          >
-            <button name="add" onClick={btnhandler}>
-              add Services
-            </button>
+          <div className={style.mainContainer}>
+            <div className={style.btnComponentController}>
+              <div
+                style={{
+                  display: "flex",
+                  marginLeft: "480PX",
+                  alignItems: "center",
+                  rowGap: "20px",
+                }}
+              >
+                <Button
+                  variant="contained"
+                  // color="success"
+
+                  name="add"
+                  onClick={btnhandler}
+                  bgcolor="white"
+                >
+                  add Service
+                </Button>
+              </div>
+            </div>
+            {ShowComponent.add && <AddModal open={true} />}
           </div>
         </div>
-        {ShowComponent.add && <AddModal open={true} />}
       </div>
-    </>
+      </div>
   );
 }
 

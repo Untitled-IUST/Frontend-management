@@ -17,7 +17,7 @@ function App() {
   let access_token =localStorage.getItem('acctoken');
   
   useEffect(() => {
-    console.log(access_token);
+    // console.log(access_token);
     axios.get('https://amirmohammadkomijani.pythonanywhere.com/customer/profile/me/',{
       headers:{
         "Content-Type": 'application/json',

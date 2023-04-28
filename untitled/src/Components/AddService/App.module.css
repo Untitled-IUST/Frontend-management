@@ -10,3 +10,10 @@
 .btnComponentController{
     margin: 60px 0;
 }
+
+.hairdressers{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: black;
+}
