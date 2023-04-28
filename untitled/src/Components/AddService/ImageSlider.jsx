@@ -19,13 +19,13 @@ function ImageSlider({ slides }, props) {
   };
   const [ShowComponent, setShowComponent] = useState({
     add: false,
-    delete: false,
   });
   const btnhandler = (event) => {
     setShowComponent({
       ...ShowComponent,
       [event.target.name]: !ShowComponent[event.target.name],
     });
+    
   };
 
   const [servicefront, setServicefront] = useState([]);
@@ -36,6 +36,7 @@ function ImageSlider({ slides }, props) {
   let nailarray = [];
   let makeuparray = [];
   let skinarray = [];
+  let access_token =localStorage.getItem('acctoken');
 
   useEffect(() => {
     axios
@@ -62,16 +63,18 @@ function ImageSlider({ slides }, props) {
       })
       .catch((err) => console.log(err));
 
+
+      
     //Axios config
-    axios.defaults.baseUrl = "";
-    axios.interceptors.request.use((request) => {
-      console.log(request);
-      return request;
-    });
-    axios.interceptors.response.use((response) => {
-      console.log(response);
-      return response.data;
-    });
+    // axios.defaults.baseUrl = "";
+    // axios.interceptors.request.use((request) => {
+    //   console.log(request);
+    //   return request;
+    // });
+    // axios.interceptors.response.use((response) => {
+    //   console.log(response);
+    //   return response.data;
+    // });
   }, []);
   // useEffect(() => {
   //   console.log(servicefront);

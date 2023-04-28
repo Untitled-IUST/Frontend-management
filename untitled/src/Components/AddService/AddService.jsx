@@ -4,7 +4,6 @@ import React, { useState } from 'react';
 
 
 const AddService = () => {
-    const [service, setService] = useState();
   const [inputValue , setInputValue] = useState({
       Service : "",
       category : "",
@@ -26,8 +25,8 @@ const AddService = () => {
           "Content-Type": "multipart/form-data",
       },
       data: {
-        service: inputValue.Service,
-        price: inputValue.price,
+        service: "inputValue.Service",
+        price: 1000,
         servicePic: "",
     }
   }).then((res) => {
