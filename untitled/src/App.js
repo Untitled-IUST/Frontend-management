@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link, BrowserRouter,  Routes , Route } from 'react-router-dom';
 import Blank from './Components/Blank';
-import Add from './Components/AddService/Add';
+import ImageSlider from './Components/AddService/ImageSlider';
 
 import { Sidebar, Menu, MenuItem, useProSidebar } from "react-pro-sidebar";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
@@ -46,7 +46,7 @@ function App() {
         </Sidebar>
         <Routes>
           <Route path="/" element={<Blank />} />
-          <Route path="/hairdresser" element={<Add />} />
+          <Route path="/hairdresser" element={<ImageSlider />} />
           
         </Routes>
         {/* <main>
