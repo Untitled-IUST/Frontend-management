@@ -1,5 +1,7 @@
 import style from "./App.module.css";
 import AddModal from "./AddModal";
+import DeleteModal from "../DeleteService/DeleteModal";
+import EditModal from "../EditService/EditModal";
 import React, { useState, useEffect } from "react";
 import Typography from "@mui/material/Typography";
 // import "../css/ImageSlider.css";
@@ -15,11 +17,17 @@ import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
 import "./ImageSlider.css";
 
+
 function ImageSlider({ slides }, props) {
   const [currentTabIndex, setCurrentTabIndex] = useState(0);
+  const [categoryIndex, setCategoryIndex] = useState(0);
   const handleTabChange = (event, newIndex) => {
     setCurrentTabIndex(newIndex);
+    setCategoryIndex(newIndex);
+
+    localStorage.setItem("categoryId", data.categories[newIndex].id);
   };
+
   const [ShowComponent, setShowComponent] = useState({
     add: false,
   });
@@ -31,6 +39,7 @@ function ImageSlider({ slides }, props) {
   };
 
   const [servicefront, setServicefront] = useState([]);
+  const[data,setMydata]=useState('')
 
   let { id } = useParams();
 
@@ -40,45 +49,13 @@ function ImageSlider({ slides }, props) {
   let skinarray = [];
   let access_token = localStorage.getItem("acctoken");
 
-  useEffect(() => {
-    axios
-      .get("https://amirmohammadkomijani.pythonanywhere.com/barber/info/1/")
+  useEffect(()=> {
+    axios.get('https://amirmohammadkomijani.pythonanywhere.com/barber/info/1/') 
       .then((response) => {
-        setServicefront(response.data.categories);
-        for (let i = 0; i < servicefront.length; i++) {
-          if (servicefront[i].category == "skin") {
-            skinarray.push.apply(skinarray, servicefront[i].categoryServices);
-          }
-          if (servicefront[i].category == "hair") {
-            hairarray.push.apply(hairarray, servicefront[i].categoryServices);
-          }
-          if (servicefront[i].category == "makeup") {
-            makeuparray.push.apply(
-              makeuparray,
-              servicefront[i].categoryServices
-            );
-          }
-          if (servicefront[i].category == "nail") {
-            nailarray.push.apply(nailarray, servicefront[i].categoryServices);
-          }
-        }
-      })
-      .catch((err) => console.log(err));
-
-    //Axios config
-    // axios.defaults.baseUrl = "";
-    // axios.interceptors.request.use((request) => {
-    //   console.log(request);
-    //   return request;
-    // });
-    // axios.interceptors.response.use((response) => {
-    //   console.log(response);
-    //   return response.data;
-    // });
-  }, []);
-  // useEffect(() => {
-  //   console.log(servicefront);
-  // }, [servicefront]);
+          setMydata(response.data)
+          setServicefront(response.data.categories)
+      }).catch(err=> console.log(err))
+      },[])
 
   return (
     <div className="All_Slider">
@@ -146,11 +123,35 @@ function ImageSlider({ slides }, props) {
                   onClick={btnhandler}
                   bgcolor="white"
                 >
-                  add Service
+                Add Service
                 </Button>
+                <Button
+                  variant="contained"
+                  // color="success"
+
+                  name="delete"
+                  onClick={btnhandler}
+                  bgcolor="white"
+                >
+                  Delete Service
+                </Button>
+                <Button
+                  variant="contained"
+                  // color="success"
+
+                  name="edit"
+                  onClick={btnhandler}
+                  bgcolor="white"
+                >
+                  Edit Service
+                </Button>
+                
               </div>
             </div>
             {ShowComponent.add && <AddModal open={true} />}
+            {ShowComponent.delete && <DeleteModal open={true} />}
+            {ShowComponent.edit && <EditModal open={true} />}
+
           </div>
         </div>
       </div>

@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { useTheme } from '@mui/material/styles'
-import AddService  from "./AddService";
 import Dialog from "@mui/material/Dialog/Dialog"
 import useMediaQuery from '@mui/material/useMediaQuery';
+import DeleteService from "./DeleteService";
 
 
-function AddModal({open}){
+function DeleteModal({open}){
     const theme = useTheme();
     const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
     const[open1,setOpen1]=useState(true);
@@ -24,7 +24,7 @@ function AddModal({open}){
   aria-describedby="modal-modal-description"
   fullScreen={fullScreen}
 >
-    <AddService></AddService>
-</Dialog>);
+    <DeleteService></DeleteService>
+    </Dialog>);
 }
-export default AddModal;
+export default DeleteModal;

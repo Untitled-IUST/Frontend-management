@@ -6,33 +6,31 @@ import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import PhotoCamera from '@mui/icons-material/PhotoCamera';
 import Stack from '@mui/material/Stack';
-import './AddService.css';
+
 
 let access_token = localStorage.getItem("acctoken");
-const AddService = () => {
+const DeleteService = () => {
   const [inputValue, setInputValue] = useState({
     Service: "",
     category: "",
     price: "",
     ServicePic: "",
   });
-  const [serviceName, setServiceName] = useState();
-  const [servicePrice, setServicePrice] = useState();
+  
+  const [serviceId, setServiceId] = useState();
  
   function formSubmit(event) {
-    var categoryId = localStorage.getItem("categoryId");
-    console.log(categoryId);
+
     axios({
       method: "post",
-      
-      url: "https://amirmohammadkomijani.pythonanywhere.com/barber/categories/"+categoryId+"/service/",
+      url: "https://amirmohammadkomijani.pythonanywhere.com/barber/categories/2/service/",
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `JWT ${access_token}`
       },
       data: {
-        service: serviceName,
-        price: servicePrice,
+       
+        Id: serviceId,
         servicePic: null,
       }
     })
@@ -63,7 +61,7 @@ const AddService = () => {
 
   return (
     <div
-      className="All_AddService"
+      className="DeleteService"
       style={{
         display: "flex",
         flexDirection: "column",
@@ -71,21 +69,19 @@ const AddService = () => {
         rowGap: "20px",
       }}
     >
-      <h3>Add a New Service</h3>
+      <h3>Delete Service</h3>
       <form onSubmit={formSubmit} >
        
-        <input  onChange={(e) => setServiceName(e.target.value)}  type="text" placeholder="Service" name="Service"  />
-        <input  onChange={(e) => setServicePrice(e.target.value)} type="number" placeholder="Price" name="price" />
+
+        <input  onChange={(e) => setServiceId(e.target.value)} type="number" placeholder="Id" name="Id" />
 
 
     
 
-          <Button type="submit" variant="outlined">Add Service</Button>          
+          <Button type="submit" variant="outlined">Delete Service</Button>          
       </form>
     </div>
   );
 };
 
-export default AddService;
-
-
+export default DeleteService;
