@@ -16,14 +16,15 @@ import CardMedia from "@mui/material/CardMedia";
 import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
 import "./ImageSlider.css";
+import IconButton from "@mui/material/IconButton";
+import DeleteIcon from "@mui/icons-material/Delete";
 
-
-function ImageSlider({ slides }, props) {
+function ImageSlider() {
   const [currentTabIndex, setCurrentTabIndex] = useState(0);
   const [categoryIndex, setCategoryIndex] = useState(0);
   const handleTabChange = (event, newIndex) => {
     setCurrentTabIndex(newIndex);
-    setCategoryIndex(newIndex);
+    setCategoryIndex(data.categories[newIndex].id);
 
     localStorage.setItem("categoryId", data.categories[newIndex].id);
   };
@@ -38,24 +39,39 @@ function ImageSlider({ slides }, props) {
     });
   };
 
+  const servicehandler = (id) => {
+
+    axios({
+      method: "delete",
+      
+      url: "https://amirmohammadkomijani.pythonanywhere.com/barber/categories/"+categoryIndex+"/service/"+id,
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `JWT ${access_token}`
+      },
+      
+    })
+    .then((res) => {
+      window.location.reload(false)
+    })
+  };
+
   const [servicefront, setServicefront] = useState([]);
-  const[data,setMydata]=useState('')
+  const [data, setMydata] = useState("");
 
-  let { id } = useParams();
 
-  let hairarray = [];
-  let nailarray = [];
-  let makeuparray = [];
-  let skinarray = [];
   let access_token = localStorage.getItem("acctoken");
 
-  useEffect(()=> {
-    axios.get('https://amirmohammadkomijani.pythonanywhere.com/barber/info/1/') 
+  useEffect(() => {
+    axios
+      .get("https://amirmohammadkomijani.pythonanywhere.com/barber/info/1/")
       .then((response) => {
-          setMydata(response.data)
-          setServicefront(response.data.categories)
-      }).catch(err=> console.log(err))
-      },[])
+        setMydata(response.data);
+        setServicefront(response.data.categories);
+        // console.log(response.data.categories)
+      })
+      .catch((err) => console.log(err));
+  }, []);
 
   return (
     <div className="All_Slider">
@@ -63,7 +79,12 @@ function ImageSlider({ slides }, props) {
         <div>
           <div />
           <div className="hairdressers">
-            <Tabs value={currentTabIndex} onChange={handleTabChange} centered textColor="primary">
+            <Tabs
+              value={currentTabIndex}
+              onChange={handleTabChange}
+              centered
+              textColor="primary"
+            >
               {servicefront.map((item, index) => (
                 <Tab key={item.category} label={item.category} />
               ))}
@@ -83,12 +104,11 @@ function ImageSlider({ slides }, props) {
                         color: "#120c1e",
                         borderRadius: 3,
                         margin: 2,
-
                       }}
                     >
                       <CardMedia
                         sx={{ height: 140 }}
-                        image="https://s2.uupload.ir/files/a9d966e052bdeb38027ca58ac3217845_z5j6.jpg"
+                        image={x.servicePic ? x.servicePic : "https://s2.uupload.ir/files/a9d966e052bdeb38027ca58ac3217845_z5j6.jpg"}
                         title="Hair style"
                       />
                       <CardContent>
@@ -98,6 +118,9 @@ function ImageSlider({ slides }, props) {
                         <Typography variant="body2" color="text.secondary">
                           {x.price}$
                         </Typography>
+                        <IconButton aria-label="delete" onClick={() => servicehandler(x.id)}>
+                          <DeleteIcon  />
+                        </IconButton>
                       </CardContent>
                     </Card>
                   </Grid>
@@ -105,6 +128,7 @@ function ImageSlider({ slides }, props) {
               </div>
             ))}
           </div>
+
           <div className={style.mainContainer}>
             <div className={style.btnComponentController}>
               <div
@@ -123,18 +147,9 @@ function ImageSlider({ slides }, props) {
                   onClick={btnhandler}
                   bgcolor="white"
                 >
-                Add Service
+                  Add Service
                 </Button>
-                <Button
-                  variant="contained"
-                  // color="success"
-
-                  name="delete"
-                  onClick={btnhandler}
-                  bgcolor="white"
-                >
-                  Delete Service
-                </Button>
+                
                 <Button
                   variant="contained"
                   // color="success"
@@ -145,17 +160,15 @@ function ImageSlider({ slides }, props) {
                 >
                   Edit Service
                 </Button>
-                
               </div>
             </div>
             {ShowComponent.add && <AddModal open={true} />}
             {ShowComponent.delete && <DeleteModal open={true} />}
             {ShowComponent.edit && <EditModal open={true} />}
-
           </div>
         </div>
       </div>
-      </div>
+    </div>
   );
 }
 

@@ -18,10 +18,10 @@ const AddService = () => {
   });
   const [serviceName, setServiceName] = useState();
   const [servicePrice, setServicePrice] = useState();
+  const [servicePic, setServicePic] = useState();
  
   function formSubmit(event) {
     var categoryId = localStorage.getItem("categoryId");
-    console.log(categoryId);
     axios({
       method: "post",
       
@@ -38,7 +38,8 @@ const AddService = () => {
     })
 
       .then((res) => {
-        console.log(res);
+        // console.log(res);
+        window.location.reload(false)
       })
       .catch((error) => {
         console.warn(error);
@@ -76,10 +77,7 @@ const AddService = () => {
        
         <input  onChange={(e) => setServiceName(e.target.value)}  type="text" placeholder="Service" name="Service"  />
         <input  onChange={(e) => setServicePrice(e.target.value)} type="number" placeholder="Price" name="price" />
-
-
-    
-
+        <input  onChange={(e) => setServicePic(e.target.files[0])} type="file" name="servicePicture" />
           <Button type="submit" variant="outlined">Add Service</Button>          
       </form>
     </div>
