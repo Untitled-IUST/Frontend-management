@@ -9,12 +9,11 @@ import Tab from "@mui/material/Tab";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
-
 import Button from "@mui/material/Button";
 import "./ImageSlider.css";
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
-import Box from "@mui/material/Box";
+import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 
 function ImageSlider() {
   const [currentTabIndex, setCurrentTabIndex] = useState(0);
@@ -54,6 +53,24 @@ function ImageSlider() {
     });
   };
 
+  const categoryhandler = () => {
+    // axios({
+    //   method: "post",
+
+    //   url:
+    //     "https://amirmohammadkomijani.pythonanywhere.com/barber/categories/" +
+    //     categoryIndex +
+    //     "/service/" +
+    //     id,
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //     Authorization: `JWT ${access_token}`,
+    //   },
+    // }).then((res) => {
+    //   window.location.reload(false);
+    // });
+  };
+
   const [servicefront, setServicefront] = useState([]);
   const [data, setMydata] = useState("");
 
@@ -89,6 +106,19 @@ function ImageSlider() {
                   style={{ color: "#fecbca" }}
                 />
               ))}
+              {/* <Tab
+                  key="addCategory"
+                  label="Add Category"
+                  icon={<AddCircleOutlineIcon />} 
+                  iconPosition="end"
+                  style={{ color: "#fecbca"}}
+                /> */}
+              <IconButton
+                onClick={() => categoryhandler()}
+                
+              >
+                <AddCircleOutlineIcon style={{color: "#fecbca"}}/>
+              </IconButton>
             </Tabs>
 
             {servicefront.map((item, index) => (
