@@ -1,23 +1,20 @@
 import style from "./App.module.css";
 import AddModal from "./AddModal";
-import DeleteModal from "../DeleteService/DeleteModal";
-import EditModal from "../EditService/EditModal";
 import React, { useState, useEffect } from "react";
 import Typography from "@mui/material/Typography";
-// import "../css/ImageSlider.css";
 import axios from "axios";
-import { useParams } from "react-router-dom";
 import Grid from "@mui/material/Grid";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
-import Stack from "@mui/material/Stack";
+
 import Button from "@mui/material/Button";
 import "./ImageSlider.css";
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
+import Box from "@mui/material/Box";
 
 function ImageSlider() {
   const [currentTabIndex, setCurrentTabIndex] = useState(0);
@@ -40,25 +37,25 @@ function ImageSlider() {
   };
 
   const servicehandler = (id) => {
-
     axios({
       method: "delete",
-      
-      url: "https://amirmohammadkomijani.pythonanywhere.com/barber/categories/"+categoryIndex+"/service/"+id,
+
+      url:
+        "https://amirmohammadkomijani.pythonanywhere.com/barber/categories/" +
+        categoryIndex +
+        "/service/" +
+        id,
       headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `JWT ${access_token}`
+        "Content-Type": "application/json",
+        Authorization: `JWT ${access_token}`,
       },
-      
-    })
-    .then((res) => {
-      window.location.reload(false)
-    })
+    }).then((res) => {
+      window.location.reload(false);
+    });
   };
 
   const [servicefront, setServicefront] = useState([]);
   const [data, setMydata] = useState("");
-
 
   let access_token = localStorage.getItem("acctoken");
 
@@ -86,9 +83,14 @@ function ImageSlider() {
               textColor="primary"
             >
               {servicefront.map((item, index) => (
-                <Tab key={item.category} label={item.category} />
+                <Tab
+                  key={item.category}
+                  label={item.category}
+                  style={{ color: "#fecbca" }}
+                />
               ))}
             </Tabs>
+
             {servicefront.map((item, index) => (
               <div
                 key={item.category}
@@ -98,17 +100,24 @@ function ImageSlider() {
                   <Grid item xs={12} sm={6} md={4} key={x.service}>
                     <Card
                       sx={{
-                        maxWidth: 250,
+                        // maxWidth: 250,
+                        // minWidth: 150,
+                        width: 180,
+                        height: 300,
                         bgcolor: "#ffecee",
                         fontFamily: "Roboto",
                         color: "#120c1e",
-                        borderRadius: 3,
+                        borderRadius: 2,
                         margin: 2,
                       }}
                     >
                       <CardMedia
                         sx={{ height: 140 }}
-                        image={x.servicePic ? x.servicePic : "https://s2.uupload.ir/files/a9d966e052bdeb38027ca58ac3217845_z5j6.jpg"}
+                        image={
+                          x.servicePic
+                            ? x.servicePic
+                            : "https://s2.uupload.ir/files/a9d966e052bdeb38027ca58ac3217845_z5j6.jpg"
+                        }
                         title="Hair style"
                       />
                       <CardContent>
@@ -118,53 +127,47 @@ function ImageSlider() {
                         <Typography variant="body2" color="text.secondary">
                           {x.price}$
                         </Typography>
-                        <IconButton aria-label="delete" onClick={() => servicehandler(x.id)}>
-                          <DeleteIcon  />
+                        <IconButton
+                          aria-label="delete"
+                          onClick={() => servicehandler(x.id)}
+                        >
+                          <DeleteIcon />
                         </IconButton>
                       </CardContent>
                     </Card>
                   </Grid>
                 ))}
+                <div
+                  style={{
+                    display: "flex",
+                    // marginLeft: "480PX",
+                    alignItems: "center",
+                    rowGap: "20px",
+                  }}
+                >
+                  <Button
+                    variant="contained"
+                    name="add"
+                    onClick={btnhandler}
+                    style={{
+                      backgroundColor: "#ffecee",
+                      color: "#261B39",
+                      fontSize: "100px",
+                      width: "180px",
+                      height: "300px",
+                      marginLeft: "20px",
+                    }}
+                  >
+                    +
+                  </Button>
+                </div>
               </div>
             ))}
           </div>
 
           <div className={style.mainContainer}>
-            <div className={style.btnComponentController}>
-              <div
-                style={{
-                  display: "flex",
-                  marginLeft: "480PX",
-                  alignItems: "center",
-                  rowGap: "20px",
-                }}
-              >
-                <Button
-                  variant="contained"
-                  // color="success"
-
-                  name="add"
-                  onClick={btnhandler}
-                  bgcolor="white"
-                >
-                  Add Service
-                </Button>
-                
-                <Button
-                  variant="contained"
-                  // color="success"
-
-                  name="edit"
-                  onClick={btnhandler}
-                  bgcolor="white"
-                >
-                  Edit Service
-                </Button>
-              </div>
-            </div>
+            <div className={style.btnComponentController}></div>
             {ShowComponent.add && <AddModal open={true} />}
-            {ShowComponent.delete && <DeleteModal open={true} />}
-            {ShowComponent.edit && <EditModal open={true} />}
           </div>
         </div>
       </div>

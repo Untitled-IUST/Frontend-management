@@ -5,3 +5,13 @@
   width: 100%;
 
 }
+
+.MuiTabs-root .MuiTab-textColorPrimary.Mui-selected {
+  color: #fecbca;
+  
+
+}
+
+.MuiTabs-indicator {
+  background-color: white;
+}
