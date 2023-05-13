@@ -87,7 +87,8 @@ function OrderHistory() {
 
 
   return (
-      <div className="bg-backGround-500 w-screen h-full">
+    <div className="bg-backGround-500 w-full">
+      <div className=" md:w-2/3 w-full mx-auto h-full">
         <div className="container px-2 py-8 mx-auto flex flex-col">
           <div className="bg-backGroundShade-500 w-fit px-3 py-3 rounded-xl flex flex-row gap-3">
             <p className="font-medium text-lg py-1 text-white">date:</p>
@@ -115,7 +116,7 @@ function OrderHistory() {
                   <p className="bg-cherryBlossomPink-500 rounded-xl m-1 p-2 text-backGround-500 text-lg font-medium">{date}</p>
                   <p className="bg-Mauve-500 rounded-xl m-1 p-2 text-backGround-500 text-lg font-medium">{Filters[selectedIndex]}</p>
               </div>
-              <Tab.Panels className="mt-3 text-white">
+              <Tab.Panels className="mt-3 text-white min-h-screen">
                 <Tab.Panel>
                   {data.map((order) => (
                     <div key={order}>
@@ -161,6 +162,7 @@ function OrderHistory() {
           </div>
         </div>
       </div>
+    </div>
   );
 }
 
