@@ -11,6 +11,9 @@ import ContentCutIcon from '@mui/icons-material/ContentCut';
 import LogoutIcon from '@mui/icons-material/Logout';
 import axios from "axios";
 
+import LoginBarber from "./Pages/LoginBarber";
+import SignUpBarber from "./Pages/SignUpBarber";
+
 function App() {
   const { collapseSidebar } = useProSidebar();
   const [userName, setUserName] = useState("Fargol");
@@ -47,7 +50,8 @@ function App() {
         <Routes>
           <Route path="/" element={<Blank />} />
           <Route path="/hairdresser" element={<ImageSlider />} />
-          
+          <Route path="/LoginBarber" Component={LoginBarber} />
+          <Route path="/SignUpBarber" Component={SignUpBarber} />
         </Routes>
         {/* <main>
           <h1 style={{ color: "#261B39", marginLeft: "5rem" }}>

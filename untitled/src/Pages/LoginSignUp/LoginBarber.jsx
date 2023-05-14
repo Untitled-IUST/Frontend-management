@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import { useState } from "react";
 import { json } from "react-router-dom";
+
 import backgroundImageLoginBarber from "./images/LoginBarber.png";
 
 function LoginBarber(){
