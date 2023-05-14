@@ -15,6 +15,25 @@ import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 
+import Modal from "@mui/material/Modal";
+import Box from "@mui/material/Box";
+const styleB = {
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 400,
+  bgcolor: "background.paper",
+  border: "2px solid #000",
+  boxShadow: 24,
+  backgroundColor: "#ffecee",
+  p: 4,
+  position: "absolute",
+
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
+};
+
 function ImageSlider() {
   const [currentTabIndex, setCurrentTabIndex] = useState(0);
   const [categoryIndex, setCategoryIndex] = useState(0);
@@ -53,26 +72,32 @@ function ImageSlider() {
     });
   };
 
-  const categoryhandler = () => {
-    // axios({
-    //   method: "post",
+  function formSubmit(event) {
+    axios({
+      method: "post",
 
-    //   url:
-    //     "https://amirmohammadkomijani.pythonanywhere.com/barber/categories/" +
-    //     categoryIndex +
-    //     "/service/" +
-    //     id,
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //     Authorization: `JWT ${access_token}`,
-    //   },
-    // }).then((res) => {
-    //   window.location.reload(false);
-    // });
-  };
+      url: "",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `JWT ${access_token}`,
+      },
+      data: {},
+    })
+      .then((res) => {
+        // console.log(res);
+        window.location.reload(false);
+      })
+      .catch((error) => {
+        console.warn(error);
+      });
+    event.preventDefault();
+  }
 
   const [servicefront, setServicefront] = useState([]);
   const [data, setMydata] = useState("");
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
   let access_token = localStorage.getItem("acctoken");
 
@@ -113,12 +138,37 @@ function ImageSlider() {
                   iconPosition="end"
                   style={{ color: "#fecbca"}}
                 /> */}
-              <IconButton
-                onClick={() => categoryhandler()}
-                
-              >
-                <AddCircleOutlineIcon style={{color: "#fecbca"}}/>
+              <IconButton onClick={() => handleOpen()}>
+                <AddCircleOutlineIcon style={{ color: "#fecbca" }} />
               </IconButton>
+              <Modal
+                open={open}
+                onClose={handleClose}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+              >
+                <Box sx={styleB}>
+                  <h3>Add a New Category</h3>
+                  <form onSubmit={formSubmit}>
+                    
+                    <input
+                      // onChange={(e) => setServiceName(e.target.value)}
+                      type="text"
+                      placeholder="Category"
+                      name="Category"
+                    />
+                    <br></br>
+                    <br></br>
+                    <Button
+                      type="submit"
+                      variant="outlined"
+                      style={{ backgroundColor: "#261B39", color: "#ffecee" }}
+                    >
+                      Add Category
+                    </Button>
+                  </form>
+                </Box>
+              </Modal>
             </Tabs>
 
             {servicefront.map((item, index) => (
