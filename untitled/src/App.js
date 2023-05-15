@@ -2,8 +2,8 @@ import { Routes , Route } from 'react-router-dom';
 import LoginBarber from "./Pages/LoginSignUp/LoginBarber";
 import SignUpBarber from "./Pages/LoginSignUp/SignUpBarber";
 import OrderHistory from './Pages/OrderHistory/OrderHistory';
-import AddService from './Components/AddService/AddService';
 import SideBar from './Components/SideBar/SideBar';
+import ImageSlider from "./Components/AddService/ImageSlider";
 
 function App() {
   
@@ -20,7 +20,7 @@ function App() {
       <Route path="/AddService" element={
         <div id="app" style={({ height: "100vh" }, { display: "flex" })}>
           <SideBar/>
-          <AddService/>
+          <ImageSlider/>
         </div>
       }/>
     </Routes>

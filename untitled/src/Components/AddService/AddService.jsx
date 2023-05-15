@@ -6,8 +6,7 @@ import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import PhotoCamera from '@mui/icons-material/PhotoCamera';
 import Stack from '@mui/material/Stack';
-import './AddService.css';
-
+import "./AddService.css"
 let access_token = localStorage.getItem("acctoken");
 const AddService = () => {
   const [inputValue, setInputValue] = useState({

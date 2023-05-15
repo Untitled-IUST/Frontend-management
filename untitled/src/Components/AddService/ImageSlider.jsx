@@ -74,7 +74,7 @@ function ImageSlider() {
   const [servicefront, setServicefront] = useState([]);
   const [data, setMydata] = useState("");
 
-  let access_token = localStorage.getItem("acctoken");
+  let access_token = localStorage.getItem("accessTokenBarber");
 
   useEffect(() => {
     axios
