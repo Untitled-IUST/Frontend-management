@@ -1,7 +1,6 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { Tab } from "@headlessui/react";
-import { Button, useStepContext } from "@mui/material";
 import {IonIcon} from '@ionic/react';
 import {time} from 'ionicons/icons';
 
@@ -15,7 +14,7 @@ function OrderHistory() {
   const [CanceledByCustomerData , setCenceledByCustomerData] = useState([]);
   const [CustomerDidntArriveData , setCustomerDidntArriveData] = useState([]);
 
-  const accessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjgzOTkwNTY4LCJpYXQiOjE2ODM5MDQxNjgsImp0aSI6IjJiOGJkZWJmYWJkZjRkMzdiMTJjOWNhNzUxMTFiNDNhIiwidXNlcl9pZCI6MX0.IsNqs2woJH2EMWZii1mUOJ0lmOY_MLPUsRTOy5Hw-r4";
+  const accessTokenBarber = localStorage.getItem('accessTokenBarber');
   const [selectedIndex , setSelectedIndex] = useState(0);
   const Filters = [
     "All" ,"Done", "Canceled by me" , "Canceled by customer" , "Customer didnt arrive" 
@@ -43,7 +42,7 @@ function OrderHistory() {
     const url = "https://amirmohammadkomijani.pythonanywhere.com/barber/panel/";
     const options =  {
       headers : {
-        Authorization : `JWT ${accessToken}`,
+        Authorization : `JWT ${accessTokenBarber}`,
         'Content-Type' : 'application/json'
       }
     }
@@ -73,12 +72,12 @@ function OrderHistory() {
       const fetchedData = await response.json();
       setCustomerDidntArriveData(fetchedData.results);
     }
-    fetchData(url,options);
-    fetchDoneData(url,options);
-    fetchCanceledByMeData(url,options);
-    fetchCanceledByCustomerData(url,options);
-    fetchCustomerDidntArriveData(url,options);
-  },[])
+    fetchData((url+"?status=&date="+date),options);
+    fetchDoneData((url+"?status=Done&date="+date),options);
+    fetchCanceledByMeData((url+"?status=BarberCancelled&date="+date),options);
+    fetchCanceledByCustomerData((url+"?status=CustomerCancelled&date="+date),options);
+    fetchCustomerDidntArriveData((url+"?status=CustomerNotCome&date="+date),options);
+  },[date])
 
   
   function classNames(...classes){
@@ -97,9 +96,8 @@ function OrderHistory() {
           <div className="w-full py-4 sm:px-0">
             <Tab.Group selectedIndex={selectedIndex} onChange={setSelectedIndex}>
               <Tab.List className="flex flex-wrap sm:flex-nowrap space-x-1 rounded-xl bg-backGroundShade-500 p-1">
-                {Filters.map((filter,index) => (
+                {Filters.map((filter) => (
                   <Tab
-                    key={index}
                     className={({ selected }) =>
                     classNames(
                       'text-lg px-1 w-full rounded-lg py-2.5 font-medium leading-5 text-white focus:outline-none',
@@ -117,46 +115,48 @@ function OrderHistory() {
                   <p className="bg-Mauve-500 rounded-xl m-1 p-2 text-backGround-500 text-lg font-medium">{Filters[selectedIndex]}</p>
               </div>
               <Tab.Panels className="mt-3 text-white min-h-screen">
-                <Tab.Panel>
-                  {data.map((order) => (
-                    <div key={order}>
-                      <div class="m-1 flex items-center">
-                        <div class="border-t border-backGroundShade-300 flex-1 mr-3"></div>
-                          <span class="flex flex-row items-center text-center text-cherryBlossomPink-500">
-                            <IonIcon icon={time} className="mr-1"/>
-                            <p>{order.time}</p>
-                          </span>
-                        <div class="border-t border-backGroundShade-300 flex-1 ml-3"></div>
-                      </div>
-                      <div className="flex justify-between">
-                        <div className="flex items-start">
-                          <div className="m-1">
-                            <img className="border-2 border-Mauve-500 w-12 h-12 rounded-lg" src={order.customer.profile_pic} alt="profile"/>
+                {Filters.map(() => (
+                  <Tab.Panel>
+                    
+                    {data.length>0 ? (data.map((order) => (
+                      <div key={order}>
+                        <div class="m-1 flex items-center">
+                          <div class="border-t border-backGroundShade-300 flex-1 mr-3"></div>
+                            <span class="flex flex-row items-center text-center text-cherryBlossomPink-500">
+                              <IonIcon icon={time} className="mr-1"/>
+                              <p>{order.time}</p>
+                            </span>
+                          <div class="border-t border-backGroundShade-300 flex-1 ml-3"></div>
+                        </div>
+                        <div className="flex justify-between">
+                          <div className="flex items-start">
+                            <div className="m-1">
+                              <img className="border-2 border-Mauve-500 w-12 h-12 rounded-lg" src={order.customer.profile_pic} alt="profile"/>
+                            </div>
+                            <div className="m-1 text-white">
+                              <p className="text-base font-bold">first name : {order.customer.first_name}</p>
+                              <p className="text-lg font-bold">family name :{order.customer.last_name}</p>
+                            </div>
                           </div>
-                          <div className="m-1 text-white">
-                            <p className="text-base font-bold">first name : {order.customer.first_name}</p>
-                            <p className="text-lg font-bold">family name :{order.customer.last_name}</p>
+                          <div className="m-1 flex items-center">
+                            <p className="text-green-500">+${order.service.price}</p>
                           </div>
                         </div>
-                        <div className="m-1 flex items-center">
-                          <p className="text-green-500">+${order.service.price}</p>
+                        <div className="flex justify-between">
+                          <div className="py-2 mx-2 bg-Mauve-500 mt-2 rounded-lg">
+                            <p className="p-0.5 px-1 text-backGround-500 text-base font-bold">service : {order.service.service}</p>
+                          </div>
+                          <div className="py-2 mx-2 bg-RussianViolet-200 mt-2 rounded-lg">
+                            <p className="p-0.5 px-1 text-backGround-500 text-base font-bold">{order.status}</p>
+                          </div>
                         </div>
                       </div>
-                      <div className="flex justify-between">
-                        <div className="py-2 mx-2 bg-Mauve-500 mt-2 rounded-lg">
-                          <p className="p-0.5 px-1 text-backGround-500 text-base font-bold">service : {order.service.service}</p>
-                        </div>
-                        <div className="py-2 mx-2 bg-RussianViolet-200 mt-2 rounded-lg">
-                          <p className="p-0.5 px-1 text-backGround-500 text-base font-bold">{order.status}</p>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                </Tab.Panel>
-                {/* <Tab.Panel>Done</Tab.Panel>
-                <Tab.Panel>Canceled by me</Tab.Panel>
-                <Tab.Panel>Canceled by customer</Tab.Panel>
-                <Tab.Panel>Customer didnt arrive</Tab.Panel> */}
+                      
+                    ))):
+                    <p className="text-center text-white">No Orders</p>
+                    }
+                  </Tab.Panel>
+                ))}
               </Tab.Panels>
             </Tab.Group>
           </div>

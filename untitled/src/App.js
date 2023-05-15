@@ -1,12 +1,7 @@
 import { Routes , Route } from 'react-router-dom';
-
-// import Blank from './Components/Blank';
-// import ImageSlider from './Components/AddService/ImageSlider';
-
-
-
 import LoginBarber from "./Pages/LoginSignUp/LoginBarber";
 import SignUpBarber from "./Pages/LoginSignUp/SignUpBarber";
+import OrderHistory from './Pages/OrderHistory/OrderHistory';
 
 function App() {
   
@@ -14,7 +9,7 @@ function App() {
     <Routes>
       <Route path="/" Component={LoginBarber}/>
       <Route path="/SignUpBarber" Component={SignUpBarber} />
-      <Route path="/OrderHistory" />
+      <Route path="/OrderHistory" Component={OrderHistory}/>
       <Route path="/AddService" />
     </Routes>
   );

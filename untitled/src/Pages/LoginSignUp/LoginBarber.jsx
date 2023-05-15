@@ -1,13 +1,17 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-import { useState } from "react";
+import { useState , useEffect } from "react";
 import { json } from "react-router-dom";
 
 import backgroundImageLoginBarber from "./images/LoginBarber.png";
 
 function LoginBarber(){
 
+  useEffect( () => {
+    localStorage.removeItem('accessTokenBarber');
+  },[])
+  
   const [emailAddress , setEmailAddress] = useState("");
   const [emailAddressError , setEmailAddressError] = useState("");
   const [passwordError , setPasswordError] = useState("");
@@ -21,10 +25,6 @@ function LoginBarber(){
     setIsPasswordVisible((prevState) => !prevState);
   }
 
-  //tokens
-  let accessToken = localStorage.getItem('accessTokenBarber');
-  let refreshToken = localStorage.getItem('refreshTokenBarber');
-
   const handleLogin = (event) => {
     setError("");
     event.preventDefault();
@@ -33,7 +33,7 @@ function LoginBarber(){
       url: "https://amirmohammadkomijani.pythonanywhere.com/auth/jwt/create/",
       headers: {
           'Content-Type': 'application/json',
-          Authorization : `JWT ${accessToken}`
+          //Authorization : `JWT ${accessToken}`
       },
       data: {
           email: emailAddress,
@@ -42,8 +42,8 @@ function LoginBarber(){
     })
     .then((res) => {
       alert('You are logged in'); 
-      localStorage.setItem('accessToken',res.data.access);
-      localStorage.setItem('refreshToken',res.data.refresh);
+      localStorage.setItem('accessTokenBarber',res.data.access);
+      localStorage.setItem('refreshTokenBarber',res.data.refresh);
       navigate('/OrderHistory');
     })
     .catch(error => {
@@ -53,6 +53,7 @@ function LoginBarber(){
     }) 
   }
 
+  
   const handleEmail = (event) => {
     setEmailAddress(event.target.value);
   }
