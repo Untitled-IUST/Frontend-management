@@ -111,7 +111,7 @@ function ImageSlider() {
       .then((response) => {
         setMydata(response.data);
         setServicefront(response.data.categories);
-        // console.log(response.data.categories)
+        console.log(response.data)
       })
       .catch((err) => console.log(err));
   }, []);
@@ -158,6 +158,7 @@ function ImageSlider() {
                   <h3>Add a New Category</h3>
                   <form onSubmit={categorySubmit}>
                     <input
+                    class="inputbox"
                       onChange={(e) => setCategoryName(e.target.value)}
                       type="text"
                       placeholder="Category"

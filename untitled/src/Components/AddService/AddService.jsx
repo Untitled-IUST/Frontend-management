@@ -84,6 +84,7 @@ const AddService = () => {
           }}
         >
           <input
+            class="inputbox"
             onChange={(e) => setServiceName(e.target.value)}
             type="text"
             placeholder="Service"
@@ -91,6 +92,7 @@ const AddService = () => {
           />
           <br />
           <input
+            class="inputbox"
             onChange={(e) => setServicePrice(e.target.value)}
             type="number"
             placeholder="Price"
