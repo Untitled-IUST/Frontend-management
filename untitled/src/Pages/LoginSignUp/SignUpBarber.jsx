@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useState} from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 import backGroundImageBarberSignUp from "./images/SignUpBarber.png";
 
@@ -20,6 +21,7 @@ function SignUpBarber(){
   const[confirmPasswordError , setConfirmPasswordError] = useState(true);
   const[submitError , setSubmitError] = useState(true);
 
+  let navigate = useNavigate();
 
   const validEmailAddress = new RegExp(
     /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
@@ -127,6 +129,7 @@ function SignUpBarber(){
       })
       .then((res) => {
         alert('Your salon registered succesfully');
+        navigate('/LoginBarber');
       })
       .catch(error => {
         setUsernameError(error.response.data["username"]);
@@ -150,7 +153,7 @@ function SignUpBarber(){
             <div className="w-full items-center hidden lg:flex lg:w-1/2 bg-cover rounded-l-lg">
               <img src={backGroundImageBarberSignUp} alt="SignUp" />
             </div>
-            <div className="w-full lg:w-1/2 rounded-lg lg:rounded-l-none">
+            <div className="w-full lg:w-1/2 rounded-lg lg:rounded-l-none flex flex-col justify-center">
               <h3 className="text-cherryBlossomPink-500 mt-12 text-2xl text-center">Sign Up Your Salon</h3>
               <form className="mx-8 mt-6 pb-8 mb-4 rounded">
               <div className="mb-4">
@@ -162,7 +165,7 @@ function SignUpBarber(){
                       <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
                     </div>
                     <input
-                      className="bg-backGround-500 border-2 border-gray-400 focus:border-cherryBlossomPink-500 w-full pl-10 py-2 text-base text-cherryBlossomPink-500 leading-tight   rounded appearance-none focus:outline-none"
+                      className="bg-backGround-500 border-2 border-gray-400 focus:border-cherryBlossomPink-500 w-full pl-10 py-2 h-9 text-base text-cherryBlossomPink-500 leading-tight   rounded appearance-none focus:outline-none"
                       id="Username"
                       type="text"
                       onChange={handleUsername}
@@ -179,7 +182,7 @@ function SignUpBarber(){
                       <svg aria-hidden="true" class="w-5 h-5 text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"></path><path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"></path></svg>
                     </div>
                     <input
-                      className="bg-backGround-500 border-2 border-gray-400 focus:border-cherryBlossomPink-500 w-full pl-10 py-2 text-base text-cherryBlossomPink-500 leading-tight   rounded appearance-none focus:outline-none"
+                      className="bg-backGround-500 border-2 border-gray-400 focus:border-cherryBlossomPink-500 w-full pl-10 py-2 h-9 text-base text-cherryBlossomPink-500 leading-tight   rounded appearance-none focus:outline-none"
                       id="Email"
                       type="email"
                       onChange={handleEmail}
@@ -197,7 +200,7 @@ function SignUpBarber(){
                         <svg aria-hidden="true" class="w-5 h-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
                       </div>
                       <input
-                        className="border-gray-400 bg-backGround-500 border-2 focus:border-cherryBlossomPink-500 w-full pl-10 py-2 text-base text-cherryBlossomPink-500 leading-tight   rounded appearance-none focus:outline-none"
+                        className="border-gray-400 bg-backGround-500 border-2 focus:border-cherryBlossomPink-500 w-full pl-10 py-2 h-9 text-base text-cherryBlossomPink-500 leading-tight   rounded appearance-none focus:outline-none"
                         id="Password"
                         type={isPasswordVisible ? "text" : "password"}
                         onChange={handlePassword}
@@ -256,7 +259,7 @@ function SignUpBarber(){
                         <svg aria-hidden="true" class="w-5 h-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
                       </div>
                       <input
-                        className="border-gray-400 bg-backGround-500 border-2 focus:border-cherryBlossomPink-500 w-full pl-10 py-2 text-base text-cherryBlossomPink-500 leading-tight   rounded appearance-none focus:outline-none"
+                        className="py-2 border-gray-400 bg-backGround-500 border-2 focus:border-cherryBlossomPink-500 w-full pl-10 h-9 text-base text-cherryBlossomPink-500 leading-tight  rounded appearance-none focus:outline-none"
                         id="C_password"
                         type={isCPasswordVisible ? "text" : "password"}
                         onChange={handleConfirmPassword}

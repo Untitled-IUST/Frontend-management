@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useState } from "react";
 import { json } from "react-router-dom";
@@ -15,13 +15,15 @@ function LoginBarber(){
   const [password , setpassword] = useState("");
   const [isPasswordVisible , setIsPasswordVisible] = useState(false);
 
+  let navigate = useNavigate();
+
   const togglePasswordVisibility = () => {
     setIsPasswordVisible((prevState) => !prevState);
   }
 
   //tokens
-  let accessToken = localStorage.getItem('accessToken');
-  let refreshToken = localStorage.getItem('refreshToken');
+  let accessToken = localStorage.getItem('accessTokenBarber');
+  let refreshToken = localStorage.getItem('refreshTokenBarber');
 
   const handleLogin = (event) => {
     setError("");
@@ -42,6 +44,7 @@ function LoginBarber(){
       alert('You are logged in'); 
       localStorage.setItem('accessToken',res.data.access);
       localStorage.setItem('refreshToken',res.data.refresh);
+      navigate('/OrderHistory');
     })
     .catch(error => {
       setError(error.response.data["detail"]);
@@ -62,11 +65,11 @@ function LoginBarber(){
     <div className="flex items-center">
       <div className="container mx-auto">
         <div className="flex justify-center mx-3">
-          <div className="bg-backGround-500 w-full flex ">
+          <div className="bg-backGround-500 w-full flex appearance-none">
             <div className="w-full lg:flex items-center hidden lg:w-1/2 bg-cover rounded-l-lg">
               <img src={backgroundImageLoginBarber} alt="Login"/>
             </div>
-            <div className="w-full lg:w-1/2 rounded-lg lg:rounded-l-none">
+            <div className="w-full lg:w-1/2 rounded-lg lg:rounded-l-none flex flex-col justify-center">
               <h3 className="text-cherryBlossomPink-500 mt-12 text-2xl text-center">Login To Your Salon</h3>
               <form className="mx-8 mt-6 mb-4 rounded">
                 <div className="mb-4">
@@ -78,7 +81,7 @@ function LoginBarber(){
                       <svg aria-hidden="true" class="w-5 h-5 text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"></path><path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"></path></svg>
                     </div>
                     <input
-                      className="bg-backGround-500 border-2 border-gray-400 focus:border-cherryBlossomPink-500 w-full pl-10 py-2 text-base text-cherryBlossomPink-500 leading-tight   rounded appearance-none focus:outline-none"
+                      className="bg-backGround-500 border-2 border-gray-400 focus:border-cherryBlossomPink-500 w-full pl-10 py-2 h-9 text-base text-cherryBlossomPink-500 leading-tight   rounded appearance-none focus:outline-none"
                       id="Email"
                       type="email"
                       onChange={handleEmail}
@@ -95,7 +98,7 @@ function LoginBarber(){
                       <svg aria-hidden="true" class="w-5 h-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
                     </div>
                     <input
-                      className="border-gray-400 bg-backGround-500 border-2 focus:border-cherryBlossomPink-500 w-full pl-10 py-2 text-base text-cherryBlossomPink-500 leading-tight   rounded appearance-none focus:outline-none"
+                      className="border-gray-400 bg-backGround-500 border-2 focus:border-cherryBlossomPink-500 w-full pl-10 py-2 h-9 text-base text-cherryBlossomPink-500 leading-tight   rounded appearance-none focus:outline-none"
                       id="Password"
                       type={isPasswordVisible ? "text" : "password"}
                       onChange={handlePassword}
