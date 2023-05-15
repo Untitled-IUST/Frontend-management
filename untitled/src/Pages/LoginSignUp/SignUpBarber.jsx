@@ -129,7 +129,7 @@ function SignUpBarber(){
       })
       .then((res) => {
         alert('Your salon registered succesfully');
-        navigate('/LoginBarber');
+        navigate('/');
       })
       .catch(error => {
         setUsernameError(error.response.data["username"]);
