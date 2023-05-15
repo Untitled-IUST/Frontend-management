@@ -37,6 +37,8 @@ const styleB = {
 function ImageSlider() {
   const [currentTabIndex, setCurrentTabIndex] = useState(0);
   const [categoryIndex, setCategoryIndex] = useState(0);
+  const [categoryName, setCategoryName] = useState(0);
+
   const handleTabChange = (event, newIndex) => {
     setCurrentTabIndex(newIndex);
     setCategoryIndex(data.categories[newIndex].id);
@@ -72,16 +74,18 @@ function ImageSlider() {
     });
   };
 
-  function formSubmit(event) {
+  function categorySubmit(event) {
+    console.log(categoryName)
     axios({
       method: "post",
-
-      url: "",
+      url: "https://amirmohammadkomijani.pythonanywhere.com/barber/categories/",
       headers: {
         "Content-Type": "application/json",
         Authorization: `JWT ${access_token}`,
       },
-      data: {},
+      data: {
+        category: categoryName,
+      },
     })
       .then((res) => {
         // console.log(res);
@@ -141,7 +145,10 @@ function ImageSlider() {
               <IconButton onClick={() => handleOpen()}>
                 <AddCircleOutlineIcon style={{ color: "#fecbca" }} />
               </IconButton>
-              <Modal
+
+              
+            </Tabs>
+            <Modal
                 open={open}
                 onClose={handleClose}
                 aria-labelledby="modal-modal-title"
@@ -149,10 +156,9 @@ function ImageSlider() {
               >
                 <Box sx={styleB}>
                   <h3>Add a New Category</h3>
-                  <form onSubmit={formSubmit}>
-                    
+                  <form onSubmit={categorySubmit}>
                     <input
-                      // onChange={(e) => setServiceName(e.target.value)}
+                      onChange={(e) => setCategoryName(e.target.value)}
                       type="text"
                       placeholder="Category"
                       name="Category"
@@ -169,8 +175,6 @@ function ImageSlider() {
                   </form>
                 </Box>
               </Modal>
-            </Tabs>
-
             {servicefront.map((item, index) => (
               <div
                 key={item.category}
@@ -220,7 +224,6 @@ function ImageSlider() {
                 <div
                   style={{
                     display: "flex",
-                    // marginLeft: "480PX",
                     alignItems: "center",
                     rowGap: "20px",
                   }}
