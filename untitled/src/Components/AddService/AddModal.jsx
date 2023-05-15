@@ -3,7 +3,7 @@ import { useTheme } from '@mui/material/styles'
 import AddService  from "./AddService";
 import Dialog from "@mui/material/Dialog/Dialog"
 import useMediaQuery from '@mui/material/useMediaQuery';
-
+import "./App.module.css"
 
 function AddModal({open}){
     const theme = useTheme();

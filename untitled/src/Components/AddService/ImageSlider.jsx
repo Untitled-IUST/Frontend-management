@@ -103,7 +103,7 @@ function ImageSlider() {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
-  let access_token = localStorage.getItem("acctoken");
+  let access_token = localStorage.getItem("accessTokenBarber");
 
   useEffect(() => {
     axios
