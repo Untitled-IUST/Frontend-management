@@ -8,7 +8,7 @@ import PhotoCamera from "@mui/icons-material/PhotoCamera";
 import Stack from "@mui/material/Stack";
 import "./AddService.css";
 
-let access_token = localStorage.getItem("acctoken");
+let access_token = localStorage.getItem("accessTokenBarber");
 const AddService = () => {
   const [inputValue, setInputValue] = useState({
     Service: "",
