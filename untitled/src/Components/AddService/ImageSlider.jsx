@@ -25,7 +25,7 @@ const styleB = {
   bgcolor: "background.paper",
   border: "2px solid #000",
   boxShadow: 24,
-  backgroundColor: "#ffecee",
+  backgroundColor: "#edc7b7",
   p: 4,
   position: "absolute",
 
@@ -132,18 +132,12 @@ function ImageSlider() {
                 <Tab
                   key={item.category}
                   label={item.category}
-                  style={{ color: "#fecbca" }}
+                  style={{ color: "#ac3b61", fontWeight: "bold" }}
                 />
               ))}
-              {/* <Tab
-                  key="addCategory"
-                  label="Add Category"
-                  icon={<AddCircleOutlineIcon />} 
-                  iconPosition="end"
-                  style={{ color: "#fecbca"}}
-                /> */}
+             
               <IconButton onClick={() => handleOpen()}>
-                <AddCircleOutlineIcon style={{ color: "#fecbca" }} />
+                <AddCircleOutlineIcon style={{ color: "#ac3b61" }} />
               </IconButton>
 
               
@@ -169,7 +163,7 @@ function ImageSlider() {
                     <Button
                       type="submit"
                       variant="outlined"
-                      style={{ backgroundColor: "#261B39", color: "#ffecee" }}
+                      style={{ backgroundColor: "#ac3b61", color: "#eee2dc" }}
                     >
                       Add Category
                     </Button>
@@ -189,7 +183,7 @@ function ImageSlider() {
                         // minWidth: 150,
                         width: 180,
                         height: 300,
-                        bgcolor: "#ffecee",
+                        bgcolor: "#edc7b7",
                         fontFamily: "Roboto",
                         color: "#120c1e",
                         borderRadius: 2,
@@ -234,7 +228,7 @@ function ImageSlider() {
                     name="add"
                     onClick={btnhandler}
                     style={{
-                      backgroundColor: "#ffecee",
+                      backgroundColor: "#edc7b7",
                       color: "#261B39",
                       fontSize: "100px",
                       width: "180px",

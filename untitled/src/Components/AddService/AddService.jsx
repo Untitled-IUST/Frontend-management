@@ -108,7 +108,7 @@ const AddService = () => {
           <Button
             type="submit"
             variant="outlined"
-            style={{ backgroundColor: "#261B39", color: "#ffecee" }}
+            style={{ backgroundColor: "#ac3b61", color: "#eee2dc" }}
           >
             Add Service
           </Button>

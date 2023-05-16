@@ -11,7 +11,7 @@ function SideBar(){
   
   const { collapseSidebar } = useProSidebar();
   const [userName, setUserName] = useState("Fargol");
-  let access_token =localStorage.getItem('acctoken');
+  let access_token =localStorage.getItem('accessTokenBarber');
 
   useEffect(() => {
     // console.log(access_token);
@@ -27,8 +27,8 @@ function SideBar(){
     })},[])
 
     return (
-        <Sidebar backgroundColor="#261B39"  style={{ height: "100vh" }} >
-          <Menu rootStyles={{color: "#fecbca"}} >
+        <Sidebar backgroundColor="#ac3b61"  style={{ height: "100vh" }} >
+          <Menu rootStyles={{color: "#eee2dc"}} >
             <MenuItem icon={<MenuOutlinedIcon />} onClick={() => { collapseSidebar(); }} style={{ textAlign: "center" }} >
               {" "}
               <h2>{userName}</h2>
