@@ -4,6 +4,7 @@ import SignUpBarber from "./Pages/LoginSignUp/SignUpBarber";
 import OrderHistory from './Pages/OrderHistory/OrderHistory';
 import SideBar from './Components/SideBar/SideBar';
 import ImageSlider from "./Components/AddService/ImageSlider";
+import Comment from './Components/comment/Comment';
 
 function App() {
   
@@ -23,6 +24,7 @@ function App() {
           <ImageSlider/>
         </div>
       }/>
+      <Route path="/CommentSection/:id" Component={Comment} />
     </Routes>
   );
 }
