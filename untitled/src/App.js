@@ -4,6 +4,7 @@ import SignUpBarber from "./Pages/LoginSignUp/SignUpBarber";
 import OrderHistory from './Pages/OrderHistory/OrderHistory';
 import SideBar from './Components/SideBar/SideBar';
 import ImageSlider from "./Components/AddService/ImageSlider";
+import CommentSection from './Pages/CommentSection/CommentSection';
 
 function App() {
   
@@ -21,6 +22,12 @@ function App() {
         <div id="app" style={({ display: "flex" })}>
           <SideBar/>
           <ImageSlider/>
+        </div>
+      }/>
+      <Route path="/CommentSection" element={
+        <div id="app" style={({ display: "flex" })}>
+          <SideBar/>
+          <CommentSection/>
         </div>
       }/>
     </Routes>
