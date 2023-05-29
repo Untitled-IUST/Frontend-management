@@ -65,7 +65,7 @@ const AddService = () => {
 
   return (
     <div
-      className="All_AddService"
+      className="All_AddService p-2"
       style={{
         display: "flex",
         flexDirection: "column",

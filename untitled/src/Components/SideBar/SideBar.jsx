@@ -10,28 +10,29 @@ import {Link} from 'react-router-dom';
 function SideBar(){
   
   const { collapseSidebar } = useProSidebar();
-  const [userName, setUserName] = useState("Fargol");
+  // const [userName, setUserName] = useState("");
   let access_token =localStorage.getItem('accessTokenBarber');
 
-  useEffect(() => {
-    // console.log(access_token);
-    axios.get('https://amirmohammadkomijani.pythonanywhere.com/customer/profile/me/',{
-      headers:{
-        "Content-Type": 'application/json',
-        Authorization: `JWT ${access_token}`
-      }
-    }).then((res)=>{
-      setUserName(res.data.first_name);
-    }).catch((err)=>{
-      // console.log(err)
-    })},[])
+  // useEffect(() => {
+  //   // console.log(access_token);
+  //   axios.get('https://amirmohammadkomijani.pythonanywhere.com/customer/profile/me/',{
+  //     headers:{
+  //       "Content-Type": 'application/json',
+  //       Authorization: `JWT ${access_token}`
+  //     }
+  //   }).then((res)=>{
+  //     console.log(access_token);
+  //     setUserName(res.data.first_name);
+  //   }).catch((err)=>{
+  //     // console.log(err)
+  //   })},[])
 
     return (
-        <Sidebar backgroundColor="#ac3b61"  style={{ height: "100vh" }} >
-          <Menu rootStyles={{color: "#eee2dc"}} >
+        <Sidebar backgroundColor="#EEE2DC">
+          <Menu rootStyles={{color: "#AC3B61"}} >
             <MenuItem icon={<MenuOutlinedIcon />} onClick={() => { collapseSidebar(); }} style={{ textAlign: "center" }} >
               {" "}
-              <h2>{userName}</h2>
+              {/* <h2 className="text-xl">{userName}</h2> */}
             </MenuItem>
             <MenuItem icon={<StorefrontIcon/>} component={<Link to="/AddService" />}>Manage Services</MenuItem>
             <MenuItem icon={<ManageHistoryIcon/>} component={<Link to="/OrderHistory" />}>Orders History</MenuItem>

@@ -4,7 +4,6 @@ import SignUpBarber from "./Pages/LoginSignUp/SignUpBarber";
 import OrderHistory from './Pages/OrderHistory/OrderHistory';
 import SideBar from './Components/SideBar/SideBar';
 import ImageSlider from "./Components/AddService/ImageSlider";
-import Comment from './Components/comment/Comment';
 
 function App() {
   
@@ -14,17 +13,16 @@ function App() {
       <Route path="/SignUpBarber" Component={SignUpBarber} />
       <Route path="/OrderHistory" element={
         <div id="app" style={({ height: "100vh" }, { display: "flex" })}>
-          <SideBar/>
+          <SideBar />
           <OrderHistory/>
         </div>
       }/>
       <Route path="/AddService" element={
-        <div id="app" style={({ height: "100vh" }, { display: "flex" })}>
+        <div id="app" style={({ display: "flex" })}>
           <SideBar/>
           <ImageSlider/>
         </div>
       }/>
-      <Route path="/CommentSection/:id" Component={Comment} />
     </Routes>
   );
 }

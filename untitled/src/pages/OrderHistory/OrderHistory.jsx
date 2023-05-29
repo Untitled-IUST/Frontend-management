@@ -86,54 +86,57 @@ function OrderHistory() {
 
 
   return (
-    <div className="bg-backGround-500 w-full">
+    <div className="bg-WhiteChocolate-500 w-full">
       <div className=" md:w-2/3 w-full mx-auto h-full">
         <div className="container px-2 py-8 mx-auto flex flex-col">
-          <div className="bg-backGroundShade-500 w-fit px-3 py-3 rounded-xl flex flex-row gap-3">
-            <p className="font-medium text-lg py-1 text-white">date:</p>
-            <input onChange={(event) => {setDate(event. target.value)}} type="date" className="p-1 rounded appearance-none focus:outline-none bg-backGround-400 text-gray-400" value={date}/>
+          <div className="bg-DesertSand-500 w-fit px-3 py-3 rounded-xl flex flex-row gap-3">
+            <p className="font-medium text-lg py-1 text-AteneoBlue-500">date:</p>
+            <input onChange={(event) => {setDate(event.target.value)}} type="date" className="p-1 rounded appearance-none focus:outline-none bg-WhiteChocolate-500 text-AteneoBlue-500" value={date}/>
           </div>
           <div className="w-full py-4 sm:px-0">
             <Tab.Group selectedIndex={selectedIndex} onChange={setSelectedIndex}>
-              <Tab.List className="flex flex-wrap sm:flex-nowrap space-x-1 rounded-xl bg-backGroundShade-500 p-1">
+              <Tab.List className="flex flex-wrap sm:flex-nowrap space-x-1 rounded-xl bg-DesertSand-500 p-1">
                 {Filters.map((filter) => (
                   <Tab
                     className={({ selected }) =>
                     classNames(
-                      'text-lg px-1 w-full rounded-lg py-2.5 font-medium leading-5 text-white focus:outline-none',
+                      'text-lg px-1 w-full rounded-lg py-2.5 font-medium leading-5 focus:outline-none',
                       
                       selected
-                        ? 'bg-cherryBlossomPink-500 shadow text-backGround-500'
-                        : 'hover:bg-white/[0.12] hover:text-white'
+                        ? 'bg-MediumRuby-500 shadow text-white'
+                        : 'hover:bg-white/[0.12] hover:text-MediumRuby-500 text-AteneoBlue-500'
                     )
                   }
                   >{filter}</Tab>
                 ))}
               </Tab.List>
-              <div className="flex flex-row justify-center w-full py-2 bg-backGroundShade-500 px-2 mx-auto rounded-xl mt-2">
-                  <p className="bg-cherryBlossomPink-500 rounded-xl m-1 p-2 text-backGround-500 text-lg font-medium">{date}</p>
-                  <p className="bg-Mauve-500 rounded-xl m-1 p-2 text-backGround-500 text-lg font-medium">{Filters[selectedIndex]}</p>
+              <div className="flex flex-row justify-center w-full py-2 bg-DesertSand-500 px-2 mx-auto rounded-xl mt-2">
+                <div className="bg-MediumRuby-500 flex flex-row rounded-xl">
+                  <p className="m-1 p-2 text-white text-lg font-medium">{date}</p>
+                  <p className="m-1 p-2 text-lg font-medium">/</p>
+                  <p className="m-1 p-2 text-white text-lg font-medium">{Filters[selectedIndex]}</p>
+                </div>
               </div>
-              <Tab.Panels className="mt-3 text-white min-h-screen">
+              <Tab.Panels className="mt-3 text-AteneoBlue-500 min-h-screen">
                 {Filters.map(() => (
                   <Tab.Panel>
                     
                     {data.length>0 ? (data.map((order) => (
                       <div key={order}>
                         <div class="m-1 flex items-center">
-                          <div class="border-t border-backGroundShade-300 flex-1 mr-3"></div>
+                          <div class="border-t border-AteneoBlue-500 flex-1 mr-3"></div>
                             <span class="flex flex-row items-center text-center text-cherryBlossomPink-500">
                               <IonIcon icon={time} className="mr-1"/>
                               <p>{order.time}</p>
                             </span>
-                          <div class="border-t border-backGroundShade-300 flex-1 ml-3"></div>
+                          <div class="border-t border-AteneoBlue-500 flex-1 ml-3"></div>
                         </div>
                         <div className="flex justify-between">
                           <div className="flex items-start">
                             <div className="m-1">
-                              <img className="border-2 border-Mauve-500 w-12 h-12 rounded-lg" src={order.customer.profile_pic} alt="profile"/>
+                              <img className="border border-AteneoBlue-500 w-12 h-12 rounded-lg" src={order.customer.profile_pic} alt="profile"/>
                             </div>
-                            <div className="m-1 text-white">
+                            <div className="m-1 text-AteneoBlue-500">
                               <p className="text-base font-bold">first name : {order.customer.first_name}</p>
                               <p className="text-lg font-bold">family name :{order.customer.last_name}</p>
                             </div>
@@ -143,17 +146,17 @@ function OrderHistory() {
                           </div>
                         </div>
                         <div className="flex justify-between">
-                          <div className="py-2 mx-2 bg-Mauve-500 mt-2 rounded-lg">
-                            <p className="p-0.5 px-1 text-backGround-500 text-base font-bold">service : {order.service.service}</p>
+                          <div className="py-2 mx-2 bg-MediumRuby-400 mt-2 rounded-lg">
+                            <p className="p-0.5 px-1 text-white text-base font-bold">service : {order.service.service}</p>
                           </div>
-                          <div className="py-2 mx-2 bg-RussianViolet-200 mt-2 rounded-lg">
-                            <p className="p-0.5 px-1 text-backGround-500 text-base font-bold">{order.status}</p>
+                          <div className="py-2 mx-2 bg-AteneoBlue-400 mt-2 rounded-lg">
+                            <p className="p-0.5 px-1 text-white text-base font-bold">{order.status}</p>
                           </div>
                         </div>
                       </div>
                       
                     ))):
-                    <p className="text-center text-white">No Orders</p>
+                    <p className="text-center text-AteneoBlue-500">No Orders</p>
                     }
                   </Tab.Panel>
                 ))}

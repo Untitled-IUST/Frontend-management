@@ -2,7 +2,6 @@ import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useState , useEffect } from "react";
-import { json } from "react-router-dom";
 
 import backgroundImageLoginBarber from "./images/LoginBarber.png";
 
@@ -26,6 +25,9 @@ function LoginBarber(){
   }
 
   const handleLogin = (event) => {
+    if(emailAddress !== null){
+      setEmailAddress(emailAddress.toLowerCase());
+    }
     setError("");
     event.preventDefault();
     axios({
@@ -62,53 +64,58 @@ function LoginBarber(){
   }
 
   return(
-    <div className="bg-backGround-500 min-h-screen flex flex-col justify-center">
+    <div className="bg-WhiteChocolate-500 min-h-screen flex flex-col justify-center">
     <div className="flex items-center">
       <div className="container mx-auto">
         <div className="flex justify-center mx-3">
-          <div className="bg-backGround-500 w-full flex appearance-none">
+          <div className="bg-WhiteChocolate-500 w-full flex appearance-none">
             <div className="w-full lg:flex items-center hidden lg:w-1/2 bg-cover rounded-l-lg">
               <img src={backgroundImageLoginBarber} alt="Login"/>
             </div>
             <div className="w-full lg:w-1/2 rounded-lg lg:rounded-l-none flex flex-col justify-center">
-              <h3 className="text-cherryBlossomPink-500 mt-12 text-2xl text-center">Login To Your Salon</h3>
+              <h3 className="text-AteneoBlue-500 font-bold mt-12 text-2xl text-center">Login</h3>
               <form className="mx-8 mt-6 mb-4 rounded">
                 <div className="mb-4">
-                  <label className="text-cherryBlossomPink-500 block mb-2 text-sm font-bold" for="Email">
+                  <label className="text-AteneoBlue-500 block mb-2 text-sm font-bold" for="Email">
                     Email
                   </label>
                   <div className="relative">
                     <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                      <svg aria-hidden="true" class="w-5 h-5 text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"></path><path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"></path></svg>
+                      <svg aria-hidden="true" class="w-5 h-5 text-AteneoBlue-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"></path><path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"></path></svg>
                     </div>
                     <input
-                      className="bg-backGround-500 border-2 border-gray-400 focus:border-cherryBlossomPink-500 w-full pl-10 py-2 h-9 text-base text-cherryBlossomPink-500 leading-tight   rounded appearance-none focus:outline-none"
+                      className="bg-DesertSand-500 border-2 border-DesertSand-500 w-full pl-10 py-2 h-9 text-base text-AteneoBlue-500 leading-tight   rounded appearance-none focus:outline-none"
                       id="Email"
                       type="email"
                       onChange={handleEmail}
                     />
                   </div>
-                  <p className="m-1 text-xs italic text-red-500">{emailAddressError}</p>
+                  <p className="m-1 text-xs italic text-MediumRuby-500">{emailAddressError}</p>
                 </div>
                 <div className="relative mb-4">
-                  <label className="text-cherryBlossomPink-500 block mb-2 text-sm font-bold" for="Password">
-                    Password
-                  </label>
+                  <div className="flex flex-row justify-between">
+                    <label className="text-AteneoBlue-500 block mb-2 text-sm font-bold" for="Password">
+                      Password
+                    </label>
+                    <Link className="text-AteneoBlue-500 text-sm font-bold hover:text-AteneoBlue-300 focus:text-AteneoBlue-500">
+                      Forgot Password?
+                    </Link>
+                  </div>
                   <div className="relative">
                     <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                      <svg aria-hidden="true" class="w-5 h-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                      <svg aria-hidden="true" class="w-5 h-5 text-AteneoBlue-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
                     </div>
                     <input
-                      className="border-gray-400 bg-backGround-500 border-2 focus:border-cherryBlossomPink-500 w-full pl-10 py-2 h-9 text-base text-cherryBlossomPink-500 leading-tight   rounded appearance-none focus:outline-none"
+                      className="border-DesertSand-500 bg-DesertSand-500 border-2 w-full pl-10 py-2 h-9 text-base text-AteneoBlue-500 leading-tight   rounded appearance-none focus:outline-none"
                       id="Password"
                       type={isPasswordVisible ? "text" : "password"}
                       onChange={handlePassword}
                     />
                   </div>
-                  <p className="text-xs italic text-red-500">{passwordError}</p>
+                  <p className="text-xs italic text-MediumRuby-500">{passwordError}</p>
                   <button
                       type="button"
-                      className="text-gray-400 absolute inset-y-12 right-0 flex items-center px-2"
+                      className="text-AteneoBlue-500 absolute inset-y-11 right-0 flex items-center px-2"
                       onClick={togglePasswordVisibility}
                     >
                       {isPasswordVisible ? (
@@ -151,17 +158,17 @@ function LoginBarber(){
                 </div>
                 <div className="mb-4 text-center">
                   <button
-                    className="w-full py-2 font-bold text-backGround-500 bg-cherryBlossomPink-500 rounded focus:outline-none focus:shadow-outline"
+                    className="w-full py-2 font-bold text-white bg-MediumRuby-500 hover:bg-MediumRuby-400 focus:bg-MediumRuby-500 rounded focus:outline-none focus:shadow-outline"
                     type="button"
                     onClick={handleLogin}
                   >
                     Login
                   </button>
                 </div>
-                <p className="m-1 text-xs italic text-red-500">{Error}</p>
-                <hr className="mb-3 border-t text-gray-400" />
-                <Link to="/SignUpBarber" className="bg-gray-600 py-2.5 rounded w-full text-center text-white inline-block text-sm align-baseline">
-                  Create an Account!
+                <p className="m-1 text-xs italic text-MediumRuby-500">{Error}</p>
+                <hr className="mb-3 border-t text-AteneoBlue-500" />
+                <Link to="/SignUpBarber" className="bg-AteneoBlue-500 hover:bg-AteneoBlue-400 focus:bg-AteneoBlue-500 py-2.5 rounded w-full text-center text-white inline-block text-sm align-baseline">
+                  Register your salon!
                 </Link>
               </form>
             </div>
