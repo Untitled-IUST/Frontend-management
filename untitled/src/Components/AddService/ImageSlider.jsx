@@ -14,9 +14,9 @@ import "./ImageSlider.css";
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
-
+import Box from '@mui/material/Box';
 import Modal from "@mui/material/Modal";
-import Box from "@mui/material/Box";
+
 const styleB = {
   top: "50%",
   left: "50%",
@@ -33,11 +33,80 @@ const styleB = {
   flexDirection: "column",
   alignItems: "center",
 };
+const stylepmr = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 400,
+  bgcolor: 'background.paper',
+  border: '2px solid #000',
+  boxShadow: 24,
+  p: 4,
+};
 
+function InputModal({ label, value, onChange }) {
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
+  return (
+    <div>
+      <Button onClick={handleOpen}>{label}</Button>
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={stylepmr}>
+          <Typography id="modal-modal-title" variant="h6" component="h2">
+            {label}
+          </Typography>
+          <input type="text" value={value} onChange={onChange} />
+          <Button onClick={handleClose}>Close</Button>
+        </Box>
+      </Modal>
+    </div>
+  );
+}
+
+function ImageModal({ label, onChange }) {
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
+  return (
+    <div>
+      <Button onClick={handleOpen}>{label}</Button>
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={stylepmr}>
+          <Typography id="modal-modal-title" variant="h6" component="h2">
+            {label}
+          </Typography>
+          <input type="file" accept="image/jpeg" onChange={onChange} />
+          <Button onClick={handleClose}>Close</Button>
+        </Box>
+      </Modal>
+    </div>
+  );
+}
 function ImageSlider() {
   const [currentTabIndex, setCurrentTabIndex] = useState(0);
   const [categoryIndex, setCategoryIndex] = useState(0);
   const [categoryName, setCategoryName] = useState(0);
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [image, setImage] = useState(null);
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    // handle form submission here
+  }
 
   const handleTabChange = (event, newIndex) => {
     setCurrentTabIndex(newIndex);
@@ -248,6 +317,46 @@ function ImageSlider() {
             {ShowComponent.add && <AddModal open={true} />}
           </div>
         </div>
+        <div className="wildandfree">
+            <>
+          <form onSubmit={handleSubmit}>
+                  
+
+                    <Typography component="div">
+                  <Box className='dis' sx={{ bgcolor: '#123c69', width: '45%', height: 90, textAlign: 'left', ml: '50%', fontSize: 25, mt:'1%', mb:-15.7, fontFamily:'Roboto', pt:1, pr:3, pl:3 , color:'#edc7b7', borderRadius:3 }}>
+                    <InputModal label="Title" value={title} onChange={(e) => setTitle(e.target.value)} />
+                    {title}
+                  </Box>
+                </Typography>
+                <ImageModal label="Image" onChange={(e) => setImage(e.target.files[0])} />
+                <Typography component="div">
+            
+            <Box  className='dis1' sx={{ bgcolor: '#edc7b7', width:'45%',
+              height: 317,textAlign: 'left', ml: '50%' ,mt:'15%',fontSize: 25, mb:15,fontFamily:'Roboto, ',p: 3 , color:'#123c69',borderRadius:3}}>
+              <InputModal label="Description" value={description} onChange={(e) => setDescription(e.target.value)} />
+              {description}
+            </Box>
+          </Typography>
+    
+          {image && (
+            <>
+              <div>
+                <img
+                className='imdis'
+                style={{ width: '44%', height: 450,  marginTop:'-60%', borderRadius: 10 }}
+                src={URL.createObjectURL(image)}
+                alt="React lost"/>
+              </div>
+            </>
+          )}
+            <br />
+          <input type="submit" value="Submit" />
+          </form>
+          <br />
+          {/* Display entered values */}
+
+        </>
+      </div>
       </div>
     </div>
   );

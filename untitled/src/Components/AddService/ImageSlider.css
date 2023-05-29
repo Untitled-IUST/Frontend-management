@@ -1,10 +1,9 @@
 .All_Slider{
     font-family: "Roboto";
     background-color: #eee2dc;
-    height: 750px;
+    height: 1200px;
     width: 100%;
 }
-
 .MuiTabs-root .MuiTab-textColorPrimary.Mui-selected {
   color: #ac3b61;
 }
@@ -12,6 +11,7 @@
 .MuiTabs-indicator {
   background-color: #ac3b61;
 }
+
 
 .inputbox{
   width: 80%;
