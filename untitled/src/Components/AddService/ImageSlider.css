@@ -29,6 +29,14 @@
 .bty{
   font-family: "Ubuntu", sans-serif !important;
 }
+.inipini{
+  font-family: "Ubuntu", sans-serif !important;
+  color: #123c69;
+  padding: 3%;
+  border-radius: 33%;
+  margin-left: 2%;
+  background-color:#edc7b7 ;
+}
 .css-1jmobbv-MuiButtonBase-root-MuiButton-root{
   
   font-family: "Ubuntu", sans-serif !important;

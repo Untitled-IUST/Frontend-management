@@ -79,7 +79,7 @@ function ImageModal({ label, onChange }) {
 
   return (
     <div>
-      <Button onClick={handleOpen}sx={{color:"#AC3B61"}}>{label}</Button>
+      <Button onClick={handleOpen}sx={{color:"#AC3B61" ,marginLeft:'2%'}}>{label}</Button>
       <Modal
         open={open}
         onClose={handleClose}
@@ -104,12 +104,13 @@ function ImageSlider() {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [image, setImage] = useState(null);
+  const [imagePreviewUrl, setImagePreviewUrl] = useState(null);
 
   //  isFirstPostSuccessful = false;
   const [isFirstPostSuccessful,setISfirstpostSuccessFull] = useState(false);
   // let isFirstPostSuccessful = false;
   // let resourceId;
-  const[resourceId,setResourseid]=useState('')
+  const[resourceId,setResourseid]=useState(0)
   console.log("gf",resourceId)
   // useEffect(() => {
 
@@ -130,26 +131,36 @@ function ImageSlider() {
   //     }
  
   // }, []);
-    async function fetchData() {
-      try {
-        const response = await axios.get(
-          'https://amirmohammadkomijani.pythonanywhere.com/barber/description/',
-          {
-            headers: {
-              'Authorization': `JWT ${access_token}`,
-              'Content-Type': 'application/json',
-            },
+
+      useEffect(() => {
+      console.log(access_token)
+      axios.get('https://amirmohammadkomijani.pythonanywhere.com/barber/description/', {
+        headers: {
+          'Authorization': `JWT ${access_token}`,
+          'Content-Type': 'application/json',
+        }
+      })
+        .then((response) => {
+          console.log("isFirstPostSuccessful")
+          console.log(isFirstPostSuccessful)
+
+          const arr = response.data.results;
+          if (!(arr.length === 0)) {
+            console.log(arr.length);
+            console.log(response.data.results);
+            setISfirstpostSuccessFull(true)
+            setResourseid(response.data.results[0].id)
+            setDescription(response.data.results[0].description);
+            setTitle(response.data.results[0].title)
+            setImage(response.data.results[0].img)
+            setImagePreviewUrl(response.data.results[0].img);
           }
-        );
-        setTitle(response.data.results[0].title);
-        setDescription(response.data.results[0].description);
-        setImage(response.data.results[0].img);
-        fetchData();
-      } catch (error) {
-        console.error(error);
-      }
-    }
- 
+          else {
+            setISfirstpostSuccessFull(false)
+          }
+        })
+        .catch(err => console.log(err));
+    }, []);
   async function handleSubmit(event) {
     event.preventDefault();
     // Create a FormData object to hold the data
@@ -161,7 +172,10 @@ function ImageSlider() {
   
     try {
       let response;
+      console.log(isFirstPostSuccessful)
+      console.log("88")
       if (isFirstPostSuccessful) {
+        console.log(isFirstPostSuccessful)
         // Send PUT request
         console.log("gfh",resourceId)
         const putUrl = `https://amirmohammadkomijani.pythonanywhere.com/barber/description/${resourceId}/`;
@@ -174,7 +188,32 @@ function ImageSlider() {
             },
           }
         );console.log("putttt")
-        
+        alert(`You  Eddited Succsussfuly`);
+        axios.get('https://amirmohammadkomijani.pythonanywhere.com/barber/description/', {
+          headers: {
+            'Authorization': `JWT ${access_token}`,
+            'Content-Type': 'application/json',
+          }
+        })
+          .then((response) => {
+            console.log("isFirstPostSuccessful")
+            console.log(isFirstPostSuccessful)
+  
+            const arr = response.data.results;
+            if (!(arr.length === 0)) {
+              console.log(arr.length);
+              console.log(response.data.results);
+              setISfirstpostSuccessFull(true)
+              setResourseid(response.data.results[0].id)
+              setDescription(response.data.results[0].description);
+              setTitle(response.data.results[0].title)
+              setImage(response.data.results[0].img)
+            }
+            else {
+              setISfirstpostSuccessFull(false)
+            }           
+          })
+          .catch(err => console.log(err));
       } else {
         // Send POST request
         const postUrl = 'https://amirmohammadkomijani.pythonanywhere.com/barber/description/';
@@ -187,12 +226,40 @@ function ImageSlider() {
             },
           }
         );
-        setISfirstpostSuccessFull(true);
+        // setISfirstpostSuccessFull(true);
         setResourseid(response.data.id);
+        alert(`You  Posted Succussfuly Time.`);
+
+        
         console.log("respone after post",resourceId)
       }
       console.log(response.data);
-      fetchData();
+      axios.get('https://amirmohammadkomijani.pythonanywhere.com/barber/description/', {
+        headers: {
+          'Authorization': `JWT ${access_token}`,
+          'Content-Type': 'application/json',
+        }
+      })
+        .then((response) => {
+          console.log("isFirstPostSuccessful")
+          console.log(isFirstPostSuccessful)
+
+          const arr = response.data.results;
+          if (!(arr.length === 0)) {
+            console.log(arr.length);
+            console.log(response.data.results);
+            setISfirstpostSuccessFull(true)
+            setResourseid(response.data.results[0].id)
+            setDescription(response.data.results[0].description);
+            setTitle(response.data.results[0].title)
+            setImage(response.data.results[0].img)
+
+          }
+          else {
+            setISfirstpostSuccessFull(false)
+          }
+        })
+        .catch(err => console.log(err));
     } catch (error) {
       console.error(error);
       console.log(access_token);
@@ -272,6 +339,7 @@ function ImageSlider() {
         setMydata(response.data);
         setServicefront(response.data.categories);
         console.log(response.data)
+        
       })
       .catch((err) => console.log(err));
   }, []);
@@ -414,20 +482,21 @@ function ImageSlider() {
                   
 
                     <Typography component="div">
-                  <Box className='dis' sx={{ bgcolor: '#123c69', width: '45%', height: 90, textAlign: 'left', ml: '50%', fontSize: 25, mt:'1%', mb:-15.7, fontFamily:'Roboto, ', pt:1, pr:3, pl:3 , color:'#edc7b7', borderRadius:3 }}>
+                  <Box className='dis' sx={{ bgcolor: '#123c69', width: '45%', height: 90, textAlign: 'left', ml: '53%', fontSize: 25, mt:'1%', mb:-15.7, fontFamily:'Roboto, ', pt:1, pr:3, pl:3 , color:'#edc7b7', borderRadius:3 }}>
                     <InputModal label=" Add Title " value={title} onChange={(e) => setTitle(e.target.value)} />
                     {title}
                   </Box>
                 </Typography>
                 <ImageModal label="Add Image" onChange={(e) => {
                       setImage(e.target.files[0]);
+                      setImagePreviewUrl(URL.createObjectURL(e.target.files[0]));
                       console.log('img',image)
                       console.log('ss',e.target.files[0]);
                   }} />
                 <Typography component="div">
             
             <Box  className='dis1' sx={{ bgcolor: '#edc7b7', width:'45%',
-              height: 317,textAlign: 'left', ml: '50%' ,mt:'15%',fontSize: 25, mb:15,fontFamily:'Roboto, ',p: 3 , color:'#123c69',borderRadius:3}}>
+              height: 317,textAlign: 'left', ml: '53%' ,mt:'15%',fontSize: 25, mb:15,fontFamily:'Roboto, ',p: 3 , color:'#123c69',borderRadius:3}}>
               <InputModal   label="Add Description" value={description} onChange={(e) => setDescription(e.target.value)} />
               {description}
             </Box>
@@ -438,15 +507,16 @@ function ImageSlider() {
               <div>
                 <img
                 className='imdis'
-                style={{ width: '44%', height: 450,  marginTop:'-60%', borderRadius: 10 }}
+                style={{ width: '44%', height: 465,  marginTop:'-60%',marginLeft:'2%', borderRadius: 10 }}
                 // src={URL.createObjectURL(image)}
-                src={image}
+                // src={image}
+                src={imagePreviewUrl}
                 alt="React lost"/>
               </div>
             </>
           )}
             <br />
-          <input type="submit" value="Submit" />
+          <input className="inipini" type="submit" value="Submit" />
           </form>
           <br />
           {/* Display entered values */}
