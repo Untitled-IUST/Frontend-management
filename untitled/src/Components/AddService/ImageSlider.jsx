@@ -17,6 +17,7 @@ import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import Box from '@mui/material/Box';
 import Modal from "@mui/material/Modal";
 
+
 const styleB = {
   top: "50%",
   left: "50%",
@@ -39,10 +40,10 @@ const stylepmr = {
   left: '50%',
   transform: 'translate(-50%, -50%)',
   width: 400,
-  bgcolor: 'background.paper',
-  border: '2px solid #000',
+  bgcolor: '#edc7b7',
   boxShadow: 24,
   p: 4,
+  fontFamily:'Roboto, '
 };
 
 function InputModal({ label, value, onChange }) {
@@ -52,7 +53,7 @@ function InputModal({ label, value, onChange }) {
 
   return (
     <div>
-      <Button sx={{color:"#BAB2B5"}} onClick={handleOpen}>{label}</Button>
+      <Button sx={{color:"#BAB2B5", fontFamily:'Roboto, '}} onClick={handleOpen}>{label}</Button>
       <Modal
         open={open}
         onClose={handleClose}
@@ -64,7 +65,7 @@ function InputModal({ label, value, onChange }) {
             {label}
           </Typography>
           <input type="text" value={value} onChange={onChange} />
-          <Button onClick={handleClose} sx={{color:"#BAB2B5"}}>Close</Button>
+          <Button  className="bty" onClick={handleClose} sx={{color:"#ac3b61"}}>Close</Button>
         </Box>
       </Modal>
     </div>
@@ -90,7 +91,7 @@ function ImageModal({ label, onChange }) {
             {label}
           </Typography>
           <input type="file" accept="image/jpeg" onChange={onChange} />
-          <Button onClick={handleClose}>Close</Button>
+          <Button onClick={handleClose}sx={{color:"#ac3b61"}}>Close</Button>
         </Box>
       </Modal>
     </div>
@@ -104,49 +105,99 @@ function ImageSlider() {
   const [description, setDescription] = useState("");
   const [image, setImage] = useState(null);
 
-let isFirstPostSuccessful = false;
+  //  isFirstPostSuccessful = false;
+  const [isFirstPostSuccessful,setISfirstpostSuccessFull] = useState(false);
+  // let isFirstPostSuccessful = false;
+  // let resourceId;
+  const[resourceId,setResourseid]=useState('')
+  console.log("gf",resourceId)
+  // useEffect(() => {
 
-async function handleSubmit(event) {
-  event.preventDefault();
-  // Create a FormData object to hold the data
-  const formData = new FormData();
-  formData.append('title', title);
-  formData.append('description', description);
-  formData.append('img', image);
-  console.log('imgnew',image)
-
-  try {
-    let response;
-    if (isFirstPostSuccessful) {
-      // Send PUT request
-      response = await axios.putForm(
-        'https://amirmohammadkomijani.pythonanywhere.com/barber/description/',
-        formData,
-        {
-          headers: {
-            Authorization: `JWT ${access_token}`,
-          },
-        }
-      ); console.log('nowput');
-    } else {
-      // Send POST request
-      response = await axios.post(
-        'https://amirmohammadkomijani.pythonanywhere.com/barber/description/',
-        formData,
-        {
-          headers: {
-            Authorization: `JWT ${access_token}`,
-          },
-        }
-      );
-      isFirstPostSuccessful = true;
+  //       const response = await axios.get(
+  //         'https://amirmohammadkomijani.pythonanywhere.com/barber/description/',
+  //         {
+  //           headers: {
+  //             'Authorization': `JWT ${access_token}`,
+  //             'Content-Type': 'application/json',
+  //           },
+  //         }
+  //       );
+  //       setTitle(response.data.results[0].title);
+  //       setDescription(response.data.results[0].description);
+  //       setImage(response.data.results[0].img);
+  //     } catch (error) {
+  //       console.error(error);
+  //     }
+ 
+  // }, []);
+    async function fetchData() {
+      try {
+        const response = await axios.get(
+          'https://amirmohammadkomijani.pythonanywhere.com/barber/description/',
+          {
+            headers: {
+              'Authorization': `JWT ${access_token}`,
+              'Content-Type': 'application/json',
+            },
+          }
+        );
+        setTitle(response.data.results[0].title);
+        setDescription(response.data.results[0].description);
+        setImage(response.data.results[0].img);
+        fetchData();
+      } catch (error) {
+        console.error(error);
+      }
     }
-    console.log(response.data);
-  } catch (error) {
-    console.error(error);
-    console.log(access_token);
+ 
+  async function handleSubmit(event) {
+    event.preventDefault();
+    // Create a FormData object to hold the data
+    const formData = new FormData();
+    formData.append('title', title);
+    formData.append('description', description);
+    formData.append('img', image);
+    console.log('imgnew',image)
+  
+    try {
+      let response;
+      if (isFirstPostSuccessful) {
+        // Send PUT request
+        console.log("gfh",resourceId)
+        const putUrl = `https://amirmohammadkomijani.pythonanywhere.com/barber/description/${resourceId}/`;
+        response = await axios.put(
+          putUrl,
+          formData,
+          {
+            headers: {
+              Authorization: `JWT ${access_token}`,
+            },
+          }
+        );console.log("putttt")
+        
+      } else {
+        // Send POST request
+        const postUrl = 'https://amirmohammadkomijani.pythonanywhere.com/barber/description/';
+        response = await axios.post(
+          postUrl,
+          formData,
+          {
+            headers: {
+              Authorization: `JWT ${access_token}`,
+            },
+          }
+        );
+        setISfirstpostSuccessFull(true);
+        setResourseid(response.data.id);
+        console.log("respone after post",resourceId)
+      }
+      console.log(response.data);
+      fetchData();
+    } catch (error) {
+      console.error(error);
+      console.log(access_token);
+    }
   }
-}
 
   const handleTabChange = (event, newIndex) => {
     setCurrentTabIndex(newIndex);
@@ -363,7 +414,7 @@ async function handleSubmit(event) {
                   
 
                     <Typography component="div">
-                  <Box className='dis' sx={{ bgcolor: '#123c69', width: '45%', height: 90, textAlign: 'left', ml: '50%', fontSize: 25, mt:'1%', mb:-15.7, fontFamily:'Roboto', pt:1, pr:3, pl:3 , color:'#edc7b7', borderRadius:3 }}>
+                  <Box className='dis' sx={{ bgcolor: '#123c69', width: '45%', height: 90, textAlign: 'left', ml: '50%', fontSize: 25, mt:'1%', mb:-15.7, fontFamily:'Roboto, ', pt:1, pr:3, pl:3 , color:'#edc7b7', borderRadius:3 }}>
                     <InputModal label=" Add Title " value={title} onChange={(e) => setTitle(e.target.value)} />
                     {title}
                   </Box>
@@ -388,7 +439,8 @@ async function handleSubmit(event) {
                 <img
                 className='imdis'
                 style={{ width: '44%', height: 450,  marginTop:'-60%', borderRadius: 10 }}
-                src={URL.createObjectURL(image)}
+                // src={URL.createObjectURL(image)}
+                src={image}
                 alt="React lost"/>
               </div>
             </>
