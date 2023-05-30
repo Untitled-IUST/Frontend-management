@@ -1,5 +1,9 @@
+@import url("https://fonts.googleapis.com/css?family=Baloo+Bhaijaan|Ubuntu");
+*{
+  font-family: "Ubuntu", sans-serif;
+}
 .All_Slider{
-    font-family: "Roboto";
+    font-family: "Ubuntu", sans-serif !important;
     background-color: #eee2dc;
     height: 1200px;
     width: 100%;
@@ -7,7 +11,29 @@
 .MuiTabs-root .MuiTab-textColorPrimary.Mui-selected {
   color: #ac3b61;
 }
+.css-15kdcs5-MuiButtonBase-root-MuiButton-root {
+  font-family: "Ubuntu", sans-serif !important;
+}
+.css-1dxo7ku{
+  border-radius: 10px;
+  color: #ac3b61;
+}
+.css-lc0zqy{
+  border-radius: 12px;
+}
+.css-2ulfj5-MuiTypography-root{
+  color: #123c69;
+  font-family: "Ubuntu", sans-serif !important;
 
+}
+.bty{
+  font-family: "Ubuntu", sans-serif !important;
+}
+.css-1jmobbv-MuiButtonBase-root-MuiButton-root{
+  
+  font-family: "Ubuntu", sans-serif !important;
+
+}
 .MuiTabs-indicator {
   background-color: #ac3b61;
 }
