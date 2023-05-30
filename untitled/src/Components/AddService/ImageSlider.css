@@ -55,3 +55,11 @@
   outline: none;
   /* background: none; */
 }
+
+.All_Services{
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: wrap !important;
+  /* /* align-items: center !important; */
+  justify-content:center !important;
+  }

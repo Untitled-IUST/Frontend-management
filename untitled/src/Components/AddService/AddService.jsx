@@ -9,7 +9,7 @@ let access_token = localStorage.getItem("accessTokenBarber");
 
 const AddService = () => {
   const [serviceName, setServiceName] = useState("");
-  const [servicePrice, setServicePrice] = useState("");
+  const [servicePrice, setServicePrice] = useState(null);
   const [servicePic, setServicePic] = useState(null);
 
   function formSubmit(event) {

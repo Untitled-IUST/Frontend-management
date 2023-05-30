@@ -46,6 +46,7 @@ const stylepmr = {
   fontFamily:'Roboto, '
 };
 
+
 function InputModal({ label, value, onChange }) {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
@@ -401,6 +402,7 @@ function ImageSlider() {
             {servicefront.map((item, index) => (
               <div
                 key={item.category}
+                className={currentTabIndex === index ? 'All_Services' : ''}
                 style={{ display: currentTabIndex === index ? "flex" : "none" }}
               >
                 {item.categoryServices.map((x) => (

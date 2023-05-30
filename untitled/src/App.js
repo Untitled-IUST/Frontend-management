@@ -5,6 +5,7 @@ import OrderHistory from './Pages/OrderHistory/OrderHistory';
 import SideBar from './Components/SideBar/SideBar';
 import ImageSlider from "./Components/AddService/ImageSlider";
 import Pricing from "./Components/PremiumPlans/Pricing";
+import Carddetails from "./Components/PaymentCard/Carddetails"
 
 function App() {
   
@@ -28,6 +29,12 @@ function App() {
         <div id="app" style={({ height: "100vh" }, { display: "flex" })}>
           <SideBar/>
           <Pricing/>
+        </div>
+      }/>
+      <Route path="/PaymentCard" element={
+        <div id="app" style={({ height: "100vh" }, { display: "flex" })}>
+
+          <Carddetails/>
         </div>
       }/>
     </Routes>

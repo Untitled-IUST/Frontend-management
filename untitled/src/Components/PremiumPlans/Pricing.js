@@ -13,6 +13,8 @@ import Typography from "@mui/material/Typography";
 import GlobalStyles from "@mui/material/GlobalStyles";
 import Container from "@mui/material/Container";
 import "./Pricing.css";
+import { useNavigate } from 'react-router-dom';
+
 
 const tiers = [
   {
@@ -54,14 +56,18 @@ const tiers = [
   },
 ];
 
+
 // TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme();
 
 export default function Pricing() {
+  const navigate = useNavigate(); 
   return (
+    
     <ThemeProvider theme={defaultTheme}>
+      <div className="AllPremium">
       <GlobalStyles
-        styles={{ ul: { margin: 0, padding: 0, listStyle: "none" } }}
+        styles={{ ul: { margin: 0, padding: 0, listStyle: "none", } }}
       />
       <CssBaseline />
 
@@ -130,6 +136,7 @@ export default function Pricing() {
                         backgroundColor: '#eee2dc',
                         color: '#000000',
                       },}}
+                      onClick={() => BuyPremium(tier.price)}
                   >
                     {tier.buttonText}
                   </Button>
@@ -139,6 +146,13 @@ export default function Pricing() {
           ))}
         </Grid>
       </Container>
+    </div>
+
     </ThemeProvider>
   );
+  function BuyPremium(price){
+  
+    console.log(price);
+    navigate(`/paymentcard?value=${price}`);
+  }
 }
