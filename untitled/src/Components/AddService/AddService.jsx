@@ -1,43 +1,34 @@
-import axios, { Axios } from "axios";
+import axios from "axios";
 import React, { useState } from "react";
-import TextField from "@mui/material/TextField";
-import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
-import IconButton from "@mui/material/IconButton";
-import PhotoCamera from "@mui/icons-material/PhotoCamera";
-import Stack from "@mui/material/Stack";
-import "./AddService.css";
 
 let access_token = localStorage.getItem("accessTokenBarber");
+
 const AddService = () => {
-  const [inputValue, setInputValue] = useState({
-    Service: "",
-    category: "",
-    price: "",
-    ServicePic: "",
-  });
-  const [serviceName, setServiceName] = useState();
-  const [servicePrice, setServicePrice] = useState();
-  const [servicePic, setServicePic] = useState();
+  const [serviceName, setServiceName] = useState("");
+  const [servicePrice, setServicePrice] = useState("");
+  const [servicePic, setServicePic] = useState(null);
 
   function formSubmit(event) {
+    event.preventDefault();
+
     var categoryId = localStorage.getItem("categoryId");
+    var form = new FormData();
+    form.append("service", serviceName);
+    form.append("price", servicePrice);
+    form.append("servicePic", servicePic);
+
     axios({
       method: "post",
-
       url:
         "https://amirmohammadkomijani.pythonanywhere.com/barber/categories/" +
         categoryId +
         "/service/",
       headers: {
-        "Content-Type": "application/json",
+        "Content-Type": "multipart/form-data",
         Authorization: `JWT ${access_token}`,
       },
-      data: {
-        service: serviceName,
-        price: servicePrice,
-        servicePic: null,
-      },
+      data: form,
     })
       .then((res) => {
         // console.log(res);
@@ -46,45 +37,15 @@ const AddService = () => {
       .catch((error) => {
         console.warn(error);
       });
-    event.preventDefault();
   }
 
-  const postData = (event) => {
-    event.preventDefault();
-    console.log(inputValue);
-
-    axios
-      .post(`/Products`, inputValue)
-      .then((response) => {
-        console.log(response);
-      })
-      .catch((error) => {
-        console.log(error.message);
-      });
-  };
-
   return (
-    <div
-      className="All_AddService"
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        rowGap: "20px",
-        flexWrap: "wrap", // added flex-wrap property
-      }}
-    >
+    <div>
       <h3>Add a New Service</h3>
       <form onSubmit={formSubmit}>
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-          }}
-        >
+        <div>
           <input
-            class="inputbox"
+            className="inputbox"
             onChange={(e) => setServiceName(e.target.value)}
             type="text"
             placeholder="Service"
@@ -92,7 +53,7 @@ const AddService = () => {
           />
           <br />
           <input
-            class="inputbox"
+            className="inputbox"
             onChange={(e) => setServicePrice(e.target.value)}
             type="number"
             placeholder="Price"
