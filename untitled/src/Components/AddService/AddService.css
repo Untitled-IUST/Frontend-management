@@ -1,9 +1,16 @@
 .All_AddService{
     background-color: #edc7b7;
     color: #382b49;;
+    padding: 20px;
 }
 
 .form_buttom{
     display: flex;
     justify-content: center;
+}
+.AddService_Modal{
+    color: #ac3b61;
+    font-weight: bold;
+    font-size:24px;
+
 }
