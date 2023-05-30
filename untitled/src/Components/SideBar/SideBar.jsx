@@ -20,6 +20,8 @@ import RadialSeparators from "./RadialSeparators";
 function SideBar() {
   const { collapseSidebar } = useProSidebar();
   const [userName, setUserName] = useState("Fargol");
+  const [expireDate, setExpireDate] = useState();
+
   let access_token = localStorage.getItem("accessTokenBarber");
 
   useEffect(() => {
@@ -40,6 +42,25 @@ function SideBar() {
       .catch((err) => {
         // console.log(err)
       });
+
+      axios
+      .get(
+        "https://amirmohammadkomijani.pythonanywhere.com/barber/premium/",
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `JWT ${access_token}`,
+          },
+        }
+      )
+      .then((res) => {
+        setExpireDate(res.data.results[0].expire_date);
+        // console.log(res.data.results[0].expire_date);
+      })
+      .catch((err) => {
+        // console.log(err)
+      });
+
   }, []);
 
   return (
@@ -111,7 +132,9 @@ function SideBar() {
             }}
           />
         </CircularProgressbarWithChildren>
+        
       </div>
+      <p>Expire Date {expireDate}</p>
     </Sidebar>
   );
 }

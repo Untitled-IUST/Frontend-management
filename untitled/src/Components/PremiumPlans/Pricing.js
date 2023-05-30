@@ -12,6 +12,7 @@ import StarIcon from "@mui/icons-material/StarBorder";
 import Typography from "@mui/material/Typography";
 import GlobalStyles from "@mui/material/GlobalStyles";
 import Container from "@mui/material/Container";
+import axios from "axios";
 import "./Pricing.css";
 import { useNavigate } from 'react-router-dom';
 
@@ -19,6 +20,7 @@ import { useNavigate } from 'react-router-dom';
 const tiers = [
   {
     title: "1 MONTH",
+    Month: "1-month",
     price: "5",
     description: [
       "10 users included",
@@ -31,6 +33,7 @@ const tiers = [
   },
   {
     title: "3 MONTHS",
+    Month: "3-month",
     subheader: "Most popular",
     price: "15",
     description: [
@@ -44,6 +47,7 @@ const tiers = [
   },
   {
     title: "6 MONTHS",
+    Month: "6-month",
     price: "25",
     description: [
       "50 users included",
@@ -136,7 +140,7 @@ export default function Pricing() {
                         backgroundColor: '#eee2dc',
                         color: '#000000',
                       },}}
-                      onClick={() => BuyPremium(tier.price)}
+                      onClick={() => BuyPremium(tier.price, tier.Month)}
                   >
                     {tier.buttonText}
                   </Button>
@@ -150,9 +154,50 @@ export default function Pricing() {
 
     </ThemeProvider>
   );
-  function BuyPremium(price){
-  
+  function BuyPremium(price, month){
+    let access_token = localStorage.getItem("accessTokenBarber");
     console.log(price);
-    navigate(`/paymentcard?value=${price}`);
+    
+    var id;
+    
+    axios
+      .get(
+        "https://amirmohammadkomijani.pythonanywhere.com/barber/premium/",
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `JWT ${access_token}`,
+          },
+        }
+      )
+      .then((res) => {
+        id = res.data.results[0].id;
+        // console.log(res.data.results[0].expire_date);
+      })
+      .catch((err) => {
+        // console.log(err)
+      });
+
+      axios({
+        method: "post",
+        url: "https://amirmohammadkomijani.pythonanywhere.com/barber/premium/"+id,
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `JWT ${access_token}`,
+        },
+        data: {
+          Month: month,
+        },
+      })
+        .then((res) => {
+          // console.log(res);
+          // window.location.reload(false);
+          navigate(`/paymentcard?value=${price}`);
+        })
+        .catch((error) => {
+          console.warn(error);
+        });
+
+      
   }
 }
