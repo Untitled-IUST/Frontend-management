@@ -6,6 +6,7 @@ import SideBar from './Components/SideBar/SideBar';
 import ImageSlider from "./Components/AddService/ImageSlider";
 import Pricing from "./Components/PremiumPlans/Pricing";
 import Carddetails from "./Components/PaymentCard/Carddetails"
+import {Receipt} from "./Components/Receipt/Receipt"
 
 function App() {
   
@@ -37,6 +38,7 @@ function App() {
           <Carddetails/>
         </div>
       }/>
+      <Route path="/payment" Component={Receipt} />
     </Routes>
   );
 }
