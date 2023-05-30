@@ -52,7 +52,7 @@ function InputModal({ label, value, onChange }) {
 
   return (
     <div>
-      <Button onClick={handleOpen}>{label}</Button>
+      <Button sx={{color:"#BAB2B5"}} onClick={handleOpen}>{label}</Button>
       <Modal
         open={open}
         onClose={handleClose}
@@ -64,7 +64,7 @@ function InputModal({ label, value, onChange }) {
             {label}
           </Typography>
           <input type="text" value={value} onChange={onChange} />
-          <Button onClick={handleClose}>Close</Button>
+          <Button onClick={handleClose} sx={{color:"#BAB2B5"}}>Close</Button>
         </Box>
       </Modal>
     </div>
@@ -78,7 +78,7 @@ function ImageModal({ label, onChange }) {
 
   return (
     <div>
-      <Button onClick={handleOpen}>{label}</Button>
+      <Button onClick={handleOpen}sx={{color:"#AC3B61"}}>{label}</Button>
       <Modal
         open={open}
         onClose={handleClose}
@@ -103,10 +103,50 @@ function ImageSlider() {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [image, setImage] = useState(null);
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    // handle form submission here
+
+let isFirstPostSuccessful = false;
+
+async function handleSubmit(event) {
+  event.preventDefault();
+  // Create a FormData object to hold the data
+  const formData = new FormData();
+  formData.append('title', title);
+  formData.append('description', description);
+  formData.append('img', image);
+  console.log('imgnew',image)
+
+  try {
+    let response;
+    if (isFirstPostSuccessful) {
+      // Send PUT request
+      response = await axios.putForm(
+        'https://amirmohammadkomijani.pythonanywhere.com/barber/description/',
+        formData,
+        {
+          headers: {
+            Authorization: `JWT ${access_token}`,
+          },
+        }
+      ); console.log('nowput');
+    } else {
+      // Send POST request
+      response = await axios.post(
+        'https://amirmohammadkomijani.pythonanywhere.com/barber/description/',
+        formData,
+        {
+          headers: {
+            Authorization: `JWT ${access_token}`,
+          },
+        }
+      );
+      isFirstPostSuccessful = true;
+    }
+    console.log(response.data);
+  } catch (error) {
+    console.error(error);
+    console.log(access_token);
   }
+}
 
   const handleTabChange = (event, newIndex) => {
     setCurrentTabIndex(newIndex);
@@ -319,21 +359,25 @@ function ImageSlider() {
         </div>
         <div className="wildandfree">
             <>
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit} >
                   
 
                     <Typography component="div">
                   <Box className='dis' sx={{ bgcolor: '#123c69', width: '45%', height: 90, textAlign: 'left', ml: '50%', fontSize: 25, mt:'1%', mb:-15.7, fontFamily:'Roboto', pt:1, pr:3, pl:3 , color:'#edc7b7', borderRadius:3 }}>
-                    <InputModal label="Title" value={title} onChange={(e) => setTitle(e.target.value)} />
+                    <InputModal label=" Add Title " value={title} onChange={(e) => setTitle(e.target.value)} />
                     {title}
                   </Box>
                 </Typography>
-                <ImageModal label="Image" onChange={(e) => setImage(e.target.files[0])} />
+                <ImageModal label="Add Image" onChange={(e) => {
+                      setImage(e.target.files[0]);
+                      console.log('img',image)
+                      console.log('ss',e.target.files[0]);
+                  }} />
                 <Typography component="div">
             
             <Box  className='dis1' sx={{ bgcolor: '#edc7b7', width:'45%',
               height: 317,textAlign: 'left', ml: '50%' ,mt:'15%',fontSize: 25, mb:15,fontFamily:'Roboto, ',p: 3 , color:'#123c69',borderRadius:3}}>
-              <InputModal label="Description" value={description} onChange={(e) => setDescription(e.target.value)} />
+              <InputModal   label="Add Description" value={description} onChange={(e) => setDescription(e.target.value)} />
               {description}
             </Box>
           </Typography>
