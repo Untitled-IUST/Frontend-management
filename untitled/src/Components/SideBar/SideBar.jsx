@@ -1,45 +1,141 @@
 import { useState, useEffect } from "react";
 import { Sidebar, Menu, MenuItem, useProSidebar } from "react-pro-sidebar";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
-import LogoutIcon from '@mui/icons-material/Logout';
+import LogoutIcon from "@mui/icons-material/Logout";
 import ManageHistoryIcon from "@mui/icons-material/ManageHistory";
-import StorefrontIcon from '@mui/icons-material/Storefront';
+import StorefrontIcon from "@mui/icons-material/Storefront";
+import WorkspacePremiumIcon from "@mui/icons-material/WorkspacePremium";
 import axios from "axios";
-import {Link} from 'react-router-dom';
 
-function SideBar(){
-  
+import { Link } from "react-router-dom";
+import {
+  CircularProgressbar,
+  CircularProgressbarWithChildren,
+  buildStyles,
+} from "react-circular-progressbar";
+import "react-circular-progressbar/dist/styles.css";
+import RadialSeparators from "./RadialSeparators";
+
+
+function SideBar() {
   const { collapseSidebar } = useProSidebar();
-  // const [userName, setUserName] = useState("");
-  let access_token =localStorage.getItem('accessTokenBarber');
+  const [userName, setUserName] = useState("Fargol");
+  const [expireDate, setExpireDate] = useState();
 
-  // useEffect(() => {
-  //   // console.log(access_token);
-  //   axios.get('https://amirmohammadkomijani.pythonanywhere.com/customer/profile/me/',{
-  //     headers:{
-  //       "Content-Type": 'application/json',
-  //       Authorization: `JWT ${access_token}`
-  //     }
-  //   }).then((res)=>{
-  //     console.log(access_token);
-  //     setUserName(res.data.first_name);
-  //   }).catch((err)=>{
-  //     // console.log(err)
-  //   })},[])
+  let access_token = localStorage.getItem("accessTokenBarber");
 
-    return (
-        <Sidebar backgroundColor="#EEE2DC">
-          <Menu rootStyles={{color: "#AC3B61"}} >
-            <MenuItem icon={<MenuOutlinedIcon />} onClick={() => { collapseSidebar(); }} style={{ textAlign: "center" }} >
-              {" "}
-              {/* <h2 className="text-xl">{userName}</h2> */}
-            </MenuItem>
-            <MenuItem icon={<StorefrontIcon/>} component={<Link to="/AddService" />}>Manage Services</MenuItem>
-            <MenuItem icon={<ManageHistoryIcon/>} component={<Link to="/OrderHistory" />}>Orders History</MenuItem>
-            <MenuItem icon={<LogoutIcon />} onClick={() => {localStorage.removeItem('accessTokenBarber')}} component={<Link to="/" />}>Log Out</MenuItem>
-          </Menu>
-        </Sidebar>
-    )
+  useEffect(() => {
+    // console.log(access_token);
+    axios
+      .get(
+        "https://amirmohammadkomijani.pythonanywhere.com/customer/profile/me/",
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `JWT ${access_token}`,
+          },
+        }
+      )
+      .then((res) => {
+        setUserName(res.data.first_name);
+      })
+      .catch((err) => {
+        // console.log(err)
+      });
 
+      axios
+      .get(
+        "https://amirmohammadkomijani.pythonanywhere.com/barber/premium/",
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `JWT ${access_token}`,
+          },
+        }
+      )
+      .then((res) => {
+        setExpireDate(res.data.results[0].expire_date);
+        // console.log(res.data.results[0].expire_date);
+      })
+      .catch((err) => {
+        // console.log(err)
+      });
+
+  }, []);
+
+  return (
+    <Sidebar backgroundColor="#ac3b61" style={{ height: "211.2vh" }}>
+      <Menu rootStyles={{ color: "#eee2dc" }}>
+        <MenuItem
+          icon={<MenuOutlinedIcon />}
+          onClick={() => {
+            collapseSidebar();
+          }}
+          style={{ textAlign: "center" }}
+        >
+          {" "}
+          <h2>{userName}</h2>
+        </MenuItem>
+        <MenuItem
+          icon={<StorefrontIcon />}
+          component={<Link to="/AddService" />}
+        >
+          Manage Services
+        </MenuItem>
+        <MenuItem
+          icon={<ManageHistoryIcon />}
+          component={<Link to="/OrderHistory" />}
+        >
+          Orders History
+        </MenuItem>
+        <MenuItem
+          icon={<WorkspacePremiumIcon />}
+          component={<Link to="/PremiumPlans" />}
+        >
+          Premium Plans
+        </MenuItem>
+        <MenuItem
+          icon={<LogoutIcon />}
+          onClick={() => {
+            localStorage.removeItem("accessTokenBarber");
+          }}
+          component={<Link to="/" />}
+        >
+          Log Out
+        </MenuItem>
+      </Menu>
+      <div
+        
+        style={{
+          width: 120,
+          height: 120,
+          marginTop:50,
+          marginLeft:55,
+        }}
+      >
+        <CircularProgressbarWithChildren
+          value={80}
+          text={`${80}%`}
+          strokeWidth={10}
+          styles={buildStyles({
+            strokeLinecap: "butt",
+            pathColor: "#123c69",
+            textColor: "#eee2dc",
+          })}
+        >
+          <RadialSeparators
+            count={12}
+            style={{
+              background: "#eee2dc",
+              width: "1px",
+              height: `${10}%`,
+            }}
+          />
+        </CircularProgressbarWithChildren>
+        
+      </div>
+      <p>Expire Date {expireDate}</p>
+    </Sidebar>
+  );
 }
 export default SideBar;

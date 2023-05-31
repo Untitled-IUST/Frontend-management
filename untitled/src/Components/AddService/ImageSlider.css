@@ -1,17 +1,51 @@
+@import url("https://fonts.googleapis.com/css?family=Baloo+Bhaijaan|Ubuntu");
+*{
+  font-family: "Ubuntu", sans-serif;
+}
 .All_Slider{
-    font-family: "Roboto";
+    font-family: "Ubuntu", sans-serif !important;
     background-color: #eee2dc;
-    height: 100vh;
+    height: 1200px;
     width: 100%;
 }
-
 .MuiTabs-root .MuiTab-textColorPrimary.Mui-selected {
   color: #ac3b61;
 }
+.css-15kdcs5-MuiButtonBase-root-MuiButton-root {
+  font-family: "Ubuntu", sans-serif !important;
+}
+.css-1dxo7ku{
+  border-radius: 10px;
+  color: #ac3b61;
+}
+.css-lc0zqy{
+  border-radius: 12px;
+}
+.css-2ulfj5-MuiTypography-root{
+  color: #123c69;
+  font-family: "Ubuntu", sans-serif !important;
 
+}
+.bty{
+  font-family: "Ubuntu", sans-serif !important;
+}
+.inipini{
+  font-family: "Ubuntu", sans-serif !important;
+  color: #123c69;
+  padding: 3%;
+  border-radius: 33%;
+  margin-left: 2%;
+  background-color:#edc7b7 ;
+}
+.css-1jmobbv-MuiButtonBase-root-MuiButton-root{
+  
+  font-family: "Ubuntu", sans-serif !important;
+
+}
 .MuiTabs-indicator {
   background-color: #ac3b61;
 }
+
 
 .inputbox{
   width: 80%;
@@ -21,3 +55,11 @@
   outline: none;
   /* background: none; */
 }
+
+.All_Services{
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: wrap !important;
+  /* /* align-items: center !important; */
+  justify-content:center !important;
+  }

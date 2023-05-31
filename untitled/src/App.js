@@ -5,6 +5,9 @@ import OrderHistory from './Pages/OrderHistory/OrderHistory';
 import SideBar from './Components/SideBar/SideBar';
 import ImageSlider from "./Components/AddService/ImageSlider";
 import CommentSection from './Pages/CommentSection/CommentSection';
+import Pricing from "./Components/PremiumPlans/Pricing";
+import Carddetails from "./Components/PaymentCard/Carddetails"
+import {Receipt} from "./Components/Receipt/Receipt"
 
 function App() {
   
@@ -30,6 +33,19 @@ function App() {
           <CommentSection/>
         </div>
       }/>
+      <Route path="/PremiumPlans" element={
+        <div id="app" style={({ height: "100vh" }, { display: "flex" })}>
+          <SideBar/>
+          <Pricing/>
+        </div>
+      }/>
+      <Route path="/PaymentCard" element={
+        <div id="app" style={({ height: "100vh" }, { display: "flex" })}>
+
+          <Carddetails/>
+        </div>
+      }/>
+      <Route path="/payment" Component={Receipt} />
     </Routes>
   );
 }

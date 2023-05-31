@@ -1,0 +1,11 @@
+.AllPremium{
+  background-color: #EEE2DC;
+  width: 100%;
+}
+
+.middleContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 70vh;
+  }

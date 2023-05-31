@@ -14,9 +14,10 @@ import "./ImageSlider.css";
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
-
+import Box from '@mui/material/Box';
 import Modal from "@mui/material/Modal";
-import Box from "@mui/material/Box";
+
+
 const styleB = {
   top: "50%",
   left: "50%",
@@ -33,11 +34,238 @@ const styleB = {
   flexDirection: "column",
   alignItems: "center",
 };
+const stylepmr = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 400,
+  bgcolor: '#edc7b7',
+  boxShadow: 24,
+  p: 4,
+  fontFamily:'Roboto, '
+};
 
+
+function InputModal({ label, value, onChange }) {
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
+  return (
+    <div>
+      <Button sx={{color:"#BAB2B5", fontFamily:'Roboto, '}} onClick={handleOpen}>{label}</Button>
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={stylepmr}>
+          <Typography id="modal-modal-title" variant="h6" component="h2">
+            {label}
+          </Typography>
+          <input type="text" value={value} onChange={onChange} />
+          <Button  className="bty" onClick={handleClose} sx={{color:"#ac3b61"}}>Close</Button>
+        </Box>
+      </Modal>
+    </div>
+  );
+}
+
+function ImageModal({ label, onChange }) {
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
+  return (
+    <div>
+      <Button onClick={handleOpen}sx={{color:"#AC3B61" ,marginLeft:'2%'}}>{label}</Button>
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={stylepmr}>
+          <Typography id="modal-modal-title" variant="h6" component="h2">
+            {label}
+          </Typography>
+          <input type="file" accept="image/jpeg" onChange={onChange} />
+          <Button onClick={handleClose}sx={{color:"#ac3b61"}}>Close</Button>
+        </Box>
+      </Modal>
+    </div>
+  );
+}
 function ImageSlider() {
   const [currentTabIndex, setCurrentTabIndex] = useState(0);
   const [categoryIndex, setCategoryIndex] = useState(0);
   const [categoryName, setCategoryName] = useState(0);
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [image, setImage] = useState(null);
+  const [imagePreviewUrl, setImagePreviewUrl] = useState(null);
+
+  //  isFirstPostSuccessful = false;
+  const [isFirstPostSuccessful,setISfirstpostSuccessFull] = useState(false);
+  // let isFirstPostSuccessful = false;
+  // let resourceId;
+  const[resourceId,setResourseid]=useState(0)
+  console.log("gf",resourceId)
+  // useEffect(() => {
+
+  //       const response = await axios.get(
+  //         'https://amirmohammadkomijani.pythonanywhere.com/barber/description/',
+  //         {
+  //           headers: {
+  //             'Authorization': `JWT ${access_token}`,
+  //             'Content-Type': 'application/json',
+  //           },
+  //         }
+  //       );
+  //       setTitle(response.data.results[0].title);
+  //       setDescription(response.data.results[0].description);
+  //       setImage(response.data.results[0].img);
+  //     } catch (error) {
+  //       console.error(error);
+  //     }
+ 
+  // }, []);
+
+      useEffect(() => {
+      console.log(access_token)
+      axios.get('https://amirmohammadkomijani.pythonanywhere.com/barber/description/', {
+        headers: {
+          'Authorization': `JWT ${access_token}`,
+          'Content-Type': 'application/json',
+        }
+      })
+        .then((response) => {
+          console.log("isFirstPostSuccessful")
+          console.log(isFirstPostSuccessful)
+
+          const arr = response.data.results;
+          if (!(arr.length === 0)) {
+            console.log(arr.length);
+            console.log(response.data.results);
+            setISfirstpostSuccessFull(true)
+            setResourseid(response.data.results[0].id)
+            setDescription(response.data.results[0].description);
+            setTitle(response.data.results[0].title)
+            setImage(response.data.results[0].img)
+            setImagePreviewUrl(response.data.results[0].img);
+          }
+          else {
+            setISfirstpostSuccessFull(false)
+          }
+        })
+        .catch(err => console.log(err));
+    }, []);
+  async function handleSubmit(event) {
+    event.preventDefault();
+    // Create a FormData object to hold the data
+    const formData = new FormData();
+    formData.append('title', title);
+    formData.append('description', description);
+    formData.append('img', image);
+    console.log('imgnew',image)
+  
+    try {
+      let response;
+      console.log(isFirstPostSuccessful)
+      console.log("88")
+      if (isFirstPostSuccessful) {
+        console.log(isFirstPostSuccessful)
+        // Send PUT request
+        console.log("gfh",resourceId)
+        const putUrl = `https://amirmohammadkomijani.pythonanywhere.com/barber/description/${resourceId}/`;
+        response = await axios.put(
+          putUrl,
+          formData,
+          {
+            headers: {
+              Authorization: `JWT ${access_token}`,
+            },
+          }
+        );console.log("putttt")
+        alert(`You  Eddited Succsussfuly`);
+        axios.get('https://amirmohammadkomijani.pythonanywhere.com/barber/description/', {
+          headers: {
+            'Authorization': `JWT ${access_token}`,
+            'Content-Type': 'application/json',
+          }
+        })
+          .then((response) => {
+            console.log("isFirstPostSuccessful")
+            console.log(isFirstPostSuccessful)
+  
+            const arr = response.data.results;
+            if (!(arr.length === 0)) {
+              console.log(arr.length);
+              console.log(response.data.results);
+              setISfirstpostSuccessFull(true)
+              setResourseid(response.data.results[0].id)
+              setDescription(response.data.results[0].description);
+              setTitle(response.data.results[0].title)
+              setImage(response.data.results[0].img)
+            }
+            else {
+              setISfirstpostSuccessFull(false)
+            }           
+          })
+          .catch(err => console.log(err));
+      } else {
+        // Send POST request
+        const postUrl = 'https://amirmohammadkomijani.pythonanywhere.com/barber/description/';
+        response = await axios.post(
+          postUrl,
+          formData,
+          {
+            headers: {
+              Authorization: `JWT ${access_token}`,
+            },
+          }
+        );
+        // setISfirstpostSuccessFull(true);
+        setResourseid(response.data.id);
+        alert(`You  Posted Succussfuly Time.`);
+
+        
+        console.log("respone after post",resourceId)
+      }
+      console.log(response.data);
+      axios.get('https://amirmohammadkomijani.pythonanywhere.com/barber/description/', {
+        headers: {
+          'Authorization': `JWT ${access_token}`,
+          'Content-Type': 'application/json',
+        }
+      })
+        .then((response) => {
+          console.log("isFirstPostSuccessful")
+          console.log(isFirstPostSuccessful)
+
+          const arr = response.data.results;
+          if (!(arr.length === 0)) {
+            console.log(arr.length);
+            console.log(response.data.results);
+            setISfirstpostSuccessFull(true)
+            setResourseid(response.data.results[0].id)
+            setDescription(response.data.results[0].description);
+            setTitle(response.data.results[0].title)
+            setImage(response.data.results[0].img)
+
+          }
+          else {
+            setISfirstpostSuccessFull(false)
+          }
+        })
+        .catch(err => console.log(err));
+    } catch (error) {
+      console.error(error);
+      console.log(access_token);
+    }
+  }
 
   const handleTabChange = (event, newIndex) => {
     setCurrentTabIndex(newIndex);
@@ -112,6 +340,7 @@ function ImageSlider() {
         setMydata(response.data);
         setServicefront(response.data.categories);
         console.log(response.data)
+        
       })
       .catch((err) => console.log(err));
   }, []);
@@ -173,6 +402,7 @@ function ImageSlider() {
             {servicefront.map((item, index) => (
               <div
                 key={item.category}
+                className={currentTabIndex === index ? 'All_Services' : ''}
                 style={{ display: currentTabIndex === index ? "flex" : "none" }}
               >
                 {item.categoryServices.map((x) => (
@@ -248,6 +478,53 @@ function ImageSlider() {
             {ShowComponent.add && <AddModal open={true} />}
           </div>
         </div>
+        <div className="wildandfree">
+            <>
+          <form onSubmit={handleSubmit} >
+                  
+
+                    <Typography component="div">
+                  <Box className='dis' sx={{ bgcolor: '#123c69', width: '45%', height: 90, textAlign: 'left', ml: '53%', fontSize: 25, mt:'1%', mb:-15.7, fontFamily:'Roboto, ', pt:1, pr:3, pl:3 , color:'#edc7b7', borderRadius:3 }}>
+                    <InputModal label=" Add Title " value={title} onChange={(e) => setTitle(e.target.value)} />
+                    {title}
+                  </Box>
+                </Typography>
+                <ImageModal label="Add Image" onChange={(e) => {
+                      setImage(e.target.files[0]);
+                      setImagePreviewUrl(URL.createObjectURL(e.target.files[0]));
+                      console.log('img',image)
+                      console.log('ss',e.target.files[0]);
+                  }} />
+                <Typography component="div">
+            
+            <Box  className='dis1' sx={{ bgcolor: '#edc7b7', width:'45%',
+              height: 317,textAlign: 'left', ml: '53%' ,mt:'15%',fontSize: 25, mb:15,fontFamily:'Roboto, ',p: 3 , color:'#123c69',borderRadius:3}}>
+              <InputModal   label="Add Description" value={description} onChange={(e) => setDescription(e.target.value)} />
+              {description}
+            </Box>
+          </Typography>
+    
+          {image && (
+            <>
+              <div>
+                <img
+                className='imdis'
+                style={{ width: '44%', height: 465,  marginTop:'-60%',marginLeft:'2%', borderRadius: 10 }}
+                // src={URL.createObjectURL(image)}
+                // src={image}
+                src={imagePreviewUrl}
+                alt="React lost"/>
+              </div>
+            </>
+          )}
+            <br />
+          <input className="inipini" type="submit" value="Submit" />
+          </form>
+          <br />
+          {/* Display entered values */}
+
+        </>
+      </div>
       </div>
     </div>
   );

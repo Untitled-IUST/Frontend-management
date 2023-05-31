@@ -1,0 +1,101 @@
+.ReceiptMain {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    color: #ac3b61;
+    
+    background: linear-gradient( #edc7b7,  #123c69d3);
+    /* background-color: aqua; */
+
+    
+}
+
+.ReceiptRestLogo {
+    aspect-ratio: 1/1;
+    width: 100px;
+    align-self: center;
+    border-radius: 100%;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border-color: #261B39;
+    object-fit: cover;
+    margin-bottom: -50px;
+}
+
+.ReceiptContainer {
+    position: center;
+    align-items: center;
+    text-align: center;
+    align-self: center;
+    margin:auto;
+}
+
+.ReceiptCard {
+    overflow: hidden;
+    border-radius: 20px;
+    background-color: #eee2dc;
+    box-shadow: 2px 2px 20px 1px #000000;
+}
+
+.ReceiptTop {
+    height: 100px;
+    background-color: #123c69de;;
+    display: flex;
+    align-items: center;
+    padding-top: 30px;
+}
+
+.ReceiptResponse {
+    font-size: larger;
+    font-weight: bolder;
+    margin-left: 40px;
+    margin-right: 40px;
+    /* text-shadow: 1px 1px 2px  #000000; */
+    margin-top: 30px;
+    color: #261B39;
+}
+
+.ReceiptDetails {
+    margin: 30px;
+    text-align: left;
+}
+
+.ReceiptList {
+    border-bottom: 0.5px solid rgb(140, 115, 230, 0.411);
+    padding-bottom: 0px;
+    font-weight: bold;
+    margin-bottom: 30px;
+    display: flex;
+    flex-flow:wrap;
+    color: #261B39!important;
+}
+
+.answer {
+    font-weight: lighter;
+    color: 261B39;
+}
+
+.ReceiptBottom {
+    margin-top: 50px;
+    margin-bottom: 20px;
+}
+
+.ReceiptButton {
+    background-color: #ac3b61;
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border: none;
+    border-radius: 10px;
+    color: #edc7b7;
+
+    font-size:larger;
+    outline:none;
+}
+
+.ReceiptButton:hover {
+    color: #ffecee;
+    background-color: #ac3b61d3;
+    cursor: pointer;
+    transition-duration: 0.4s;
+}
