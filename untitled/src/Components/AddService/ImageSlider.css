@@ -5,7 +5,7 @@
 .All_Slider{
     font-family: "Ubuntu", sans-serif !important;
     background-color: #eee2dc;
-    height: 1200px;
+    /* height: 1500px; */
     width: 100%;
 }
 .MuiTabs-root .MuiTab-textColorPrimary.Mui-selected {

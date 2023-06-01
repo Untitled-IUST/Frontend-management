@@ -229,6 +229,7 @@ function ImageSlider() {
         );
         // setISfirstpostSuccessFull(true);
         setResourseid(response.data.id);
+        console.log('this posted')
         alert(`You  Posted Succussfuly Time.`);
 
         
