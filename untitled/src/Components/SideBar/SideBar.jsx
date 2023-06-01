@@ -64,8 +64,8 @@ function SideBar() {
   }, []);
 
   return (
-    <Sidebar backgroundColor="#123c69" >
-      <Menu rootStyles={{ color: "#eee2dc" }}>
+    <Sidebar backgroundColor="#edc7b7 " >
+      <Menu rootStyles={{ color: "#123c69" }}>
         <MenuItem
           icon={<MenuOutlinedIcon />}
           onClick={() => {
@@ -119,14 +119,14 @@ function SideBar() {
           strokeWidth={10}
           styles={buildStyles({
             strokeLinecap: "butt",
-            pathColor: "#edc7b7",
-            textColor: "#eee2dc",
+            pathColor: "#123c69",
+            textColor: "#123c69",
           })}
         >
           <RadialSeparators
             count={12}
             style={{
-              background: "#123c69",
+              background: "#edc7b7",
               width: "1px",
               height: `${10}%`,
             }}
