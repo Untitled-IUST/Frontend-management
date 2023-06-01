@@ -46,6 +46,7 @@ function LoginBarber(){
       alert('You are logged in'); 
       localStorage.setItem('accessTokenBarber',res.data.access);
       localStorage.setItem('refreshTokenBarber',res.data.refresh);
+      console.log(localStorage.getItem('accessTokenBarber'));
       navigate('/OrderHistory');
     })
     .catch(error => {

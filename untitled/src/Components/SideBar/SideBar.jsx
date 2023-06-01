@@ -5,6 +5,7 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import ManageHistoryIcon from "@mui/icons-material/ManageHistory";
 import StorefrontIcon from "@mui/icons-material/Storefront";
 import WorkspacePremiumIcon from "@mui/icons-material/WorkspacePremium";
+import CommentIcon from '@mui/icons-material/Comment';
 import axios from "axios";
 
 import { Link } from "react-router-dom";
@@ -93,6 +94,12 @@ function SideBar() {
           component={<Link to="/PremiumPlans" />}
         >
           Premium Plans
+        </MenuItem>
+        <MenuItem
+          icon={<CommentIcon />}
+          component={<Link to="/CommentSection" />}
+        >
+          Comment Section
         </MenuItem>
         <MenuItem
           icon={<LogoutIcon />}
