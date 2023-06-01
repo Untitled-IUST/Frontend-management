@@ -112,7 +112,7 @@ function ImageSlider() {
   // let isFirstPostSuccessful = false;
   // let resourceId;
   const[resourceId,setResourseid]=useState(0)
-  console.log("gf",resourceId)
+  // console.log("gf",resourceId)
   // useEffect(() => {
 
   //       const response = await axios.get(
@@ -134,7 +134,7 @@ function ImageSlider() {
   // }, []);
 
       useEffect(() => {
-      console.log(access_token)
+      // console.log(access_token)
       axios.get('https://amirmohammadkomijani.pythonanywhere.com/barber/description/', {
         headers: {
           'Authorization': `JWT ${access_token}`,
@@ -142,13 +142,13 @@ function ImageSlider() {
         }
       })
         .then((response) => {
-          console.log("isFirstPostSuccessful")
-          console.log(isFirstPostSuccessful)
+          // console.log("isFirstPostSuccessful")
+          // console.log(isFirstPostSuccessful)
 
           const arr = response.data.results;
           if (!(arr.length === 0)) {
-            console.log(arr.length);
-            console.log(response.data.results);
+            // console.log(arr.length);
+            // console.log(response.data.results);
             setISfirstpostSuccessFull(true)
             setResourseid(response.data.results[0].id)
             setDescription(response.data.results[0].description);
@@ -169,16 +169,16 @@ function ImageSlider() {
     formData.append('title', title);
     formData.append('description', description);
     formData.append('img', image);
-    console.log('imgnew',image)
+    // console.log('imgnew',image)
   
     try {
       let response;
-      console.log(isFirstPostSuccessful)
-      console.log("88")
+      // console.log(isFirstPostSuccessful)
+      // console.log("88")
       if (isFirstPostSuccessful) {
-        console.log(isFirstPostSuccessful)
+        // console.log(isFirstPostSuccessful)
         // Send PUT request
-        console.log("gfh",resourceId)
+        // console.log("gfh",resourceId)
         const putUrl = `https://amirmohammadkomijani.pythonanywhere.com/barber/description/${resourceId}/`;
         response = await axios.put(
           putUrl,
@@ -188,7 +188,7 @@ function ImageSlider() {
               Authorization: `JWT ${access_token}`,
             },
           }
-        );console.log("putttt")
+        );
         alert(`You  Eddited Succsussfuly`);
         axios.get('https://amirmohammadkomijani.pythonanywhere.com/barber/description/', {
           headers: {
@@ -197,13 +197,13 @@ function ImageSlider() {
           }
         })
           .then((response) => {
-            console.log("isFirstPostSuccessful")
-            console.log(isFirstPostSuccessful)
+            // console.log("isFirstPostSuccessful")
+            // console.log(isFirstPostSuccessful)
   
             const arr = response.data.results;
             if (!(arr.length === 0)) {
-              console.log(arr.length);
-              console.log(response.data.results);
+              // console.log(arr.length);
+              // console.log(response.data.results);
               setISfirstpostSuccessFull(true)
               setResourseid(response.data.results[0].id)
               setDescription(response.data.results[0].description);
@@ -229,13 +229,13 @@ function ImageSlider() {
         );
         // setISfirstpostSuccessFull(true);
         setResourseid(response.data.id);
-        console.log('this posted')
+        
         alert(`You  Posted Succussfuly Time.`);
 
         
         console.log("respone after post",resourceId)
       }
-      console.log(response.data);
+      
       axios.get('https://amirmohammadkomijani.pythonanywhere.com/barber/description/', {
         headers: {
           'Authorization': `JWT ${access_token}`,
@@ -243,13 +243,13 @@ function ImageSlider() {
         }
       })
         .then((response) => {
-          console.log("isFirstPostSuccessful")
-          console.log(isFirstPostSuccessful)
+          // console.log("isFirstPostSuccessful")
+          // console.log(isFirstPostSuccessful)
 
           const arr = response.data.results;
           if (!(arr.length === 0)) {
-            console.log(arr.length);
-            console.log(response.data.results);
+            // console.log(arr.length);
+            // console.log(response.data.results);
             setISfirstpostSuccessFull(true)
             setResourseid(response.data.results[0].id)
             setDescription(response.data.results[0].description);
@@ -264,7 +264,7 @@ function ImageSlider() {
         .catch(err => console.log(err));
     } catch (error) {
       console.error(error);
-      console.log(access_token);
+      
     }
   }
 
@@ -304,7 +304,7 @@ function ImageSlider() {
   };
 
   function categorySubmit(event) {
-    console.log(categoryName)
+    
     axios({
       method: "post",
       url: "https://amirmohammadkomijani.pythonanywhere.com/barber/categories/",
@@ -338,9 +338,10 @@ function ImageSlider() {
     axios
       .get("https://amirmohammadkomijani.pythonanywhere.com/barber/info/1/")
       .then((response) => {
+        console.log(response);
         setMydata(response.data);
         setServicefront(response.data.categories);
-        console.log(response.data)
+        
         
       })
       .catch((err) => console.log(err));
@@ -493,8 +494,7 @@ function ImageSlider() {
                 <ImageModal label="Add Image" onChange={(e) => {
                       setImage(e.target.files[0]);
                       setImagePreviewUrl(URL.createObjectURL(e.target.files[0]));
-                      console.log('img',image)
-                      console.log('ss',e.target.files[0]);
+                      
                   }} />
                 <Typography component="div">
             
