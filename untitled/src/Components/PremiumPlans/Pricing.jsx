@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useState, useEffect } from "react";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
@@ -61,11 +61,41 @@ const tiers = [
 ];
 
 
+
 // TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme();
 
-export default function Pricing() {
+function Pricing() {
+  const [premiumId, setPremiumId] = useState();
   const navigate = useNavigate(); 
+  let access_token = localStorage.getItem("accessTokenBarber");
+  
+  useEffect(() => {
+    axios
+        .get(
+          "https://amirmohammadkomijani.pythonanywhere.com/barber/premium/",
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `JWT ${access_token}`,
+            },
+          }
+        )
+        .then((res) => {
+          // console.log(res.data[0].id);
+          setPremiumId(res.data[0].id);
+         
+          
+        })
+        .catch((err) => {
+          // console.log(err)
+        });
+
+  }, []);
+
+  
+
+  
   return (
     
     <ThemeProvider theme={defaultTheme}>
@@ -155,32 +185,10 @@ export default function Pricing() {
     </ThemeProvider>
   );
   function BuyPremium(price, month){
-    let access_token = localStorage.getItem("accessTokenBarber");
-    console.log(price);
-    
-    var id;
-    
-    axios
-      .get(
-        "https://amirmohammadkomijani.pythonanywhere.com/barber/premium/",
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `JWT ${access_token}`,
-          },
-        }
-      )
-      .then((res) => {
-        id = res.data.results[0].id;
-        // console.log(res.data.results[0].expire_date);
-      })
-      .catch((err) => {
-        // console.log(err)
-      });
-
+    console.log(price + ' ' + month + ' ' +premiumId)
       axios({
-        method: "post",
-        url: "https://amirmohammadkomijani.pythonanywhere.com/barber/premium/"+id,
+        method: "put",
+        url: "https://amirmohammadkomijani.pythonanywhere.com/barber/buypremium/"+premiumId,
         headers: {
           "Content-Type": "application/json",
           Authorization: `JWT ${access_token}`,
@@ -201,3 +209,4 @@ export default function Pricing() {
       
   }
 }
+export default Pricing;

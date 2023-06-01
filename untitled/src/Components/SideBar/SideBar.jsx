@@ -55,8 +55,8 @@ function SideBar() {
         }
       )
       .then((res) => {
-        setExpireDate(res.data.results[0].expire_date);
-        // console.log(res.data.results[0].expire_date);
+        setExpireDate(res.data[0].expire_date);
+
       })
       .catch((err) => {
         // console.log(err)
