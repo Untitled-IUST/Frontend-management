@@ -63,3 +63,10 @@
   /* /* align-items: center !important; */
   justify-content:center !important;
   }
+
+  .AddCategory_Modal{
+    color: #ac3b61;
+    font-weight: bold;
+    font-size:24px;
+
+}

@@ -22,6 +22,8 @@ function SideBar() {
   const { collapseSidebar } = useProSidebar();
   const [userName, setUserName] = useState("Fargol");
   const [expireDate, setExpireDate] = useState();
+  const [days, setDays] = useState();
+  const [month, setMonth] = useState();
 
   let access_token = localStorage.getItem("accessTokenBarber");
 
@@ -56,6 +58,8 @@ function SideBar() {
       )
       .then((res) => {
         setExpireDate(res.data[0].expire_date);
+        setMonth(res.data[0].month);
+        setDays(res.data[0].days);
 
       })
       .catch((err) => {
@@ -111,18 +115,19 @@ function SideBar() {
           Log Out
         </MenuItem>
       </Menu>
+
       <div
         
         style={{
           width: 120,
           height: 120,
           marginTop:50,
-          marginLeft:55,
+          marginLeft:60,
         }}
       >
         <CircularProgressbarWithChildren
-          value={80}
-          text={`${80}%`}
+          value={(days/(month*31))*100}
+          text={`${days}days`}
           strokeWidth={10}
           styles={buildStyles({
             strokeLinecap: "butt",
@@ -139,9 +144,14 @@ function SideBar() {
             }}
           />
         </CircularProgressbarWithChildren>
+      
         
       </div>
-      <p>Expire Date {expireDate}</p>
+      <p style={{
+          marginLeft:30,
+          color: "#123c69",
+          fontWeight: "bold",
+        }}>Expire Date {expireDate}</p>
     </Sidebar>
   );
 }

@@ -380,7 +380,7 @@ function ImageSlider() {
                 aria-describedby="modal-modal-description"
               >
                 <Box sx={styleB}>
-                  <h3>Add a New Category</h3>
+                  <p className="AddCategory_Modal">Add a New Category</p>
                   <form onSubmit={categorySubmit}>
                     <input
                     class="inputbox"
