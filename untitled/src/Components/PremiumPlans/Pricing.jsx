@@ -188,7 +188,7 @@ function Pricing() {
     console.log(price + ' ' + month + ' ' +premiumId)
       axios({
         method: "put",
-        url: "https://amirmohammadkomijani.pythonanywhere.com/barber/buypremium/"+premiumId,
+        url: "https://amirmohammadkomijani.pythonanywhere.com/barber/buypremium/"+premiumId+"/",
         headers: {
           "Content-Type": "application/json",
           Authorization: `JWT ${access_token}`,
@@ -198,8 +198,7 @@ function Pricing() {
         },
       })
         .then((res) => {
-          // console.log(res);
-          // window.location.reload(false);
+          console.log(res);
           navigate(`/paymentcard?value=${price}`);
         })
         .catch((error) => {
