@@ -28,12 +28,8 @@ function SendEmail() {
       }
     })
     .then((res) => {
-      if (res.status === 204) {
-        setSubmitError("no user with this email exists");
-      } else {
-        alert('Check your email to reset your password!');
-        navigate('/');
-      }
+      alert('Check your email to reset your password!');
+      navigate('/');
     })
     .catch(error => {
       setSubmitError(error.response.data["email"]);
