@@ -97,9 +97,8 @@ function Pricing() {
 
   
   return (
-    <div className="flex flex-row justify-center align-middle w-full">
+    <div className="bg-WhiteChocolate-500 flex flex-row justify-center align-middle w-full">
       <ThemeProvider theme={defaultTheme}>
-        <div className="AllPremium">
         <GlobalStyles
           styles={{ ul: { margin: 0, padding: 0, listStyle: "none", } }}
         />
@@ -180,7 +179,6 @@ function Pricing() {
             ))}
           </Grid>
         </Container>
-      </div>
 
       </ThemeProvider>
     </div>
