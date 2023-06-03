@@ -315,7 +315,7 @@ function SignUpBarber(){
                   <p className="m-1 text-xs italic text-MediumRuby-500">{submitError}</p>
                 </div>
                 <hr className="mb-3 border-t text-AteneoBlue-500" />
-                <Link to="/" className="hover:bg-AteneoBlue-400 focus:bg-AteneoBlue-500 inline-block text-sm text-white align-baseline py-2.5 w-full rounded bg-AteneoBlue-500 text-center focus:text-white">
+                <Link to="/LoginBarber" className="hover:bg-AteneoBlue-400 focus:bg-AteneoBlue-500 inline-block text-sm text-white align-baseline py-2.5 w-full rounded bg-AteneoBlue-500 text-center focus:text-white">
                   Already Registered? Login!
                 </Link>
               </form>
