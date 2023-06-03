@@ -20,7 +20,7 @@ import { useNavigate } from 'react-router-dom';
 const tiers = [
   {
     title: "1 MONTH",
-    Month: "1-month",
+    Month: "1",
     price: "5",
     description: [
       "10 users included",
@@ -33,7 +33,7 @@ const tiers = [
   },
   {
     title: "3 MONTHS",
-    Month: "3-month",
+    Month: "3",
     subheader: "Most popular",
     price: "15",
     description: [
@@ -47,7 +47,7 @@ const tiers = [
   },
   {
     title: "6 MONTHS",
-    Month: "6-month",
+    Month: "6",
     price: "25",
     description: [
       "50 users included",
@@ -194,7 +194,7 @@ function Pricing() {
           Authorization: `JWT ${access_token}`,
         },
         data: {
-          Month: month,
+          month: month,
         },
       })
         .then((res) => {
