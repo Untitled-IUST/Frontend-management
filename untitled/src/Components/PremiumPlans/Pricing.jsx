@@ -97,92 +97,93 @@ function Pricing() {
 
   
   return (
-    
-    <ThemeProvider theme={defaultTheme}>
-      <div className="AllPremium">
-      <GlobalStyles
-        styles={{ ul: { margin: 0, padding: 0, listStyle: "none", } }}
-      />
-      <CssBaseline />
+    <div className="flex flex-row justify-center align-middle w-full">
+      <ThemeProvider theme={defaultTheme}>
+        <div className="AllPremium">
+        <GlobalStyles
+          styles={{ ul: { margin: 0, padding: 0, listStyle: "none", } }}
+        />
+        <CssBaseline />
 
-      <Container maxWidth="md" component="main" className="middleContainer">
-        <Grid container spacing={5} alignItems="flex-end">
-          {tiers.map((tier) => (
-            // Enterprise card is full width at sm breakpoint
-            <Grid
-              item
-              key={tier.title}
-              xs={12}
-              sm={tier.title === "Enterprise" ? 12 : 6}
-              md={4}
-            >
-              <Card>
-                <CardHeader
-                  title={tier.title}
-                  subheader={tier.subheader}
-                  titleTypographyProps={{ align: "center" }}
-                  action={tier.title === "Pro" ? <StarIcon /> : null}
-                  subheaderTypographyProps={{
-                    align: "center",
-                  }}
-                  sx={{
-                    backgroundColor: (theme) =>
-                      theme.palette.mode === "light"
-                        ? theme.palette.grey[200]
-                        : theme.palette.grey[700],
-                  }}
-                />
-                <CardContent>
-                  <Box
-                    sx={{
-                      display: "flex",
-                      justifyContent: "center",
-                      alignItems: "baseline",
-                      mb: 2,
+        <Container maxWidth="md" component="main" className="middleContainer">
+          <Grid container spacing={5} alignItems="flex-end">
+            {tiers.map((tier) => (
+              // Enterprise card is full width at sm breakpoint
+              <Grid
+                item
+                key={tier.title}
+                xs={12}
+                sm={tier.title === "Enterprise" ? 12 : 6}
+                md={4}
+              >
+                <Card>
+                  <CardHeader
+                    title={tier.title}
+                    subheader={tier.subheader}
+                    titleTypographyProps={{ align: "center" }}
+                    action={tier.title === "Pro" ? <StarIcon /> : null}
+                    subheaderTypographyProps={{
+                      align: "center",
                     }}
-                  >
-                    <Typography
-                      component="h2"
-                      variant="h3"
-                      color="text.primary"
+                    sx={{
+                      backgroundColor: (theme) =>
+                        theme.palette.mode === "light"
+                          ? theme.palette.grey[200]
+                          : theme.palette.grey[700],
+                    }}
+                  />
+                  <CardContent>
+                    <Box
+                      sx={{
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "baseline",
+                        mb: 2,
+                      }}
                     >
-                      ${tier.price}
-                    </Typography>
-                  </Box>
-                  <ul>
-                    {tier.description.map((line) => (
                       <Typography
-                        component="li"
-                        variant="subtitle1"
-                        align="center"
-                        key={line}
+                        component="h2"
+                        variant="h3"
+                        color="text.primary"
                       >
-                        {line}
+                        ${tier.price}
                       </Typography>
-                    ))}
-                  </ul>
-                </CardContent>
-                <CardActions>
-                  <Button
-                    fullWidth
-                    variant={tier.buttonVariant}
-                    sx={{ backgroundColor: "#ac3b61", '&:hover': {
-                        backgroundColor: '#eee2dc',
-                        color: '#000000',
-                      },}}
-                      onClick={() => BuyPremium(tier.price, tier.Month)}
-                  >
-                    {tier.buttonText}
-                  </Button>
-                </CardActions>
-              </Card>
-            </Grid>
-          ))}
-        </Grid>
-      </Container>
-    </div>
+                    </Box>
+                    <ul>
+                      {tier.description.map((line) => (
+                        <Typography
+                          component="li"
+                          variant="subtitle1"
+                          align="center"
+                          key={line}
+                        >
+                          {line}
+                        </Typography>
+                      ))}
+                    </ul>
+                  </CardContent>
+                  <CardActions>
+                    <Button
+                      fullWidth
+                      variant={tier.buttonVariant}
+                      sx={{ backgroundColor: "#ac3b61", '&:hover': {
+                          backgroundColor: '#eee2dc',
+                          color: '#000000',
+                        },}}
+                        onClick={() => BuyPremium(tier.price, tier.Month)}
+                    >
+                      {tier.buttonText}
+                    </Button>
+                  </CardActions>
+                </Card>
+              </Grid>
+            ))}
+          </Grid>
+        </Container>
+      </div>
 
-    </ThemeProvider>
+      </ThemeProvider>
+    </div>
   );
   function BuyPremium(price, month){
     console.log(price + ' ' + month + ' ' +premiumId)
