@@ -84,12 +84,15 @@ function Pricing() {
         .then((res) => {
           // console.log(res.data[0].id);
           setPremiumId(res.data[0].id);
+          console.log('got it honey', premiumId)
+          console.log(res.data)
          
           
         })
         .catch((err) => {
-          // console.log(err)
-        });
+          console.log(err)
+
+        }); console.log(access_token)
 
   }, []);
 
