@@ -8,6 +8,7 @@ import CommentSection from './Pages/CommentSection/CommentSection';
 import Pricing from "./Components/PremiumPlans/Pricing";
 import Carddetails from "./Components/PaymentCard/Carddetails"
 import {Receipt} from "./Components/Receipt/Receipt"
+import SendEmail from './Pages/LoginSignUp/SendEmail';
 
 function App() {
   
@@ -46,6 +47,7 @@ function App() {
         </div>
       }/>
       <Route path="/payment" Component={Receipt} />
+      <Route path="/ForgotPassword" Component={SendEmail} />
     </Routes>
   );
 }

@@ -98,7 +98,7 @@ function LoginBarber(){
                     <label className="text-AteneoBlue-500 block mb-2 text-sm font-bold" for="Password">
                       Password
                     </label>
-                    <Link className="text-AteneoBlue-500 text-sm font-bold hover:text-AteneoBlue-300 focus:text-AteneoBlue-500">
+                    <Link to="/ForgotPassword" className="text-AteneoBlue-500 text-sm font-bold hover:text-AteneoBlue-300 focus:text-AteneoBlue-500">
                       Forgot Password?
                     </Link>
                   </div>
