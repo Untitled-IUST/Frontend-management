@@ -335,16 +335,28 @@ function ImageSlider() {
   let access_token = localStorage.getItem("accessTokenBarber");
 
   useEffect(() => {
-    axios
-      .get("https://amirmohammadkomijani.pythonanywhere.com/barber/categories/")
-      .then((response) => {
-        console.log(response.data.results);
-        setMydata(response.data.results);
-        setServicefront(response.data.results);
-        
-        
-      })
-      .catch((err) => console.log(err));
+    axios({
+      method: "get",
+      url: "https://amirmohammadkomijani.pythonanywhere.com/barber/categories/",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `JWT ${access_token}`,
+      },
+      
+    })
+    .then((response) => {
+      console.log(response);
+      setMydata(response.data.results);
+      setServicefront(response.data.results);
+      
+      
+    })
+      .catch((error) => {
+        console.warn(error);
+      });
+
+    
+    
   }, []);
 
   return (

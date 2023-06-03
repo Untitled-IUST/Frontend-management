@@ -82,7 +82,7 @@ function Pricing() {
           }
         )
         .then((res) => {
-          // console.log(res.data[0].id);
+          console.log(res.data[0]);
           setPremiumId(res.data[0].id);
          
           
