@@ -270,9 +270,9 @@ function ImageSlider() {
 
   const handleTabChange = (event, newIndex) => {
     setCurrentTabIndex(newIndex);
-    setCategoryIndex(data.categories[newIndex].id);
+    setCategoryIndex(data[newIndex].id);
 
-    localStorage.setItem("categoryId", data.categories[newIndex].id);
+    localStorage.setItem("categoryId", data[newIndex].id);
   };
 
   const [ShowComponent, setShowComponent] = useState({
@@ -336,11 +336,11 @@ function ImageSlider() {
 
   useEffect(() => {
     axios
-      .get("https://amirmohammadkomijani.pythonanywhere.com/barber/info/1/")
+      .get("https://amirmohammadkomijani.pythonanywhere.com/barber/categories/")
       .then((response) => {
-        console.log(response);
-        setMydata(response.data);
-        setServicefront(response.data.categories);
+        console.log(response.data.results);
+        setMydata(response.data.results);
+        setServicefront(response.data.results);
         
         
       })
@@ -426,6 +426,7 @@ function ImageSlider() {
                         sx={{ height: 140 }}
                         image={
                           x.servicePic
+                          
                             ? x.servicePic
                             : "https://s2.uupload.ir/files/a9d966e052bdeb38027ca58ac3217845_z5j6.jpg"
                         }
