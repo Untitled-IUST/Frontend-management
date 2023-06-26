@@ -500,16 +500,28 @@ function ImageSlider() {
             <div className="flex flex-col">
               <div className="flex flex-row justify-between">
               <Typography className="w-1/3" component="div">
-                <Box className='dis' sx={{ bgcolor: '#123c69', textAlign: 'left', fontSize: 25, fontFamily:'Roboto, ',p:3, m:2 , color:'#edc7b7', borderRadius:3 }}>
+                {/* <Box className='dis' sx={{ bgcolor: '#123c69', textAlign: 'left', fontSize: 25, fontFamily:'Roboto, ',p:3, m:2 , color:'#edc7b7', borderRadius:3 }}>
                   <InputModal label=" Add Title " value={title} onChange={(e) => setTitle(e.target.value)} />
+                  {title}
+                </Box> */}
+                <Box  className='dis' sx={{ bgcolor: '#123c69', width: 400,
+                        height: 80,textAlign: 'left', ml: '5%',fontSize: 25, mt:'15%' ,
+                        mb:-15.7,fontFamily:'Roboto, ',pr:3,pl:3 , color:'#edc7b7',borderRadius:3}}>
+                    <InputModal label=" Add Title " value={title} onChange={(e) => setTitle(e.target.value)} />
                   {title}
                 </Box>
               </Typography>
               <Typography  className="w-1/3" component="div">
-                <Box  className='dis1' sx={{ bgcolor: '#edc7b7', 
+                {/* <Box  className='dis1' sx={{ bgcolor: '#edc7b7', 
                 textAlign: 'left',fontSize: 25,fontFamily:'Roboto, ',p: 3 , m:2 , color:'#123c69',borderRadius:3}}>
                   <InputModal   label="Add Description" value={description} onChange={(e) => setDescription(e.target.value)} />
                   {description}
+                </Box> */}
+                <Box  className='dis1' sx={{ bgcolor: '#edc7b7', width:400,
+                      height: 510,textAlign: 'left', ml: '-30%' ,mt:'15%',
+                      fontSize: 25, mb:15,fontFamily:'Roboto, ',p: 3 , color:'#123c69',borderRadius:3}}>
+                    <InputModal   label="Add Description" value={description} onChange={(e) => setDescription(e.target.value)} />
+                      {description}
                 </Box>
               </Typography>
               </div>
@@ -528,7 +540,7 @@ function ImageSlider() {
               <div className="mx-auto flex justify-center">
                 <img
                 className='imdis'
-                style={{ width: '44%', height: 465, borderRadius: 10 }}
+                style={{ width: '40%', height: 400, marginLeft:'-55%', marginTop:-550, borderRadius: 10 }}
                 // src={URL.createObjectURL(image)}
                 // src={image}
                 src={imagePreviewUrl}
