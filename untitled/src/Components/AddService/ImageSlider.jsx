@@ -47,7 +47,7 @@ const stylepmr = {
 };
 
 
-function InputModal({ label, value, onChange }) {
+function InputModal({ label, value, onChange,maxlength }) {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -65,7 +65,7 @@ function InputModal({ label, value, onChange }) {
           <Typography id="modal-modal-title" variant="h6" component="h2">
             {label}
           </Typography>
-          <input type="text" value={value} onChange={onChange} />
+          <input type="text" value={value} onChange={onChange} maxlength={maxlength}/>
           <Button  className="bty" onClick={handleClose} sx={{color:"#ac3b61"}}>Close</Button>
         </Box>
       </Modal>
@@ -507,7 +507,7 @@ function ImageSlider() {
                 <Box  className='dis' sx={{ bgcolor: '#123c69', width: 400,
                         height: 80,textAlign: 'left', ml: '5%',fontSize: 25, mt:'15%' ,
                         mb:-15.7,fontFamily:'Roboto, ',pr:3,pl:3 , color:'#edc7b7',borderRadius:3}}>
-                    <InputModal label=" Add Title " value={title} onChange={(e) => setTitle(e.target.value)} />
+                    <InputModal label=" Add Title " value={title} onChange={(e) => setTitle(e.target.value)} maxlength={20} />
                   {title}
                 </Box>
               </Typography>
@@ -520,7 +520,7 @@ function ImageSlider() {
                 <Box  className='dis1' sx={{ bgcolor: '#edc7b7', width:400,
                       height: 510,textAlign: 'left', ml: '-30%' ,mt:'15%',
                       fontSize: 25, mb:15,fontFamily:'Roboto, ',p: 3 , color:'#123c69',borderRadius:3}}>
-                    <InputModal   label="Add Description" value={description} onChange={(e) => setDescription(e.target.value)} />
+                    <InputModal   label="Add Description" value={description} onChange={(e) => setDescription(e.target.value)} maxlength={200}  />
                       {description}
                 </Box>
               </Typography>
