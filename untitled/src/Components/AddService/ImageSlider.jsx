@@ -270,9 +270,9 @@ function ImageSlider() {
 
   const handleTabChange = (event, newIndex) => {
     setCurrentTabIndex(newIndex);
-    setCategoryIndex(data.categories[newIndex].id);
+    setCategoryIndex(data[newIndex].id);
 
-    localStorage.setItem("categoryId", data.categories[newIndex].id);
+    localStorage.setItem("categoryId", data[newIndex].id);
   };
 
   const [ShowComponent, setShowComponent] = useState({
@@ -335,16 +335,28 @@ function ImageSlider() {
   let access_token = localStorage.getItem("accessTokenBarber");
 
   useEffect(() => {
-    axios
-      .get("https://amirmohammadkomijani.pythonanywhere.com/barber/info/1/")
-      .then((response) => {
-        console.log(response);
-        setMydata(response.data);
-        setServicefront(response.data.categories);
-        
-        
-      })
-      .catch((err) => console.log(err));
+    axios({
+      method: "get",
+      url: "https://amirmohammadkomijani.pythonanywhere.com/barber/categories/",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `JWT ${access_token}`,
+      },
+      
+    })
+    .then((response) => {
+      console.log(response);
+      setMydata(response.data.results);
+      setServicefront(response.data.results);
+      
+      
+    })
+      .catch((error) => {
+        console.warn(error);
+      });
+
+    
+    
   }, []);
 
   return (
@@ -426,6 +438,7 @@ function ImageSlider() {
                         sx={{ height: 140 }}
                         image={
                           x.servicePic
+                          
                             ? x.servicePic
                             : "https://s2.uupload.ir/files/a9d966e052bdeb38027ca58ac3217845_z5j6.jpg"
                         }
@@ -484,33 +497,38 @@ function ImageSlider() {
             <>
           <form onSubmit={handleSubmit} >
                   
-
-                    <Typography component="div">
-                  <Box className='dis' sx={{ bgcolor: '#123c69', width: '45%', height: 90, textAlign: 'left', ml: '53%', fontSize: 25, mt:'1%', mb:-15.7, fontFamily:'Roboto, ', pt:1, pr:3, pl:3 , color:'#edc7b7', borderRadius:3 }}>
-                    <InputModal label=" Add Title " value={title} onChange={(e) => setTitle(e.target.value)} />
-                    {title}
-                  </Box>
-                </Typography>
+            <div className="flex flex-col">
+              <div className="flex flex-row justify-between">
+              <Typography className="w-1/3" component="div">
+                <Box className='dis' sx={{ bgcolor: '#123c69', textAlign: 'left', fontSize: 25, fontFamily:'Roboto, ',p:3, m:2 , color:'#edc7b7', borderRadius:3 }}>
+                  <InputModal label=" Add Title " value={title} onChange={(e) => setTitle(e.target.value)} />
+                  {title}
+                </Box>
+              </Typography>
+              <Typography  className="w-1/3" component="div">
+                <Box  className='dis1' sx={{ bgcolor: '#edc7b7', 
+                textAlign: 'left',fontSize: 25,fontFamily:'Roboto, ',p: 3 , m:2 , color:'#123c69',borderRadius:3}}>
+                  <InputModal   label="Add Description" value={description} onChange={(e) => setDescription(e.target.value)} />
+                  {description}
+                </Box>
+              </Typography>
+              </div>
+              <div className="flex items-center justify-center">
                 <ImageModal label="Add Image" onChange={(e) => {
                       setImage(e.target.files[0]);
                       setImagePreviewUrl(URL.createObjectURL(e.target.files[0]));
                       
                   }} />
-                <Typography component="div">
-            
-            <Box  className='dis1' sx={{ bgcolor: '#edc7b7', width:'45%',
-              height: 317,textAlign: 'left', ml: '53%' ,mt:'15%',fontSize: 25, mb:15,fontFamily:'Roboto, ',p: 3 , color:'#123c69',borderRadius:3}}>
-              <InputModal   label="Add Description" value={description} onChange={(e) => setDescription(e.target.value)} />
-              {description}
-            </Box>
-          </Typography>
+              </div>
+            </div>
     
+
           {image && (
             <>
-              <div>
+              <div className="mx-auto flex justify-center">
                 <img
                 className='imdis'
-                style={{ width: '44%', height: 465,  marginTop:'-60%',marginLeft:'2%', borderRadius: 10 }}
+                style={{ width: '44%', height: 465, borderRadius: 10 }}
                 // src={URL.createObjectURL(image)}
                 // src={image}
                 src={imagePreviewUrl}

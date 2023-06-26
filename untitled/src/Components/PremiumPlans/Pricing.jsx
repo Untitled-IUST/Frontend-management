@@ -20,7 +20,7 @@ import { useNavigate } from 'react-router-dom';
 const tiers = [
   {
     title: "1 MONTH",
-    Month: "1-month",
+    Month: "1",
     price: "5",
     description: [
       "10 users included",
@@ -33,7 +33,7 @@ const tiers = [
   },
   {
     title: "3 MONTHS",
-    Month: "3-month",
+    Month: "3",
     subheader: "Most popular",
     price: "15",
     description: [
@@ -47,7 +47,7 @@ const tiers = [
   },
   {
     title: "6 MONTHS",
-    Month: "6-month",
+    Month: "6",
     price: "25",
     description: [
       "50 users included",
@@ -82,7 +82,7 @@ function Pricing() {
           }
         )
         .then((res) => {
-          // console.log(res.data[0].id);
+          console.log(res.data[0]);
           setPremiumId(res.data[0].id);
           console.log('got it honey', premiumId)
           console.log(res.data)
@@ -100,92 +100,91 @@ function Pricing() {
 
   
   return (
-    
-    <ThemeProvider theme={defaultTheme}>
-      <div className="AllPremium">
-      <GlobalStyles
-        styles={{ ul: { margin: 0, padding: 0, listStyle: "none", } }}
-      />
-      <CssBaseline />
+    <div className="bg-WhiteChocolate-500 flex flex-row justify-center align-middle w-full">
+      <ThemeProvider theme={defaultTheme}>
+        <GlobalStyles
+          styles={{ ul: { margin: 0, padding: 0, listStyle: "none", } }}
+        />
+        <CssBaseline />
 
-      <Container maxWidth="md" component="main" className="middleContainer">
-        <Grid container spacing={5} alignItems="flex-end">
-          {tiers.map((tier) => (
-            // Enterprise card is full width at sm breakpoint
-            <Grid
-              item
-              key={tier.title}
-              xs={12}
-              sm={tier.title === "Enterprise" ? 12 : 6}
-              md={4}
-            >
-              <Card>
-                <CardHeader
-                  title={tier.title}
-                  subheader={tier.subheader}
-                  titleTypographyProps={{ align: "center" }}
-                  action={tier.title === "Pro" ? <StarIcon /> : null}
-                  subheaderTypographyProps={{
-                    align: "center",
-                  }}
-                  sx={{
-                    backgroundColor: (theme) =>
-                      theme.palette.mode === "light"
-                        ? theme.palette.grey[200]
-                        : theme.palette.grey[700],
-                  }}
-                />
-                <CardContent>
-                  <Box
-                    sx={{
-                      display: "flex",
-                      justifyContent: "center",
-                      alignItems: "baseline",
-                      mb: 2,
+        <Container maxWidth="md" component="main" className="middleContainer">
+          <Grid container spacing={5} alignItems="flex-end">
+            {tiers.map((tier) => (
+              // Enterprise card is full width at sm breakpoint
+              <Grid
+                item
+                key={tier.title}
+                xs={12}
+                sm={tier.title === "Enterprise" ? 12 : 6}
+                md={4}
+              >
+                <Card>
+                  <CardHeader
+                    title={tier.title}
+                    subheader={tier.subheader}
+                    titleTypographyProps={{ align: "center" }}
+                    action={tier.title === "Pro" ? <StarIcon /> : null}
+                    subheaderTypographyProps={{
+                      align: "center",
                     }}
-                  >
-                    <Typography
-                      component="h2"
-                      variant="h3"
-                      color="text.primary"
+                    sx={{
+                      backgroundColor: (theme) =>
+                        theme.palette.mode === "light"
+                          ? theme.palette.grey[200]
+                          : theme.palette.grey[700],
+                    }}
+                  />
+                  <CardContent>
+                    <Box
+                      sx={{
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "baseline",
+                        mb: 2,
+                      }}
                     >
-                      ${tier.price}
-                    </Typography>
-                  </Box>
-                  <ul>
-                    {tier.description.map((line) => (
                       <Typography
-                        component="li"
-                        variant="subtitle1"
-                        align="center"
-                        key={line}
+                        component="h2"
+                        variant="h3"
+                        color="text.primary"
                       >
-                        {line}
+                        ${tier.price}
                       </Typography>
-                    ))}
-                  </ul>
-                </CardContent>
-                <CardActions>
-                  <Button
-                    fullWidth
-                    variant={tier.buttonVariant}
-                    sx={{ backgroundColor: "#ac3b61", '&:hover': {
-                        backgroundColor: '#eee2dc',
-                        color: '#000000',
-                      },}}
-                      onClick={() => BuyPremium(tier.price, tier.Month)}
-                  >
-                    {tier.buttonText}
-                  </Button>
-                </CardActions>
-              </Card>
-            </Grid>
-          ))}
-        </Grid>
-      </Container>
-    </div>
+                    </Box>
+                    <ul>
+                      {tier.description.map((line) => (
+                        <Typography
+                          component="li"
+                          variant="subtitle1"
+                          align="center"
+                          key={line}
+                        >
+                          {line}
+                        </Typography>
+                      ))}
+                    </ul>
+                  </CardContent>
+                  <CardActions>
+                    <Button
+                      fullWidth
+                      variant={tier.buttonVariant}
+                      sx={{ backgroundColor: "#ac3b61", '&:hover': {
+                          backgroundColor: '#eee2dc',
+                          color: '#000000',
+                        },}}
+                        onClick={() => BuyPremium(tier.price, tier.Month)}
+                    >
+                      {tier.buttonText}
+                    </Button>
+                  </CardActions>
+                </Card>
+              </Grid>
+            ))}
+          </Grid>
+        </Container>
 
-    </ThemeProvider>
+      </ThemeProvider>
+    </div>
   );
   function BuyPremium(price, month){
     console.log(price + ' ' + month + ' ' +premiumId)
@@ -197,7 +196,7 @@ function Pricing() {
           Authorization: `JWT ${access_token}`,
         },
         data: {
-          Month: month,
+          month: month,
         },
       })
         .then((res) => {

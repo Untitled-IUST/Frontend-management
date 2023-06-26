@@ -3,9 +3,10 @@ import { useState, useEffect } from "react";
 import { Tab } from "@headlessui/react";
 import {IonIcon} from '@ionic/react';
 import {time} from 'ionicons/icons';
+import axios from "axios"; 
 
 function OrderHistory() {
-
+  const [id ,setId] = useState(null);
   const [date, setDate] = useState(new Date().toISOString().substring(0,10));
   const [data ,setData] = useState([]);
   const [AllData , setAllData] = useState([]);
@@ -13,11 +14,12 @@ function OrderHistory() {
   const [CanceledByMeData , setCenceledByMeData] = useState([]);
   const [CanceledByCustomerData , setCenceledByCustomerData] = useState([]);
   const [CustomerDidntArriveData , setCustomerDidntArriveData] = useState([]);
-
+  const [OrderingData , setOrderingData] = useState([]);
+  const [acceptOrReject , setAR] = useState(null);
   const accessTokenBarber = localStorage.getItem('accessTokenBarber');
   const [selectedIndex , setSelectedIndex] = useState(0);
   const Filters = [
-    "All" ,"Done", "Canceled by me" , "Canceled by customer" , "Customer didnt arrive" 
+    "All" ,"Done", "Canceled by me" , "Canceled by customer" , "Customer didnt arrive" , "Ordering"
   ]
   
   useEffect(() => {
@@ -35,6 +37,9 @@ function OrderHistory() {
     }
     else if(selectedIndex === 4){
       setData(CustomerDidntArriveData);
+    }
+    else if(selectedIndex === 5){
+      setData(OrderingData);
     }
   },[selectedIndex])
 
@@ -72,14 +77,40 @@ function OrderHistory() {
       const fetchedData = await response.json();
       setCustomerDidntArriveData(fetchedData.results);
     }
+    async function fetchOrdering(url,options){
+      const response = await fetch(url,options);
+      const fetchedData = await response.json();
+      setOrderingData(fetchedData.results);
+    }
     fetchData((url+"?status=&date="+date),options);
     fetchDoneData((url+"?status=Done&date="+date),options);
     fetchCanceledByMeData((url+"?status=BarberCancelled&date="+date),options);
     fetchCanceledByCustomerData((url+"?status=CustomerCancelled&date="+date),options);
     fetchCustomerDidntArriveData((url+"?status=CustomerNotCome&date="+date),options);
+    fetchOrdering((url+"?status=ordering&date="+date),options);
   },[date])
 
-  
+  const handleOrderAcceptOrReject = () => {
+    const url = `https://amirmohammadkomijani.pythonanywhere.com/barber/panel/${id}/`;
+    axios({
+      url : url,
+      method : "put",
+      headers :{
+        Authorization : `JWT ${accessTokenBarber}`,
+        'Content-Type' : 'application/json'
+      },
+      data : {
+        status : acceptOrReject
+      }
+    })
+    .then((res) => {
+      alert('done')
+    })
+    .catch((error) => {
+      alert("you cant accept or reject the orders in the past");
+    })
+  }
+
   function classNames(...classes){
     return classes.filter(Boolean).join(' ')
   }
@@ -153,6 +184,14 @@ function OrderHistory() {
                             <p className="p-0.5 px-1 text-white text-base font-bold">{order.status}</p>
                           </div>
                         </div>
+                        {selectedIndex === 5 ? (
+                            <div className="flex flex-row py-2 mx-2 mt-2">
+                              <button onClick={() => {setAR("confirmed"); setId(order.id); handleOrderAcceptOrReject();}} className="hover:scale-105 mx-1 bg-green-500 py-2 px-2 text-white font-bold rounded">Accept</button>
+                              <button onClick={() => {setAR("BarberCanceled"); setId(order.id); handleOrderAcceptOrReject();}} className="hover:scale-105 mx-1 bg-red-500 py-2 px-2 text-white font-bold rounded">Reject</button>
+                            </div>
+                          ):(
+                            <div></div>
+                          )}
                       </div>
                       
                     ))):

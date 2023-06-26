@@ -8,12 +8,15 @@ import CommentSection from './Pages/CommentSection/CommentSection';
 import Pricing from "./Components/PremiumPlans/Pricing";
 import Carddetails from "./Components/PaymentCard/Carddetails"
 import {Receipt} from "./Components/Receipt/Receipt"
+import SendEmail from './Pages/LoginSignUp/SendEmail';
+import Landing from "./Pages/Landing/Landing";
 
 function App() {
   
   return (
     <Routes>
-      <Route path="/" Component={LoginBarber}/>
+      <Route path="/" Component={Landing}/>
+      <Route path="/LoginBarber" Component={LoginBarber}/>
       <Route path="/SignUpBarber" Component={SignUpBarber} />
       <Route path="/OrderHistory" element={
         <div id="app" style={({ height: "100vh" }, { display: "flex" })}>
@@ -46,6 +49,7 @@ function App() {
         </div>
       }/>
       <Route path="/payment" Component={Receipt} />
+      <Route path="/ForgotPassword" Component={SendEmail} />
     </Routes>
   );
 }

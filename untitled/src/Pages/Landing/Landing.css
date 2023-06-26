@@ -1,0 +1,176 @@
+.landingAll {
+  background-image: url("./Untitled-design.jpg");
+  background-size: cover;
+  min-height: 100vh;
+
+   /* Add the blur effect */
+
+}
+
+.landingNav {
+  height: 70px;
+  background-color: #ac3b61;
+  display: flex;
+
+}
+
+.nameButton {
+  color: #161616;
+  border: none;
+  margin-top: auto;
+  margin-bottom: auto;
+  margin-left: 5%;
+  font-size: 2rem;
+  font-weight: bolder;
+  background-color: #ac3b61;
+  cursor: pointer;
+}
+
+.navButtons {
+  color: black;
+  border: none;
+  margin-top: auto;
+  margin-bottom: auto;
+  font-size: 1rem;
+  font-weight: bolder;
+  background-color: #eeba2c;
+  margin-left: 20px;
+  cursor: pointer;
+  background-color: rgba(0, 0, 0, 0.097);
+  padding: 12px;
+  border-radius: 10px;
+}
+
+.navButtons:hover {
+  color: #eee2dc;
+  background-color: #161616;
+  transition-duration: 0.4s;
+}
+
+.navLogin {
+  color: black;
+  border: 1px solid black ;
+  margin-top: auto;
+  margin-bottom: auto;
+  font-size: 1rem;
+  font-weight: bolder;
+  background-color: #F2D6CA;
+  margin-right: 5%;
+  margin-left: auto;
+  cursor: pointer;
+  float: right;
+  padding: 10px;
+  border-radius: 8px;
+}
+
+.navLogin:hover {
+  color: #eeba2c;
+  margin-top: auto;
+  margin-bottom: auto;
+  font-size: 1rem;
+  font-weight: bolder;
+  background-color: #161616;
+  margin-right: 5%;
+  margin-left: auto;
+  cursor: pointer;
+  float: right;
+  padding: 10px;
+  border-radius: 10px;
+  transition-duration: 0.4s;
+}
+
+.landingTitleHolder {
+  margin-left: 10%;
+  margin-top: 30px;
+  max-width: 800px;
+}
+
+.landingSubTitle {
+  color: white;
+  margin-bottom: -30px;
+  font-size: large;
+  max-width: 100%;
+}
+
+.landingTitle {
+  color: Black;
+  font-size: 5rem;
+  font-weight: bolder;
+}
+
+.landingDetails {
+  color: white;
+  /* margin-top: -70px; */
+  font-size: large;
+}
+
+.landingButton {
+  border: none;
+  background-color: #ac3b61;
+  color: black;
+  font-size: 1.5rem;
+  font-weight: bolder;
+  margin-top: 50px;
+  padding: 20px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.landingButton:hover {
+  background-color: black;
+  color: #F2D6CA;
+  transition-duration: 0.4s;
+}
+
+.landingFooter {
+  display: flex;
+  color: white;
+  margin-left: 10%;
+  margin-top: 50px;
+}
+
+.landingPhoneNumber {
+  margin-right: 20px;
+  background-color: rgba(255, 255, 255, 0.097);
+  padding-top: 5px;
+  padding-bottom: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
+  border-radius: 15px;
+  transition-duration: 0.4s;
+}
+
+.landingPhoneNumber:hover {
+  transform: scale(1.1);
+  transition-duration: 0.4s;
+  background-color: #161616;
+}
+
+.landingPhoneTitle{
+  font-weight: bolder ;
+  font-size: 1.5rem;
+  margin-top: 20px;
+}
+
+.landingAddress{
+  background-color: rgba(255, 255, 255, 0.097);
+  padding-top: 5px;
+  padding-bottom: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
+  border-radius: 15px;
+  transition-duration: 0.4s;
+}
+
+.landingAddress:hover {
+  transform: scale(1.1);
+  transition-duration: 0.4s;
+  background-color: #161616;
+}
+
+.landingQuotes{
+  color: Black;
+  font-size: 1.2rem;
+  font-weight: bolder;
+  margin-left: 50px;
+}
