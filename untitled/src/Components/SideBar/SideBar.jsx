@@ -106,6 +106,12 @@ function SideBar() {
           Comment Section
         </MenuItem>
         <MenuItem
+          icon={<StorefrontIcon />}
+          component={<Link to="/Profile" />}
+        >
+          Profile
+        </MenuItem>
+        <MenuItem
           icon={<LogoutIcon />}
           onClick={() => {
             localStorage.removeItem("accessTokenBarber");

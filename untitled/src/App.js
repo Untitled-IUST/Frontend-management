@@ -10,6 +10,7 @@ import Carddetails from "./Components/PaymentCard/Carddetails"
 import {Receipt} from "./Components/Receipt/Receipt"
 import SendEmail from './Pages/LoginSignUp/SendEmail';
 import Landing from "./Pages/Landing/Landing";
+import EditProfilePage from './Pages/Profile/Profile';
 
 function App() {
   
@@ -18,6 +19,7 @@ function App() {
       <Route path="/" Component={Landing}/>
       <Route path="/LoginBarber" Component={LoginBarber}/>
       <Route path="/SignUpBarber" Component={SignUpBarber} />
+      <Route path="/Profile" Component={EditProfilePage} />
       <Route path="/OrderHistory" element={
         <div id="app" style={({ height: "100vh" }, { display: "flex" })}>
           <SideBar />

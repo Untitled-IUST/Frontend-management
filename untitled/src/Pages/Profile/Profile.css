@@ -1,0 +1,13 @@
+.whole{
+    display: flex;
+    flex-direction: row;
+
+    justify-content: space-evenly;
+    background-color: #eee2dc;
+    height: 100vh;
+    align-items: baseline;
+
+}
+.css-uzaqbr-MuiPaper-root-MuiCard-root{
+    background-color:#eee2dc !important;
+}
