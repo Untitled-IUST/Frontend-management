@@ -1,3 +1,7 @@
+@import url("https://fonts.googleapis.com/css?family=Baloo+Bhaijaan|Ubuntu");
+*{
+  font-family: "Ubuntu", sans-serif;
+}
 .whole{
     display: flex;
     flex-direction: row;
@@ -5,9 +9,73 @@
     justify-content: space-evenly;
     background-color: #eee2dc;
     height: 100vh;
-    align-items: baseline;
+    width: 100%;
+    align-items: center;
 
 }
+
 .css-uzaqbr-MuiPaper-root-MuiCard-root{
-    background-color:#eee2dc !important;
+    background-color:#edc7b7 !important;
+}
+.css-uzaqbr-MuiPaper-root-MuiCard-root {
+    width: 310px !important;
+    object-position: 25% 53% !important; 
+    height: 120px !important;
+    margin-bottom: 35%;
+}
+.css-14s5rfu-MuiFormLabel-root-MuiInputLabel-root {
+    top: -30% !important;
+    font-family: "Ubuntu", sans-serif !important;
+    color: #123c69 !important;
+}
+.css-9ddj71-MuiInputBase-root-MuiOutlinedInput-root {
+    height: 35px !important;
+}
+.typo{
+    font-family: "Ubuntu", sans-serif !important;
+    margin-bottom: 10%!important;
+    font-size: 34px !important;
+}
+
+.css-9ddj71-MuiInputBase-root-MuiOutlinedInput-root {
+    border-radius: 10px !important;
+    font-size: 15px !important;
+    width: 250px !important;
+    font-family: "Ubuntu", sans-serif !important;
+    color: #123c69 !important;
+
+}
+.css-1pbiltd-MuiPaper-root-MuiCard-root {
+    background-color: #edc7b7 !important;
+    border-radius: 25px !important;
+}
+.css-uzaqbr-MuiPaper-root-MuiCard-root {
+    border-radius: 15px !important;
+    width: 265px !important;
+
+}
+.custom-file-upload{
+    color: #123c69 !important;
+    margin-left: 5% !important;
+}
+.inipini1{
+    font-family: "Ubuntu", sans-serif !important;
+    color: #edc7b7 !important;
+    padding: 2% !important;
+    border-radius: 15px !important;
+
+    background-color:#ac3b61  !important;
+  }
+@media only screen and (max-width:1200px){
+    .whole{
+        flex-direction: column !important;
+    }
+    .css-9ddj71-MuiInputBase-root-MuiOutlinedInput-root {
+        width: 90% !important;
+        font-size: 6.5px !important;
+    }
+    .css-13dbln6 {
+        height: 50% !important;
+    }
+
 }

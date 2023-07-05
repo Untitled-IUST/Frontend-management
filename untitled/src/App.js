@@ -19,7 +19,12 @@ function App() {
       <Route path="/" Component={Landing}/>
       <Route path="/LoginBarber" Component={LoginBarber}/>
       <Route path="/SignUpBarber" Component={SignUpBarber} />
-      <Route path="/Profile" Component={EditProfilePage} />
+      <Route path="/Profile" element={
+        <div id="app" style={({ display: "flex" })}>
+          <SideBar/>
+          <EditProfilePage/>
+        </div>
+      }/>
       <Route path="/OrderHistory" element={
         <div id="app" style={({ height: "100vh" }, { display: "flex" })}>
           <SideBar />
