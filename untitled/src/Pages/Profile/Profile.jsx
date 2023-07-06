@@ -13,13 +13,15 @@ import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import { styled } from '@mui/material/styles';
 import Button from '@mui/material/Button';
 import axios from 'axios';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import CardContent from '@mui/material/CardContent';
 
 export default function EditProfilePage() {
 
     const theme = useTheme();
     const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
     const isLargeScreen = useMediaQuery(theme.breakpoints.up('lg'));
+    
 
     const handleLogoChange = (event) => {
       setLogo(URL.createObjectURL(event.target.files[0]));
@@ -36,6 +38,26 @@ export default function EditProfilePage() {
           borderBottomColor: '#123c69',
         },
       })
+      const [parvanehError, setParvanehError] = useState(false);
+      const [phoneNumberError, setPhoneNumberError] = useState(false);
+      
+      const handleParvanehChange = (e) => {
+        setParvaneh(e.target.value);
+        if (e.target.value.length !== 10) {
+          setParvanehError(true);
+        } else {
+          setParvanehError(false);
+        }
+      };
+      
+      const handlePhoneNumberChange = (e) => {
+        setPhoneNumber(e.target.value);
+        if (e.target.value.length !== 11) {
+          setPhoneNumberError(true);
+        } else {
+          setPhoneNumberError(false);
+        }
+      };
     const [barberShopName, setBarberShopName] = useState('');
     const [owner, setOwner] = useState('');
     const [parvaneh, setParvaneh] = useState('');
@@ -75,6 +97,15 @@ export default function EditProfilePage() {
             // Handle the error
           });
       }
+      const [boxHeight, setBoxHeight] = useState('50%');
+
+        useEffect(() => {
+        if (parvanehError || phoneNumberError) {
+            setBoxHeight('54%');
+        } else {
+            setBoxHeight('50%');
+        }
+        }, [parvanehError, phoneNumberError]);
     
 
 
@@ -88,6 +119,7 @@ export default function EditProfilePage() {
         display: 'flex',
         flexDirection: "row",
         gap: '16px',
+
       }}
       noValidate
       autoComplete="off"
@@ -110,6 +142,7 @@ export default function EditProfilePage() {
         borderRadius:"10px",
         justifyItems:'center',
         fontFamily:'Roboto, ',
+        boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.7)'
  
         
       }}
@@ -130,20 +163,26 @@ export default function EditProfilePage() {
         value={owner}
         onChange={(e) => setOwner(e.target.value)}
       />
-      <TextField
-        id="parvaneh"
-        label="Parvaneh"
-        variant="outlined"
-        value={parvaneh}
-        onChange={(e) => setParvaneh(e.target.value)}
-      />
-      <TextField
-        id="phone-number"
-        label="Phone Number"
-        variant="outlined"
-        value={phoneNumber}
-        onChange={(e) => setPhoneNumber(e.target.value)}
-      />
+    <TextField
+    id="parvaneh"
+    label="Parvaneh"
+    variant="outlined"
+    value={parvaneh}
+    onChange={handleParvanehChange}
+    inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
+    error={parvanehError}
+    helperText={parvanehError ? 'Parvaneh Is incorrect' : ''}
+    />
+    <TextField
+    id="phone-number"
+    label="Phone Number"
+    variant="outlined"
+    value={phoneNumber}
+    onChange={handlePhoneNumberChange}
+    inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
+    error={phoneNumberError}
+    helperText={phoneNumberError ? 'Phone Number Is incorrect' : ''}
+    />
       <TextField
         id="area"
         label="Area"
@@ -161,12 +200,13 @@ export default function EditProfilePage() {
 
 
     </Box>
-    {isLargeScreen && <Button type="submit" className='inipini1'>Submit</Button>}
+    {isLargeScreen && <Button type="submit" className='inipini1' sx={{ fontFamily:'Roboto, ',}}>Submit</Button>}
     </div>
 
       <Box sx={{display: "flex",position: "relative", flexDirection: "column", 
       flexWrap: "wrap", gap: "16px", backgroundColor:"#edc7b7 ",
-      height:'50%',borderRadius:"10px" ,
+      height:boxHeight,borderRadius:"10px" ,marginBottom:'3.5%',
+      boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.7)'
    
       }}  >
       <Card sx={{ width: isSmallScreen ? '265px' : 200 }}>
@@ -191,12 +231,17 @@ export default function EditProfilePage() {
             width: isSmallScreen ? '100%' : '310px',
             objectPosition: '25% 53%',
             height: '120px',
-            marginBottom: '25%',
+            marginBottom: '5%',
             backgroundColor:'#edc7b7'
           }}
         />
-      </Card>
 
+
+        
+      </Card>
+      <Typography sx={{color:"#123c69", display:'flex', justifyContent:'center'}}>
+      {barberShopName}
+      </Typography>
       <label htmlFor="logo-upload" className="custom-file-upload" >
           <i className="fa fa-cloud-upload"></i> 
           <CloudUploadIcon /> Upload Logo
@@ -222,7 +267,7 @@ export default function EditProfilePage() {
      
 
     </Box>
-    { !(isLargeScreen) && <Button type="submit" className='inipini1'>Submit</Button>}
+    { !(isLargeScreen) && <Button type="submit" className='inipini1' sx={{ fontFamily:'Roboto, ',}}>Submit</Button>}
 
 </div>
   );
