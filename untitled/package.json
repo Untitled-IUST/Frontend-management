@@ -28,10 +28,13 @@
     "react-circle-progress-bar": "^0.1.4",
     "react-circular-progressbar": "^2.1.0",
     "react-dom": "^18.2.0",
+    "react-icons": "^4.10.1",
     "react-move": "^6.5.0",
     "react-pro-sidebar": "^1.0.0",
     "react-router-dom": "^6.10.0",
     "react-scripts": "5.0.1",
+    "react-slick": "^0.29.0",
+    "slick-carousel": "^1.8.1",
     "styled-components": "^5.3.10",
     "web-vitals": "^2.1.4"
   },

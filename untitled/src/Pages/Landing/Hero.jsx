@@ -2,12 +2,19 @@ import { Box, Button, styled, Typography } from "@mui/material";
 import { Container } from "@mui/system";
 import React from "react";
 import Navbar from "./Navbar";
-
-import heroImg from "../../Components/media/3.png";
+import { SliderData } from '../../Components/SliderData';
+import { useState, useEffect } from 'react';
+import "slick-carousel/slick/slick-theme.css";
+import Img from "../../Components/media/3.png";
+import Img1 from "../../Components/media/20.png";
+import Img2 from "../../Components/media/21.png";
 import CustomButton from "./CustomButton";
+import { FaArrowAltCircleRight, FaArrowAltCircleLeft } from 'react-icons/fa';
 import './1.css'
 
-const Hero = () => {
+const Hero = ({ slides }) => {
+  const [current, setCurrent] = useState(0);
+  const length = slides.length;
   const CustomBox = styled(Box)(({ theme }) => ({
     display: "flex",
     justifyContent: "center",
@@ -19,6 +26,7 @@ const Hero = () => {
       textAlign: "center",
     },
   }));
+  const images = [Img, Img1, Img2];
 
   const Title = styled(Typography)(({ theme }) => ({
     fontSize: "64px",
@@ -29,9 +37,19 @@ const Hero = () => {
       fontSize: "40px",
     },
   }));
+  const nextSlide = () => {
+    setCurrent(current === length - 1 ? 0 : current + 1);
+  };
 
+const prevSlide = () => {
+    setCurrent(current === 0 ? length - 1 : current - 1);
+  };
+
+  if (!Array.isArray(slides) || slides.length <= 0) {
+    return null;
+  }
   return (
-    <Box sx={{ backgroundColor: "#edc7b7 ", minHeight: "80vh" }}>
+    <Box sx={{ backgroundColor: "", minHeight: "80vh" }}>
       <Container>
         <Navbar />
         <CustomBox>
@@ -65,16 +83,26 @@ const Hero = () => {
               heroBtn={true}
             />
           </Box>
-
-          <Box sx={{ flex: "1.25" }}>
-            <img
-              src={heroImg}
-              alt="heroImg"
-              style={{ maxWidth: "100%", marginBottom: "5rem", marginLeft:"3rem", borderRadius:"10px" }}
-            />
-          </Box>
+          <section className='slider'>
+          <FaArrowAltCircleLeft className='left-arrow' onClick={prevSlide} />
+          <FaArrowAltCircleRight className='right-arrow' onClick={nextSlide} />
+          {SliderData.map((slide, index) => {
+            return (
+              <div
+                className={index === current ? 'slide active' : 'slide'}
+                key={index}
+              >
+                {index === current && (
+                  <img src={slide.image} alt='barber image' className='image' />
+                )}
+              </div>
+            );
+          })}
+        </section>
         </CustomBox>
+
       </Container>
+    
     </Box>
   );
 };

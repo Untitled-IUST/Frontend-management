@@ -14,7 +14,7 @@ import { styled } from '@mui/material/styles';
 import Button from '@mui/material/Button';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
-import CardContent from '@mui/material/CardContent';
+import { Select, MenuItem, FormControl, InputLabel } from '@mui/material';
 
 export default function EditProfilePage() {
 
@@ -23,7 +23,24 @@ export default function EditProfilePage() {
     const isLargeScreen = useMediaQuery(theme.breakpoints.up('lg'));
     const [logoFile, setLogoFile] = useState(null);
     const [backgroundFile, setBackgroundFile] = useState(null);
-
+    const areas = [
+        'Tehranpars',
+        'Nazi Abad',
+        'Narmak',
+        'Tajrish',
+        'Gheytariye',
+        'Marzdaran',
+        'Janat Abad',
+        'Vanak',
+        'Enghelab',
+        'Valiasr',
+        'Saadat Abad',
+        'Piroozi',
+        'Jordan'
+      ];
+    const handleAreaChange = (e) => {
+        setArea(e.target.value);
+      }
     const handleLogoChange = (event) => {
         setLogo(URL.createObjectURL(event.target.files[0]));
         setLogoFile(event.target.files[0]); // Store the file object in state
@@ -33,14 +50,7 @@ export default function EditProfilePage() {
         setBackground(URL.createObjectURL(event.target.files[0]));
         setBackgroundFile(event.target.files[0]); // Store the file object in state
       };
-    const CustomTextField = styled(TextField)({
-        '& label.Mui-focused': {
-          color: '#123c69',
-        },
-        '& .MuiInput-underline:after': {
-          borderBottomColor: '#123c69',
-        },
-      })
+
       const [parvanehError, setParvanehError] = useState(false);
       const [phoneNumberError, setPhoneNumberError] = useState(false);
       
@@ -70,17 +80,45 @@ export default function EditProfilePage() {
     const [address, setAddress] = useState('');
     const [logo, setLogo] = useState(null);
     const [background, setBackground] = useState(null);
+    const[username,setUsername]= useState('');
+    const[password,setPassword]= useState('');
+    useEffect(() => {
+        console.log(access_token);
+        axios.get('https://amirmohammadkomijani.pythonanywhere.com/barber/profile/me/', {
+          headers: {
+            'Authorization': `JWT ${access_token}`,
+            'Content-Type': 'application/json',
+          }
+        })
+        .then((response) => {
+         console.log('info',response.data)
+          setBarberShopName(response.data.BarberShop);
+          setOwner(response.data.Owner)
+          setParvaneh(response.data.Parvaneh)
+          setPhoneNumber(response.data.phone_Number)
+          setArea(response.data.area)
+          setAddress(response.data.address);
+          setBackground(response.data.background)
+          setLogo(response.data.logo)
+          setUsername(response.data.user.username)
+          setPassword(response.data.user.password)
 
+        })
+        .catch(err => console.log(err))
+      }, [])
     function handleSubmit(event) {
         event.preventDefault();
         // Create a FormData object
         const formData = new FormData();
+
         formData.append('BarberShop', barberShopName);
         formData.append('Owner', owner);
         formData.append('Parvaneh', parvaneh);
         formData.append('phone_Number', phoneNumber);
         formData.append('area', area);
         formData.append('address', address);
+        formData.append('user.username', username);
+        formData.append('user.password', password);
         if (logoFile) {
           formData.append('logo', logoFile); // Append the file object instead of the URL string
         }
@@ -97,19 +135,20 @@ export default function EditProfilePage() {
               },
         })
           .then(response => {
-            console.log(response.data)
+            console.log('didit dear',response.data);
+
           })
           .catch(error => {
             console.log(error)
           });
       }
-      const [boxHeight, setBoxHeight] = useState('50%');
+      const [boxHeight, setBoxHeight] = useState('60%');
 
         useEffect(() => {
         if (parvanehError || phoneNumberError) {
-            setBoxHeight('54%');
+            setBoxHeight('57%');
         } else {
-            setBoxHeight('50%');
+            setBoxHeight('53%');
         }
         }, [parvanehError, phoneNumberError]);
     
@@ -137,7 +176,7 @@ export default function EditProfilePage() {
       component="form"
       sx={{
         flex: "1.25", 
-        '& > :not(style)': { m: 1 },
+        '& > :not(style)': { m: 1 ,},
         display: "grid",
         gridTemplateColumns: "repeat(2, 1fr)",
         gridGap: "16px",
@@ -145,6 +184,8 @@ export default function EditProfilePage() {
         justifyContent:'center',
         backgroundColor:"#edc7b7 ",
         padding:'5%',
+        marginLeft:isLargeScreen ? '-2%' : '0%',
+        width: isLargeScreen ? '750px' : '100%',
         borderRadius:"10px",
         justifyItems:'center',
         fontFamily:'Roboto, ',
@@ -189,13 +230,22 @@ export default function EditProfilePage() {
     error={phoneNumberError}
     helperText={phoneNumberError ? 'Phone Number Is incorrect' : ''}
     />
-      <TextField
+    <FormControl variant="outlined">
+      <InputLabel id="area-label">Area</InputLabel>
+      <Select
+        labelId="area-label"
         id="area"
-        label="Area"
-        variant="outlined"
         value={area}
-        onChange={(e) => setArea(e.target.value)}
-      />
+        onChange={handleAreaChange}
+        label="Area"
+      >
+        {areas.map((option) => (
+          <MenuItem key={option} value={option}>
+            {option}
+          </MenuItem>
+        ))}
+      </Select>
+    </FormControl>
       <TextField
         id="address"
         label="Address"
@@ -203,16 +253,32 @@ export default function EditProfilePage() {
         value={address}
         onChange={(e) => setAddress(e.target.value)}
       />
+        <TextField
+        id="username"
+        label="Username"
+        variant="outlined"
+        value={username}
+        onChange={(e) => setUsername(e.target.value)}
+        />
+        <TextField
+        id="password"
+        label="Password"
+        variant="outlined"
+        type="password"
+        value={password}
+        disabled={true}
+        onChange={(e) => setPassword(e.target.value)}
+        />
 
 
     </Box>
     {isLargeScreen && <Button type="submit" className='inipini1' sx={{ fontFamily:'Roboto, ',}}
-    onClick={handleSubmit}>Submit</Button>}
+    onClick={handleSubmit}>Update And Save</Button>}
     </div>
 
       <Box sx={{display: "flex",position: "relative", flexDirection: "column", 
       flexWrap: "wrap", gap: "16px", backgroundColor:"#edc7b7 ",
-      height:boxHeight,borderRadius:"10px" ,marginBottom:'3.5%',
+      height:boxHeight,borderRadius:"10px" ,marginBottom:isLargeScreen ?'-3%':'1.5%',
       boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.7)'
    
       }}  >
@@ -275,7 +341,7 @@ export default function EditProfilePage() {
 
     </Box>
     { !(isLargeScreen) && <Button type="submit" className='inipini1' sx={{ fontFamily:'Roboto, ',}}
-    onClick={handleSubmit}>Submit</Button>}
+    onClick={handleSubmit}>Update And Save</Button>}
 
 </div>
   );
