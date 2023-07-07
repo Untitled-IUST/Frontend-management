@@ -14,9 +14,11 @@ import "./ImageSlider.css";
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
-import Box from '@mui/material/Box';
+import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
-
+import Alert from "@mui/material/Alert";
+import Stack from "@mui/material/Stack";
+import AlertTitle from "@mui/material/AlertTitle";
 
 const styleB = {
   top: "50%",
@@ -35,17 +37,16 @@ const styleB = {
   alignItems: "center",
 };
 const stylepmr = {
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
   width: 400,
-  bgcolor: '#edc7b7',
+  bgcolor: "#edc7b7",
   boxShadow: 24,
   p: 4,
-  fontFamily:'Roboto, '
+  fontFamily: "Roboto, ",
 };
-
 
 function InputModal({ label, value, onChange }) {
   const [open, setOpen] = useState(false);
@@ -54,7 +55,12 @@ function InputModal({ label, value, onChange }) {
 
   return (
     <div>
-      <Button sx={{color:"#BAB2B5", fontFamily:'Roboto, '}} onClick={handleOpen}>{label}</Button>
+      <Button
+        sx={{ color: "#BAB2B5", fontFamily: "Roboto, " }}
+        onClick={handleOpen}
+      >
+        {label}
+      </Button>
       <Modal
         open={open}
         onClose={handleClose}
@@ -66,7 +72,13 @@ function InputModal({ label, value, onChange }) {
             {label}
           </Typography>
           <input type="text" value={value} onChange={onChange} />
-          <Button  className="bty" onClick={handleClose} sx={{color:"#ac3b61"}}>Close</Button>
+          <Button
+            className="bty"
+            onClick={handleClose}
+            sx={{ color: "#ac3b61" }}
+          >
+            Close
+          </Button>
         </Box>
       </Modal>
     </div>
@@ -80,7 +92,9 @@ function ImageModal({ label, onChange }) {
 
   return (
     <div>
-      <Button onClick={handleOpen}sx={{color:"#AC3B61" ,marginLeft:'2%'}}>{label}</Button>
+      <Button onClick={handleOpen} sx={{ color: "#AC3B61", marginLeft: "2%" }}>
+        {label}
+      </Button>
       <Modal
         open={open}
         onClose={handleClose}
@@ -92,7 +106,9 @@ function ImageModal({ label, onChange }) {
             {label}
           </Typography>
           <input type="file" accept="image/jpeg" onChange={onChange} />
-          <Button onClick={handleClose}sx={{color:"#ac3b61"}}>Close</Button>
+          <Button onClick={handleClose} sx={{ color: "#ac3b61" }}>
+            Close
+          </Button>
         </Box>
       </Modal>
     </div>
@@ -108,10 +124,10 @@ function ImageSlider() {
   const [imagePreviewUrl, setImagePreviewUrl] = useState(null);
 
   //  isFirstPostSuccessful = false;
-  const [isFirstPostSuccessful,setISfirstpostSuccessFull] = useState(false);
+  const [isFirstPostSuccessful, setISfirstpostSuccessFull] = useState(false);
   // let isFirstPostSuccessful = false;
   // let resourceId;
-  const[resourceId,setResourseid]=useState(0)
+  const [resourceId, setResourseid] = useState(0);
   // console.log("gf",resourceId)
   // useEffect(() => {
 
@@ -130,47 +146,50 @@ function ImageSlider() {
   //     } catch (error) {
   //       console.error(error);
   //     }
- 
+
   // }, []);
 
-      useEffect(() => {
-      // console.log(access_token)
-      axios.get('https://amirmohammadkomijani.pythonanywhere.com/barber/description/', {
-        headers: {
-          'Authorization': `JWT ${access_token}`,
-          'Content-Type': 'application/json',
+  useEffect(() => {
+    // console.log(access_token)
+    axios
+      .get(
+        "https://amirmohammadkomijani.pythonanywhere.com/barber/description/",
+        {
+          headers: {
+            Authorization: `JWT ${access_token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      )
+      .then((response) => {
+        // console.log("isFirstPostSuccessful")
+        // console.log(isFirstPostSuccessful)
+
+        const arr = response.data.results;
+        if (!(arr.length === 0)) {
+          // console.log(arr.length);
+          // console.log(response.data.results);
+          setISfirstpostSuccessFull(true);
+          setResourseid(response.data.results[0].id);
+          setDescription(response.data.results[0].description);
+          setTitle(response.data.results[0].title);
+          setImage(response.data.results[0].img);
+          setImagePreviewUrl(response.data.results[0].img);
+        } else {
+          setISfirstpostSuccessFull(false);
         }
       })
-        .then((response) => {
-          // console.log("isFirstPostSuccessful")
-          // console.log(isFirstPostSuccessful)
-
-          const arr = response.data.results;
-          if (!(arr.length === 0)) {
-            // console.log(arr.length);
-            // console.log(response.data.results);
-            setISfirstpostSuccessFull(true)
-            setResourseid(response.data.results[0].id)
-            setDescription(response.data.results[0].description);
-            setTitle(response.data.results[0].title)
-            setImage(response.data.results[0].img)
-            setImagePreviewUrl(response.data.results[0].img);
-          }
-          else {
-            setISfirstpostSuccessFull(false)
-          }
-        })
-        .catch(err => console.log(err));
-    }, []);
+      .catch((err) => console.log(err));
+  }, []);
   async function handleSubmit(event) {
     event.preventDefault();
     // Create a FormData object to hold the data
     const formData = new FormData();
-    formData.append('title', title);
-    formData.append('description', description);
-    formData.append('img', image);
+    formData.append("title", title);
+    formData.append("description", description);
+    formData.append("img", image);
     // console.log('imgnew',image)
-  
+
     try {
       let response;
       // console.log(isFirstPostSuccessful)
@@ -180,68 +199,67 @@ function ImageSlider() {
         // Send PUT request
         // console.log("gfh",resourceId)
         const putUrl = `https://amirmohammadkomijani.pythonanywhere.com/barber/description/${resourceId}/`;
-        response = await axios.put(
-          putUrl,
-          formData,
-          {
-            headers: {
-              Authorization: `JWT ${access_token}`,
-            },
-          }
-        );
-        alert(`You  Eddited Succsussfuly`);
-        axios.get('https://amirmohammadkomijani.pythonanywhere.com/barber/description/', {
+        response = await axios.put(putUrl, formData, {
           headers: {
-            'Authorization': `JWT ${access_token}`,
-            'Content-Type': 'application/json',
-          }
-        })
+            Authorization: `JWT ${access_token}`,
+          },
+        });
+        alert(`You  Eddited Succsussfuly`);
+        axios
+          .get(
+            "https://amirmohammadkomijani.pythonanywhere.com/barber/description/",
+            {
+              headers: {
+                Authorization: `JWT ${access_token}`,
+                "Content-Type": "application/json",
+              },
+            }
+          )
           .then((response) => {
             // console.log("isFirstPostSuccessful")
             // console.log(isFirstPostSuccessful)
-  
+
             const arr = response.data.results;
             if (!(arr.length === 0)) {
               // console.log(arr.length);
               // console.log(response.data.results);
-              setISfirstpostSuccessFull(true)
-              setResourseid(response.data.results[0].id)
+              setISfirstpostSuccessFull(true);
+              setResourseid(response.data.results[0].id);
               setDescription(response.data.results[0].description);
-              setTitle(response.data.results[0].title)
-              setImage(response.data.results[0].img)
+              setTitle(response.data.results[0].title);
+              setImage(response.data.results[0].img);
+            } else {
+              setISfirstpostSuccessFull(false);
             }
-            else {
-              setISfirstpostSuccessFull(false)
-            }           
           })
-          .catch(err => console.log(err));
+          .catch((err) => console.log(err));
       } else {
         // Send POST request
-        const postUrl = 'https://amirmohammadkomijani.pythonanywhere.com/barber/description/';
-        response = await axios.post(
-          postUrl,
-          formData,
+        const postUrl =
+          "https://amirmohammadkomijani.pythonanywhere.com/barber/description/";
+        response = await axios.post(postUrl, formData, {
+          headers: {
+            Authorization: `JWT ${access_token}`,
+          },
+        });
+        // setISfirstpostSuccessFull(true);
+        setResourseid(response.data.id);
+
+        alert(`You  Posted Succussfuly Time.`);
+
+        console.log("respone after post", resourceId);
+      }
+
+      axios
+        .get(
+          "https://amirmohammadkomijani.pythonanywhere.com/barber/description/",
           {
             headers: {
               Authorization: `JWT ${access_token}`,
+              "Content-Type": "application/json",
             },
           }
-        );
-        // setISfirstpostSuccessFull(true);
-        setResourseid(response.data.id);
-        
-        alert(`You  Posted Succussfuly Time.`);
-
-        
-        console.log("respone after post",resourceId)
-      }
-      
-      axios.get('https://amirmohammadkomijani.pythonanywhere.com/barber/description/', {
-        headers: {
-          'Authorization': `JWT ${access_token}`,
-          'Content-Type': 'application/json',
-        }
-      })
+        )
         .then((response) => {
           // console.log("isFirstPostSuccessful")
           // console.log(isFirstPostSuccessful)
@@ -250,21 +268,18 @@ function ImageSlider() {
           if (!(arr.length === 0)) {
             // console.log(arr.length);
             // console.log(response.data.results);
-            setISfirstpostSuccessFull(true)
-            setResourseid(response.data.results[0].id)
+            setISfirstpostSuccessFull(true);
+            setResourseid(response.data.results[0].id);
             setDescription(response.data.results[0].description);
-            setTitle(response.data.results[0].title)
-            setImage(response.data.results[0].img)
-
-          }
-          else {
-            setISfirstpostSuccessFull(false)
+            setTitle(response.data.results[0].title);
+            setImage(response.data.results[0].img);
+          } else {
+            setISfirstpostSuccessFull(false);
           }
         })
-        .catch(err => console.log(err));
+        .catch((err) => console.log(err));
     } catch (error) {
       console.error(error);
-      
     }
   }
 
@@ -279,10 +294,13 @@ function ImageSlider() {
     add: false,
   });
   const btnhandler = (event) => {
-    setShowComponent({
-      ...ShowComponent,
-      [event.target.name]: !ShowComponent[event.target.name],
-    });
+    if(expireDays > 0){
+      setShowComponent({
+        ...ShowComponent,
+        [event.target.name]: !ShowComponent[event.target.name],
+      });
+    }
+    
   };
 
   const servicehandler = (id) => {
@@ -304,7 +322,6 @@ function ImageSlider() {
   };
 
   function categorySubmit(event) {
-    
     axios({
       method: "post",
       url: "https://amirmohammadkomijani.pythonanywhere.com/barber/categories/",
@@ -331,6 +348,7 @@ function ImageSlider() {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  const [expireDays, setExpireDays] = useState(1);
 
   let access_token = localStorage.getItem("accessTokenBarber");
 
@@ -342,25 +360,45 @@ function ImageSlider() {
         "Content-Type": "application/json",
         Authorization: `JWT ${access_token}`,
       },
-      
     })
-    .then((response) => {
-      console.log(response);
-      setMydata(response.data.results);
-      setServicefront(response.data.results);
-      
-      
-    })
+      .then((response) => {
+        console.log(response);
+        setMydata(response.data.results);
+        setServicefront(response.data.results);
+      })
       .catch((error) => {
         console.warn(error);
       });
 
-    
-    
+    axios
+      .get("https://amirmohammadkomijani.pythonanywhere.com/barber/premium/", {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `JWT ${access_token}`,
+        },
+      })
+      .then((res) => {
+        // setExpireDays(res.data[0].days);
+        setExpireDays(0);
+      })
+      .catch((err) => {
+        // console.log(err)
+      });
   }, []);
 
   return (
     <div className="All_Slider">
+      {expireDays == 0 && (
+        <Stack sx={{ width: "100%" }} spacing={2}>
+          <Alert severity="error">
+            <AlertTitle>Error</AlertTitle>
+            Your premium subscription has expired —{" "}
+            <a href="/PremiumPlans">
+              <strong>you will need to renew your subscription!</strong>
+            </a>
+          </Alert>
+        </Stack>
+      )}
       <div className="wholebarber">
         <div>
           <div />
@@ -378,45 +416,43 @@ function ImageSlider() {
                   style={{ color: "#ac3b61", fontWeight: "bold" }}
                 />
               ))}
-             
+
               <IconButton onClick={() => handleOpen()}>
                 <AddCircleOutlineIcon style={{ color: "#ac3b61" }} />
               </IconButton>
-
-              
             </Tabs>
             <Modal
-                open={open}
-                onClose={handleClose}
-                aria-labelledby="modal-modal-title"
-                aria-describedby="modal-modal-description"
-              >
-                <Box sx={styleB}>
-                  <p className="AddCategory_Modal">Add a New Category</p>
-                  <form onSubmit={categorySubmit}>
-                    <input
+              open={open && expireDays > 0}
+              onClose={handleClose}
+              aria-labelledby="modal-modal-title"
+              aria-describedby="modal-modal-description"
+            >
+              <Box sx={styleB}>
+                <p className="AddCategory_Modal">Add a New Category</p>
+                <form onSubmit={categorySubmit}>
+                  <input
                     class="inputbox"
-                      onChange={(e) => setCategoryName(e.target.value)}
-                      type="text"
-                      placeholder="Category"
-                      name="Category"
-                    />
-                    <br></br>
-                    <br></br>
-                    <Button
-                      type="submit"
-                      variant="outlined"
-                      style={{ backgroundColor: "#ac3b61", color: "#eee2dc" }}
-                    >
-                      Add Category
-                    </Button>
-                  </form>
-                </Box>
-              </Modal>
+                    onChange={(e) => setCategoryName(e.target.value)}
+                    type="text"
+                    placeholder="Category"
+                    name="Category"
+                  />
+                  <br></br>
+                  <br></br>
+                  <Button
+                    type="submit"
+                    variant="outlined"
+                    style={{ backgroundColor: "#ac3b61", color: "#eee2dc" }}
+                  >
+                    Add Category
+                  </Button>
+                </form>
+              </Box>
+            </Modal>
             {servicefront.map((item, index) => (
               <div
                 key={item.category}
-                className={currentTabIndex === index ? 'All_Services' : ''}
+                className={currentTabIndex === index ? "All_Services" : ""}
                 style={{ display: currentTabIndex === index ? "flex" : "none" }}
               >
                 {item.categoryServices.map((x) => (
@@ -438,7 +474,6 @@ function ImageSlider() {
                         sx={{ height: 140 }}
                         image={
                           x.servicePic
-                          
                             ? x.servicePic
                             : "https://s2.uupload.ir/files/a9d966e052bdeb38027ca58ac3217845_z5j6.jpg"
                         }
@@ -494,56 +529,89 @@ function ImageSlider() {
           </div>
         </div>
         <div className="wildandfree">
-            <>
-          <form onSubmit={handleSubmit} >
-                  
-            <div className="flex flex-col">
-              <div className="flex flex-row justify-between">
-              <Typography className="w-1/3" component="div">
-                <Box className='dis' sx={{ bgcolor: '#123c69', textAlign: 'left', fontSize: 25, fontFamily:'Roboto, ',p:3, m:2 , color:'#edc7b7', borderRadius:3 }}>
-                  <InputModal label=" Add Title " value={title} onChange={(e) => setTitle(e.target.value)} />
-                  {title}
-                </Box>
-              </Typography>
-              <Typography  className="w-1/3" component="div">
-                <Box  className='dis1' sx={{ bgcolor: '#edc7b7', 
-                textAlign: 'left',fontSize: 25,fontFamily:'Roboto, ',p: 3 , m:2 , color:'#123c69',borderRadius:3}}>
-                  <InputModal   label="Add Description" value={description} onChange={(e) => setDescription(e.target.value)} />
-                  {description}
-                </Box>
-              </Typography>
-              </div>
-              <div className="flex items-center justify-center">
-                <ImageModal label="Add Image" onChange={(e) => {
+          <>
+            <form onSubmit={handleSubmit}>
+              <div className="flex flex-col">
+                <div className="flex flex-row justify-between">
+                  <Typography className="w-1/3" component="div">
+                    <Box
+                      className="dis"
+                      sx={{
+                        bgcolor: "#123c69",
+                        textAlign: "left",
+                        fontSize: 25,
+                        fontFamily: "Roboto, ",
+                        p: 3,
+                        m: 2,
+                        color: "#edc7b7",
+                        borderRadius: 3,
+                      }}
+                    >
+                      <InputModal
+                        label=" Add Title "
+                        value={title}
+                        onChange={(e) => setTitle(e.target.value)}
+                      />
+                      {title}
+                    </Box>
+                  </Typography>
+                  <Typography className="w-1/3" component="div">
+                    <Box
+                      className="dis1"
+                      sx={{
+                        bgcolor: "#edc7b7",
+                        textAlign: "left",
+                        fontSize: 25,
+                        fontFamily: "Roboto, ",
+                        p: 3,
+                        m: 2,
+                        color: "#123c69",
+                        borderRadius: 3,
+                      }}
+                    >
+                      <InputModal
+                        label="Add Description"
+                        value={description}
+                        onChange={(e) => setDescription(e.target.value)}
+                      />
+                      {description}
+                    </Box>
+                  </Typography>
+                </div>
+                <div className="flex items-center justify-center">
+                  <ImageModal
+                    label="Add Image"
+                    onChange={(e) => {
                       setImage(e.target.files[0]);
-                      setImagePreviewUrl(URL.createObjectURL(e.target.files[0]));
-                      
-                  }} />
+                      setImagePreviewUrl(
+                        URL.createObjectURL(e.target.files[0])
+                      );
+                    }}
+                  />
+                </div>
               </div>
-            </div>
-    
 
-          {image && (
-            <>
-              <div className="mx-auto flex justify-center">
-                <img
-                className='imdis'
-                style={{ width: '44%', height: 465, borderRadius: 10 }}
-                // src={URL.createObjectURL(image)}
-                // src={image}
-                src={imagePreviewUrl}
-                alt="React lost"/>
-              </div>
-            </>
-          )}
+              {image && (
+                <>
+                  <div className="mx-auto flex justify-center">
+                    <img
+                      className="imdis"
+                      style={{ width: "44%", height: 465, borderRadius: 10 }}
+                      // src={URL.createObjectURL(image)}
+                      // src={image}
+                      src={imagePreviewUrl}
+                      alt="React lost"
+                    />
+                  </div>
+                </>
+              )}
+              <br />
+              <input className="inipini" type="submit" value="Submit" />
+            </form>
             <br />
-          <input className="inipini" type="submit" value="Submit" />
-          </form>
-          <br />
-          {/* Display entered values */}
-
-        </>
-      </div>
+            {/* Display entered values */}
+          </>
+        </div>
       </div>
     </div>
   );

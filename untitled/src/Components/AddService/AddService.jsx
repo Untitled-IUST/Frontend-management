@@ -43,6 +43,7 @@ const AddService = () => {
   }
 
   return (
+    
     <div
       className="All_AddService p-2"
       style={{
@@ -53,6 +54,7 @@ const AddService = () => {
         flexWrap: "wrap", // added flex-wrap property
       }}
     >
+      
       <h3 className="AddService_Modal">Add a New Service</h3>
       <form onSubmit={formSubmit}>
         <div
