@@ -36,6 +36,20 @@ const styleB = {
   flexDirection: "column",
   alignItems: "center",
 };
+const styleC = {
+  top: "50%",
+  left: "50%",
+  width: 400,
+  transform: "translate(-50%, -50%)",
+  bgcolor: "background.paper",
+  boxShadow: 24,
+  backgroundColor: "#edc7b7",
+  position: "absolute",
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
+};
+
 const stylepmr = {
   position: "absolute",
   top: "50%",
@@ -294,13 +308,14 @@ function ImageSlider() {
     add: false,
   });
   const btnhandler = (event) => {
-    if(expireDays > 0){
+    if (expireDays > 0) {
       setShowComponent({
         ...ShowComponent,
         [event.target.name]: !ShowComponent[event.target.name],
       });
+    } else {
+      handleOpen();
     }
-    
   };
 
   const servicehandler = (id) => {
@@ -349,6 +364,7 @@ function ImageSlider() {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const [expireDays, setExpireDays] = useState(1);
+  const [expireDate, setExpireDate] = useState();
 
   let access_token = localStorage.getItem("accessTokenBarber");
 
@@ -378,8 +394,9 @@ function ImageSlider() {
         },
       })
       .then((res) => {
-        // setExpireDays(res.data[0].days);
-        setExpireDays(0);
+        setExpireDays(res.data[0].days);
+        // setExpireDays(0);
+        setExpireDate(res.data[0].expire_date);
       })
       .catch((err) => {
         // console.log(err)
@@ -449,6 +466,38 @@ function ImageSlider() {
                 </form>
               </Box>
             </Modal>
+
+            <Modal
+              open={open && expireDays == 0}
+              onClose={handleClose}
+              aria-labelledby="modal-modal-title"
+              aria-describedby="modal-modal-description"
+            >
+              <Stack sx={styleC} spacing={2}>
+                <Alert severity="error">
+                  <AlertTitle>We're sad to see you go</AlertTitle>
+                  <p className="alert-expire">
+                    Your premium plan has expired on the {expireDate}!<br></br>
+                    When your subscription ends you can no longer add your
+                    categories or services.
+                    <br></br>
+                    if you want to come back, Untitle Premium is just a click
+                    away.
+                    <br></br>
+                    <br></br>
+                  </p>
+
+                  <Button
+                    href="/PremiumPlans"
+                    variant="outlined"
+                    style={{ backgroundColor: "#ac3b61", color: "#eee2dc" }}
+                  >
+                    GET UNTITLED PREMIUM
+                  </Button>
+                </Alert>
+              </Stack>
+            </Modal>
+
             {servicefront.map((item, index) => (
               <div
                 key={item.category}
