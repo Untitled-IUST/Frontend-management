@@ -1,0 +1,54 @@
+@import url("https://fonts.googleapis.com/css?family=Baloo+Bhaijaan|Ubuntu");
+*{
+  font-family: "Ubuntu", sans-serif;
+}
+.css-hsfs6p-MuiButtonBase-root-MuiButton-root{
+    font-family: "Ubuntu", sans-serif !important;
+}
+.css-lgjqka-MuiTypography-root{
+    font-family: "Ubuntu", sans-serif !important;
+}
+.css-1irp28p-MuiTypography-root{
+    font-family: "Ubuntu", sans-serif !important;
+}
+.css-4jlbb2-MuiTypography-root{
+    font-family: "Ubuntu", sans-serif !important;
+}
+.css-1h6pd8u-MuiTypography-root {
+    font-family: "Ubuntu", sans-serif !important;
+}
+.css-1h6pd8u-MuiTypography-root{
+    font-family: "Ubuntu", sans-serif !important;
+}
+@keyframes move {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(100px);
+    }
+  }
+.moving-title {
+  animation: move 3s linear infinite;
+}
+@keyframes shake {
+    0% {
+      transform: translateX(0);
+    }
+    25% {
+      transform: translateX(-5px);
+    }
+    50% {
+      transform: translateX(5px);
+    }
+    75% {
+      transform: translateX(-5px);
+    }
+    100% {
+      transform: translateX(0);
+    }
+  }
+  
+  .shake-button {
+    animation: shake 0.5s ease-in-out infinite;
+  }

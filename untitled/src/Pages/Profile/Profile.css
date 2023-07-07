@@ -16,17 +16,18 @@
 
 .css-uzaqbr-MuiPaper-root-MuiCard-root{
     background-color:#edc7b7 !important;
-}
-.css-uzaqbr-MuiPaper-root-MuiCard-root {
-    width: 310px !important;
+    border-radius: 15px !important;
+    width: 265px !important;
     object-position: 25% 53% !important; 
     height: 120px !important;
     margin-bottom: 15%;
 }
+
 .css-14s5rfu-MuiFormLabel-root-MuiInputLabel-root {
     top: -30% !important;
     font-family: "Ubuntu", sans-serif !important;
     color: #123c69 !important;
+    font-size: 15px !important;
 }
 .css-9ddj71-MuiInputBase-root-MuiOutlinedInput-root {
     height: 35px !important;
@@ -50,11 +51,7 @@
     background-color: #edc7b7 !important;
     border-radius: 25px !important;
 }
-.css-uzaqbr-MuiPaper-root-MuiCard-root {
-    border-radius: 15px !important;
-    width: 265px !important;
 
-}
 .custom-file-upload{
     color: #123c69 !important;
     margin-left: 5% !important;
@@ -79,10 +76,13 @@
     }
     .css-9ddj71-MuiInputBase-root-MuiOutlinedInput-root {
         width: 90% !important;
-        font-size: 6.5px !important;
+        font-size: 10.5px !important;
     }
     .css-13dbln6 {
         height: 50% !important;
+    }
+    .css-uzaqbr-MuiPaper-root-MuiCard-root {
+        width: 380px !important;
     }
 
 }

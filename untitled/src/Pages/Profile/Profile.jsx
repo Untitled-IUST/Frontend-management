@@ -21,15 +21,18 @@ export default function EditProfilePage() {
     const theme = useTheme();
     const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
     const isLargeScreen = useMediaQuery(theme.breakpoints.up('lg'));
-    
+    const [logoFile, setLogoFile] = useState(null);
+    const [backgroundFile, setBackgroundFile] = useState(null);
 
     const handleLogoChange = (event) => {
-      setLogo(URL.createObjectURL(event.target.files[0]));
-    };
-  
-    const handleBackgroundChange = (event) => {
-      setBackground(URL.createObjectURL(event.target.files[0]));
-    };
+        setLogo(URL.createObjectURL(event.target.files[0]));
+        setLogoFile(event.target.files[0]); // Store the file object in state
+      };
+      
+      const handleBackgroundChange = (event) => {
+        setBackground(URL.createObjectURL(event.target.files[0]));
+        setBackgroundFile(event.target.files[0]); // Store the file object in state
+      };
     const CustomTextField = styled(TextField)({
         '& label.Mui-focused': {
           color: '#123c69',
@@ -58,6 +61,7 @@ export default function EditProfilePage() {
           setPhoneNumberError(false);
         }
       };
+    let access_token = localStorage.getItem("accessTokenBarber");
     const [barberShopName, setBarberShopName] = useState('');
     const [owner, setOwner] = useState('');
     const [parvaneh, setParvaneh] = useState('');
@@ -66,35 +70,37 @@ export default function EditProfilePage() {
     const [address, setAddress] = useState('');
     const [logo, setLogo] = useState(null);
     const [background, setBackground] = useState(null);
+
     function handleSubmit(event) {
         event.preventDefault();
-    
         // Create a FormData object
         const formData = new FormData();
-        formData.append('barberShopName', barberShopName);
-        formData.append('owner', owner);
-        formData.append('parvaneh', parvaneh);
-        formData.append('phoneNumber', phoneNumber);
+        formData.append('BarberShop', barberShopName);
+        formData.append('Owner', owner);
+        formData.append('Parvaneh', parvaneh);
+        formData.append('phone_Number', phoneNumber);
         formData.append('area', area);
         formData.append('address', address);
-        if (logo) {
-          formData.append('logo', logo);
+        if (logoFile) {
+          formData.append('logo', logoFile); // Append the file object instead of the URL string
         }
-        if (background) {
-          formData.append('background', background);
+        if (backgroundFile) {
+          formData.append('background', backgroundFile); // Append the file object instead of the URL string
         }
+        // ...
+      
     
         // Send the form data to your backend using axios
-        axios.post('/your-backend-url', formData, {
-          headers: {
-            'Content-Type': 'multipart/form-data'
-          }
+        axios.put('https://amirmohammadkomijani.pythonanywhere.com/barber/profile/me/', formData, {
+            headers: {
+                Authorization: `JWT ${access_token}`,
+              },
         })
           .then(response => {
-            // Handle the response
+            console.log(response.data)
           })
           .catch(error => {
-            // Handle the error
+            console.log(error)
           });
       }
       const [boxHeight, setBoxHeight] = useState('50%');
@@ -200,7 +206,8 @@ export default function EditProfilePage() {
 
 
     </Box>
-    {isLargeScreen && <Button type="submit" className='inipini1' sx={{ fontFamily:'Roboto, ',}}>Submit</Button>}
+    {isLargeScreen && <Button type="submit" className='inipini1' sx={{ fontFamily:'Roboto, ',}}
+    onClick={handleSubmit}>Submit</Button>}
     </div>
 
       <Box sx={{display: "flex",position: "relative", flexDirection: "column", 
@@ -267,7 +274,8 @@ export default function EditProfilePage() {
      
 
     </Box>
-    { !(isLargeScreen) && <Button type="submit" className='inipini1' sx={{ fontFamily:'Roboto, ',}}>Submit</Button>}
+    { !(isLargeScreen) && <Button type="submit" className='inipini1' sx={{ fontFamily:'Roboto, ',}}
+    onClick={handleSubmit}>Submit</Button>}
 
 </div>
   );

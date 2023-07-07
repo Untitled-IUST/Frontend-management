@@ -11,12 +11,19 @@ import {Receipt} from "./Components/Receipt/Receipt"
 import SendEmail from './Pages/LoginSignUp/SendEmail';
 import Landing from "./Pages/Landing/Landing";
 import EditProfilePage from './Pages/Profile/Profile';
-
+import Hero from './Pages/Landing/Hero';
+import Footer from "./Pages/Landing/Footer";
 function App() {
   
   return (
     <Routes>
-      <Route path="/" Component={Landing}/>
+
+        <Route path="/" element={
+        <div id="app" style={({ backgroundColor:"#eee2dc"})}>
+          <Hero/>
+          <Footer />
+        </div>
+      }/>
       <Route path="/LoginBarber" Component={LoginBarber}/>
       <Route path="/SignUpBarber" Component={SignUpBarber} />
       <Route path="/Profile" element={
