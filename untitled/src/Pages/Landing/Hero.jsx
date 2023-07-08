@@ -10,6 +10,15 @@ import Img2 from "../../Components/media/21.png";
 import CustomButton from "./CustomButton";
 import { FaArrowAltCircleRight, FaArrowAltCircleLeft } from 'react-icons/fa';
 import './1.css'
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+import Slide from '@mui/material/Slide';
+const Transition = React.forwardRef(function Transition(props, ref) {
+  return <Slide direction="up" ref={ref} {...props} />;
+});
 
 const Hero = ({ slides }) => {
   const [current, setCurrent] = useState(0);
@@ -25,7 +34,16 @@ const Hero = ({ slides }) => {
       textAlign: "center",
     },
   }));
-  const images = [Img, Img1, Img2];
+  const [open, setOpen] = React.useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
 
   const Title = styled(Typography)(({ theme }) => ({
     fontSize: "64px",
@@ -75,12 +93,32 @@ const prevSlide = () => {
             >An online reservation system for a salon or beauty establishment allows clients to
              conveniently book their appointments online, saving time and effort. Thanks for TUCH AND CARE
             </Typography>
-            <CustomButton
-              backgroundColor="#ac3b61 "
-              color="#fff"
-              buttonText="More About Us"
-              heroBtn={true}
-            />
+            <Button className="btnew" onClick={handleClickOpen}>
+              More About us
+            </Button>
+            <Dialog
+                open={open}
+                TransitionComponent={Transition}
+                keepMounted
+                onClose={handleClose}
+                aria-describedby="alert-dialog-slide-description"
+              >
+                <DialogTitle>{"What about us?"}</DialogTitle>
+                <DialogContent>
+                  <DialogContentText id="alert-dialog-slide-description">
+                  We are a group of friends who came up with the idea of an online 
+                  platform for reserving barbers and makeup salons. Our goal is to provide an easy
+                   and convenient way for you to enhance your beauty. With "TUCH," you can take "CARE" of
+                    yourself effortlessly. Our team consists of six members. The front-end developers are 
+                    Ehsan, Anita, Fargol, and Maryam,
+                   while the back-end developers are Amirmohamad and Amirali. Thank you for choosing us!
+                  </DialogContentText> 
+                </DialogContent>
+                <DialogActions>
+                  <Button onClick={handleClose} className="abt">OK</Button>
+                </DialogActions>
+              </Dialog>
+
           </Box>
           <section className='slider'>
           <FaArrowAltCircleLeft className='left-arrow' onClick={prevSlide} />

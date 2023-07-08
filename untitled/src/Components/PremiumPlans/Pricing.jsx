@@ -118,7 +118,7 @@ function Pricing() {
                 sm={tier.title === "Enterprise" ? 12 : 6}
                 md={4}
               >
-                <Card>
+                <Card >
                   <CardHeader
                     title={tier.title}
                     subheader={tier.subheader}
