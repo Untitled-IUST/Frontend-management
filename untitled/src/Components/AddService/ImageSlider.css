@@ -5,11 +5,44 @@
 .All_Slider{
     font-family: "Ubuntu", sans-serif !important;
     background-color: #eee2dc;
-    /* height: 1500px; */
+     height: 110vh; 
     width: 100%;
 }
+.wholebarber{
+  display: flex !important;
+  /* justify-content: center; */
+}
+
 .MuiTabs-root .MuiTab-textColorPrimary.Mui-selected {
-  color: #ac3b61;
+  color: #ac3b61 !important;
+}
+.css-6cwv2r-MuiPaper-root-MuiCard-root{
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.8) !important;
+
+}
+.css-h93ljk-MuiTypography-root {
+  font-family:  "Ubuntu", sans-serif !important;
+  margin-top: 15% !important;
+  display: flex;
+  justify-content: center;
+  font-size: 20px !important;
+  color: #123c69 !important;
+}
+.css-1999db7-MuiCardMedia-root {
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+}
+.css-r40f8v-MuiTypography-root {
+  font-family:  "Ubuntu", sans-serif !important;
+  margin-top: 5% !important;
+  margin-bottom: 12% !important;
+  display: flex;
+  justify-content: center;
+  font-size: 18px !important;
+  color: #123c69 !important;
+
+}
+.css-1aquho2-MuiTabs-indicator {
+  background-color: #ac3b61!important;
 }
 .css-15kdcs5-MuiButtonBase-root-MuiButton-root {
   font-family: "Ubuntu", sans-serif !important;
@@ -31,11 +64,13 @@
 }
 .inipini{
   font-family: "Ubuntu", sans-serif !important;
-  color: #123c69;
-  padding: 3%;
-  border-radius: 33%;
-  margin-left: 2%;
-  background-color:#edc7b7 ;
+  color: #eee2dc;
+  padding: .3%;
+  width: 25%;
+  border-radius: 5px;
+  margin-left: 10%;
+  background-color:#ac3b61 ;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.7);
 }
 .css-1jmobbv-MuiButtonBase-root-MuiButton-root{
   
@@ -69,6 +104,56 @@
     font-weight: bold;
     font-size:24px;
 
+}
+.css-1wf8b0h-MuiTabs-flexContainer {
+  margin-top: 5%;
+}
+.css-bhp9pd-MuiPaper-root-MuiCard-root {
+  width: 25% !important;
+  height: 400px !important;
+  background-color: #edc7b7 !important;
+  margin-top: 4% !important;
+  margin-right: 5% !important;
+  margin-left: 10%;
+  border-radius: 8px !important;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.8) !important; 
+}
+.css-1h9z7r5-MuiButtonBase-root-MuiTab-root {
+  font-family: "Ubuntu", sans-serif !important;
+  color: #123c69 !important;
+}
+.css-o69gx8-MuiCardMedia-root {
+  height: 100px !important;
+  object-position: 25% 53% !important; 
+}
+.css-46bh2p-MuiCardContent-root {
+  padding: 0px !important;
+}
+.css-ahj2mt-MuiTypography-root {
+  font-family: "Ubuntu", sans-serif !important;
+  color: #123c69 !important;
+  font-size: 15px !important;
+  padding-left: 3% !important;
+  padding-right: 3% !important;
+}
+@media only screen and (max-width:1200px){
+  .css-bhp9pd-MuiPaper-root-MuiCard-root {
+    width: 60% !important;
+  }
+  .wholebarber {
+    justify-content: flex-start !important;
+    flex-direction: column-reverse !important;
+    flex-wrap: wrap !important;
+    align-content: center !important;
+    align-items: center;
+
+}
+.inipini {
+  width: 100px;
+}
+.All_Slider{
+  height: 1200px !important;
+}
 }
 @media only screen and (max-width:500px){
   .dis{

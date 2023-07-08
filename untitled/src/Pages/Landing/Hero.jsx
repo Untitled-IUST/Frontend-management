@@ -4,7 +4,6 @@ import React from "react";
 import Navbar from "./Navbar";
 import { SliderData } from '../../Components/SliderData';
 import { useState, useEffect } from 'react';
-import "slick-carousel/slick/slick-theme.css";
 import Img from "../../Components/media/3.png";
 import Img1 from "../../Components/media/20.png";
 import Img2 from "../../Components/media/21.png";
