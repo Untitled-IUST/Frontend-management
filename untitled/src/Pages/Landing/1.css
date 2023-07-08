@@ -1,0 +1,112 @@
+@import url("https://fonts.googleapis.com/css?family=Baloo+Bhaijaan|Ubuntu");
+*{
+  font-family: "Ubuntu", sans-serif;
+}
+.slider {
+  
+    /* margin-top: -5%; */
+    position: relative;
+    height: 100vh;
+     display: flex;  
+     justify-content: center;
+    align-items: center; 
+    margin-left: 5%;
+  }
+  
+  .image {
+    width: 500px;
+    height: 500px;
+    object-fit: cover;
+    object-position: 25% 53%; 
+    border-radius: 10px;
+
+  
+  } 
+  
+  .right-arrow {
+    position: absolute;
+    top: 55%;
+    right: 22px;
+    font-size: 3rem;
+    color: #edc7b7;
+    z-index: 5;
+    cursor: pointer;
+    border-radius: 10px;
+    user-select: none;
+  }
+  
+  
+  .left-arrow {
+    position: absolute;
+    top: 55%;
+    left: 22px;
+    font-size: 3rem;
+    color: #edc7b7;
+    z-index: 10;
+    cursor: pointer;
+    user-select: none;
+  }
+  
+  .slide {
+    opacity: 0;
+    transition-duration: 1s ease;
+  }
+  
+  .slide.active {
+    width: 100%;
+    opacity: 1;
+    transition-duration: 1s;
+    transform: scale(1);
+  }
+  
+  
+.css-hsfs6p-MuiButtonBase-root-MuiButton-root{
+    font-family: "Ubuntu", sans-serif !important;
+}
+.css-lgjqka-MuiTypography-root{
+    font-family: "Ubuntu", sans-serif !important;
+}
+.css-1irp28p-MuiTypography-root{
+    font-family: "Ubuntu", sans-serif !important;
+}
+.css-4jlbb2-MuiTypography-root{
+    font-family: "Ubuntu", sans-serif !important;
+}
+.css-1h6pd8u-MuiTypography-root {
+    font-family: "Ubuntu", sans-serif !important;
+}
+.css-1h6pd8u-MuiTypography-root{
+    font-family: "Ubuntu", sans-serif !important;
+}
+@keyframes move {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(100px);
+    }
+  }
+.moving-title {
+  animation: move 3s linear infinite;
+}
+@keyframes shake {
+    0% {
+      transform: translateX(0);
+    }
+    25% {
+      transform: translateX(-5px);
+    }
+    50% {
+      transform: translateX(5px);
+    }
+    75% {
+      transform: translateX(-5px);
+    }
+    100% {
+      transform: translateX(0);
+    }
+  }
+  
+  .shake-button {
+    animation: shake .9s ease-in-out infinite;
+  }

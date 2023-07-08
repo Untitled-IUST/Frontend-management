@@ -62,7 +62,7 @@ const stylepmr = {
   fontFamily: "Roboto, ",
 };
 
-function InputModal({ label, value, onChange }) {
+function InputModal({ label, value, onChange,maxlength }) {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -85,14 +85,8 @@ function InputModal({ label, value, onChange }) {
           <Typography id="modal-modal-title" variant="h6" component="h2">
             {label}
           </Typography>
-          <input type="text" value={value} onChange={onChange} />
-          <Button
-            className="bty"
-            onClick={handleClose}
-            sx={{ color: "#ac3b61" }}
-          >
-            Close
-          </Button>
+          <input type="text" value={value} onChange={onChange} maxlength={maxlength}/>
+          <Button  className="bty" onClick={handleClose} sx={{color:"#ac3b61"}}>Close</Button>
         </Box>
       </Modal>
     </div>
@@ -578,59 +572,39 @@ function ImageSlider() {
           </div>
         </div>
         <div className="wildandfree">
-          <>
-            <form onSubmit={handleSubmit}>
-              <div className="flex flex-col">
-                <div className="flex flex-row justify-between">
-                  <Typography className="w-1/3" component="div">
-                    <Box
-                      className="dis"
-                      sx={{
-                        bgcolor: "#123c69",
-                        textAlign: "left",
-                        fontSize: 25,
-                        fontFamily: "Roboto, ",
-                        p: 3,
-                        m: 2,
-                        color: "#edc7b7",
-                        borderRadius: 3,
-                      }}
-                    >
-                      <InputModal
-                        label=" Add Title "
-                        value={title}
-                        onChange={(e) => setTitle(e.target.value)}
-                      />
-                      {title}
-                    </Box>
-                  </Typography>
-                  <Typography className="w-1/3" component="div">
-                    <Box
-                      className="dis1"
-                      sx={{
-                        bgcolor: "#edc7b7",
-                        textAlign: "left",
-                        fontSize: 25,
-                        fontFamily: "Roboto, ",
-                        p: 3,
-                        m: 2,
-                        color: "#123c69",
-                        borderRadius: 3,
-                      }}
-                    >
-                      <InputModal
-                        label="Add Description"
-                        value={description}
-                        onChange={(e) => setDescription(e.target.value)}
-                      />
+            <>
+          <form onSubmit={handleSubmit} >
+                  
+            <div className="flex flex-col">
+              <div className="flex flex-row justify-between">
+              <Typography className="w-1/3" component="div">
+                {/* <Box className='dis' sx={{ bgcolor: '#123c69', textAlign: 'left', fontSize: 25, fontFamily:'Roboto, ',p:3, m:2 , color:'#edc7b7', borderRadius:3 }}>
+                  <InputModal label=" Add Title " value={title} onChange={(e) => setTitle(e.target.value)} />
+                  {title}
+                </Box> */}
+                <Box  className='dis' sx={{ bgcolor: '#123c69', width: 400,
+                        height: 80,textAlign: 'left', ml: '5%',fontSize: 25, mt:'15%' ,
+                        mb:-15.7,fontFamily:'Roboto, ',pr:3,pl:3 , color:'#edc7b7',borderRadius:3}}>
+                    <InputModal label=" Add Title " value={title} onChange={(e) => setTitle(e.target.value)} maxlength={20} />
+                  {title}
+                </Box>
+              </Typography>
+              <Typography  className="w-1/3" component="div">
+                {/* <Box  className='dis1' sx={{ bgcolor: '#edc7b7', 
+                textAlign: 'left',fontSize: 25,fontFamily:'Roboto, ',p: 3 , m:2 , color:'#123c69',borderRadius:3}}>
+                  <InputModal   label="Add Description" value={description} onChange={(e) => setDescription(e.target.value)} />
+                  {description}
+                </Box> */}
+                <Box  className='dis1' sx={{ bgcolor: '#edc7b7', width:400,
+                      height: 510,textAlign: 'left', ml: '-30%' ,mt:'15%',
+                      fontSize: 25, mb:15,fontFamily:'Roboto, ',p: 3 , color:'#123c69',borderRadius:3}}>
+                    <InputModal   label="Add Description" value={description} onChange={(e) => setDescription(e.target.value)} maxlength={200}  />
                       {description}
-                    </Box>
-                  </Typography>
-                </div>
-                <div className="flex items-center justify-center">
-                  <ImageModal
-                    label="Add Image"
-                    onChange={(e) => {
+                </Box>
+              </Typography>
+              </div>
+              <div className="flex items-center justify-center">
+                <ImageModal label="Add Image" onChange={(e) => {
                       setImage(e.target.files[0]);
                       setImagePreviewUrl(
                         URL.createObjectURL(e.target.files[0])
@@ -640,27 +614,27 @@ function ImageSlider() {
                 </div>
               </div>
 
-              {image && (
-                <>
-                  <div className="mx-auto flex justify-center">
-                    <img
-                      className="imdis"
-                      style={{ width: "44%", height: 465, borderRadius: 10 }}
-                      // src={URL.createObjectURL(image)}
-                      // src={image}
-                      src={imagePreviewUrl}
-                      alt="React lost"
-                    />
-                  </div>
-                </>
-              )}
-              <br />
-              <input className="inipini" type="submit" value="Submit" />
-            </form>
+          {image && (
+            <>
+              <div className="mx-auto flex justify-center">
+                <img
+                className='imdis'
+                style={{ width: '40%', height: 400, marginLeft:'-55%', marginTop:-550, borderRadius: 10 }}
+                // src={URL.createObjectURL(image)}
+                // src={image}
+                src={imagePreviewUrl}
+                alt="React lost"/>
+              </div>
+            </>
+          )}
             <br />
-            {/* Display entered values */}
-          </>
-        </div>
+          <input className="inipini" type="submit" value="Submit" />
+          </form>
+          <br />
+          {/* Display entered values */}
+
+        </>
+      </div>
       </div>
     </div>
   );

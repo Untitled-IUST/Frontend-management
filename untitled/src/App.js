@@ -9,15 +9,29 @@ import Pricing from "./Components/PremiumPlans/Pricing";
 import Carddetails from "./Components/PaymentCard/Carddetails"
 import {Receipt} from "./Components/Receipt/Receipt"
 import SendEmail from './Pages/LoginSignUp/SendEmail';
-import Landing from "./Pages/Landing/Landing";
-
+import EditProfilePage from './Pages/Profile/Profile';
+import Hero from './Pages/Landing/Hero';
+import Footer from "./Pages/Landing/Footer";
+import { SliderData } from './Components/SliderData';
 function App() {
   
   return (
     <Routes>
-      <Route path="/" Component={Landing}/>
+
+        <Route path="/" element={
+        <div id="app" style={({ backgroundColor:"#eee2dc"})}>
+          <Hero slides={SliderData}/>
+          <Footer />
+        </div>
+      }/>
       <Route path="/LoginBarber" Component={LoginBarber}/>
       <Route path="/SignUpBarber" Component={SignUpBarber} />
+      <Route path="/Profile" element={
+        <div id="app" style={({ display: "flex" })}>
+          <SideBar/>
+          <EditProfilePage/>
+        </div>
+      }/>
       <Route path="/OrderHistory" element={
         <div id="app" style={({ height: "100vh" }, { display: "flex" })}>
           <SideBar />

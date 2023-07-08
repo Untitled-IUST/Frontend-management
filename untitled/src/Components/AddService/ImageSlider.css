@@ -70,6 +70,35 @@
     font-size:24px;
 
 }
+@media only screen and (max-width:500px){
+  .dis{
+    font-size: 13px !important;
+    margin-top: 25% !important;
+    margin-bottom: 0px !important;
+    width: 130px!important;
+    height: 100px !important;
+    margin-left: 5% !important;
+    padding-bottom: 34px !important;
+  }
+  .dis1{
+    font-size: 13px !important;
+    width: 130px !important;
+    height: 480px !important;
+    margin-left: -32% !important;
+    /* margin-top: -85% !important; */
+  
+  }
+  .imdis{
+    height: 320px !important;
+    margin-top: -500px!important;
+  }
+  .css-15kdcs5-MuiButtonBase-root-MuiButton-root {
+    font-size: 10px !important;
+  }
+  .css-131f08v-MuiButtonBase-root-MuiButton-root {
+    font-size: 10px !important;
+  }
+}
 
 .alert-expire{
   font-weight: bold;
