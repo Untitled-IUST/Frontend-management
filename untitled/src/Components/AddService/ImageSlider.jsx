@@ -318,10 +318,14 @@ function ImageSlider() {
     add: false,
   });
   const btnhandler = (event) => {
-    setShowComponent({
-      ...ShowComponent,
-      [event.target.name]: !ShowComponent[event.target.name],
-    });
+    if (expireDays > 0) {
+      setShowComponent({
+        ...ShowComponent,
+        [event.target.name]: !ShowComponent[event.target.name],
+      });
+    } else {
+      handleOpen();
+    }
   };
 
   const servicehandler = (id) => {
@@ -480,33 +484,63 @@ function ImageSlider() {
               
             </Tabs>
             <Modal
-                open={open}
-                onClose={handleClose}
-                aria-labelledby="modal-modal-title"
-                aria-describedby="modal-modal-description"
-              >
-                <Box sx={styleB}>
-                  <p className="AddCategory_Modal">Add a New Category</p>
-                  <form onSubmit={categorySubmit}>
-                    <input
+              open={open && expireDays > 0}
+              onClose={handleClose}
+              aria-labelledby="modal-modal-title"
+              aria-describedby="modal-modal-description"
+            >
+              <Box sx={styleB}>
+                <p className="AddCategory_Modal">Add a New Category</p>
+                <form onSubmit={categorySubmit}>
+                  <input
                     class="inputbox"
-                      onChange={(e) => setCategoryName(e.target.value)}
-                      type="text"
-                      placeholder="Category"
-                      name="Category"
-                    />
+                    onChange={(e) => setCategoryName(e.target.value)}
+                    type="text"
+                    placeholder="Category"
+                    name="Category"
+                  />
+                  <br></br>
+                  <br></br>
+                  <Button
+                    type="submit"
+                    variant="outlined"
+                    style={{ backgroundColor: "#ac3b61", color: "#eee2dc" }}
+                  >
+                    Add Category
+                  </Button>
+                </form>
+              </Box>
+            </Modal>
+            <Modal
+              open={open && expireDays == 0}
+              onClose={handleClose}
+              aria-labelledby="modal-modal-title"
+              aria-describedby="modal-modal-description"
+            >
+              <Stack sx={styleC} spacing={2}>
+                <Alert severity="error">
+                  <AlertTitle>We're sad to see you go</AlertTitle>
+                  <p className="alert-expire">
+                    Your premium plan has expired on the {expireDate}!<br></br>
+                    When your subscription ends you can no longer add your
+                    categories or services.
+                    <br></br>
+                    if you want to come back, Untitle Premium is just a click
+                    away.
                     <br></br>
                     <br></br>
-                    <Button
-                      type="submit"
-                      variant="outlined"
-                      style={{ backgroundColor: "#ac3b61", color: "#eee2dc" }}
-                    >
-                      Add Category
-                    </Button>
-                  </form>
-                </Box>
-              </Modal>
+                  </p>
+
+                  <Button
+                    href="/PremiumPlans"
+                    variant="outlined"
+                    style={{ backgroundColor: "#ac3b61", color: "#eee2dc" }}
+                  >
+                    GET UNTITLED PREMIUM
+                  </Button>
+                </Alert>
+              </Stack>
+            </Modal>
             {servicefront.map((item, index) => (
               <div
                 key={item.category}
