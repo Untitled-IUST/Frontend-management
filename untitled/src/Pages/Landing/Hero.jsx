@@ -66,7 +66,7 @@ const prevSlide = () => {
             >
               Welcome to Tuch And Care
             </Typography>
-            <Title variant="h1" className="moving-title">
+            <Title variant="h1">
             Beauty is art, and makeup is the brush.
             </Title>
             <Typography

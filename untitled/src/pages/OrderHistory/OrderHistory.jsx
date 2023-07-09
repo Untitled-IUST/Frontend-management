@@ -4,7 +4,8 @@ import { Tab } from "@headlessui/react";
 import {IonIcon} from '@ionic/react';
 import {time} from 'ionicons/icons';
 import axios from "axios"; 
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 function OrderHistory() {
   const [id ,setId] = useState(null);
   const [date, setDate] = useState(new Date().toISOString().substring(0,10));
@@ -21,7 +22,17 @@ function OrderHistory() {
   const Filters = [
     "All" ,"Done", "Canceled by me" , "Canceled by customer" , "Customer didnt arrive" , "Ordering"
   ]
-  
+  useEffect(() => {
+    const loginChecker = localStorage.getItem('LoginCheckerBarber');
+    const shouldShowNotification = loginChecker === '1';
+    if (shouldShowNotification) {
+      toast.success('Logged in Successfuly!', {
+        position: toast.POSITION.TOP_RIGHT,
+        className : "bg-DesertSand-500 text-AteneoBlue-500"
+      });
+      localStorage.removeItem('LoginCheckerBarber');
+    }
+  }, []);
   useEffect(() => {
     if(selectedIndex === 0){
       setData(AllData);
@@ -120,6 +131,7 @@ function OrderHistory() {
     <div className="bg-WhiteChocolate-500 w-full">
       <div className=" md:w-2/3 w-full mx-auto h-full">
         <div className="container px-2 py-8 mx-auto flex flex-col">
+        <ToastContainer/>
           <div className="bg-DesertSand-500 w-fit px-3 py-3 rounded-xl flex flex-row gap-3">
             <p className="font-medium text-lg py-1 text-AteneoBlue-500">date:</p>
             <input onChange={(event) => {setDate(event.target.value)}} type="date" className="p-1 rounded appearance-none focus:outline-none bg-WhiteChocolate-500 text-AteneoBlue-500" value={date}/>

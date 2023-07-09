@@ -2,10 +2,25 @@ import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useState, useEffect } from "react";
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import backgroundImageLoginBarber from "./images/LoginBarber.png";
 
 function LoginBarber() {
+  
+  useEffect(() => {
+    const registerChecker = localStorage.getItem('RegisterCheckerBarber');
+    const shouldShowNotification = registerChecker === '1';
+
+    if (shouldShowNotification) {
+      toast.success('Registered Successfuly!', {
+        position: toast.POSITION.TOP_RIGHT,
+        className : "bg-DesertSand-500 text-AteneoBlue-500"
+      });
+      localStorage.removeItem('RegisterCheckerBarber');
+    }
+  }, []);
+
   useEffect(() => {
     localStorage.removeItem("accessTokenBarber");
   }, []);
@@ -42,9 +57,9 @@ function LoginBarber() {
       },
     })
       .then((res) => {
-        alert("You are logged in");
         localStorage.setItem("accessTokenBarber", res.data.access);
         localStorage.setItem("refreshTokenBarber", res.data.refresh);
+        localStorage.setItem('LoginCheckerBarber','1');
         navigate("/OrderHistory");
       })
       .catch((error) => {
@@ -67,6 +82,7 @@ function LoginBarber() {
         <div className="container mx-auto">
           <div className="flex justify-center mx-3">
             <div className="bg-WhiteChocolate-500 w-full flex appearance-none">
+            <ToastContainer/>
               <div className="w-full lg:flex items-center hidden lg:w-1/2 bg-cover rounded-l-lg">
                 <img src={backgroundImageLoginBarber} alt="Login" />
               </div>

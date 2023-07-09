@@ -117,8 +117,8 @@ function SignUpBarber(){
         }
       })
       .then((res) => {
-        alert('Your salon registered succesfully');
-        navigate('/');
+        localStorage.setItem('RegisterCheckerBarber','1'); 
+        navigate('/LoginBarber');
       })
       .catch(error => {
         setUsernameError(error.response.data["username"]);
