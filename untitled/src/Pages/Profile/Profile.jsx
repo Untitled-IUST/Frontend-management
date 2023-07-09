@@ -15,6 +15,7 @@ import Button from '@mui/material/Button';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { Select, MenuItem, FormControl, InputLabel } from '@mui/material';
+import {  FormControlLabel, FormLabel, Radio, RadioGroup } from '@mui/material';
 
 export default function EditProfilePage() {
 
@@ -23,6 +24,7 @@ export default function EditProfilePage() {
     const isLargeScreen = useMediaQuery(theme.breakpoints.up('lg'));
     const [logoFile, setLogoFile] = useState(null);
     const [backgroundFile, setBackgroundFile] = useState(null);
+
     const areas = [
         'Tehranpars',
         'Nazi Abad',
@@ -82,6 +84,8 @@ export default function EditProfilePage() {
     const [background, setBackground] = useState(null);
     const[username,setUsername]= useState('');
     const[password,setPassword]= useState('');
+    const [foundationDate, setFoundationDate] = useState('');
+    const [gender, setGender] = useState('');
     useEffect(() => {
         console.log(access_token);
         axios.get('https://amirmohammadkomijani.pythonanywhere.com/barber/profile/me/', {
@@ -102,6 +106,8 @@ export default function EditProfilePage() {
           setLogo(response.data.logo)
           setUsername(response.data.user.username)
           setPassword(response.data.user.password)
+          setFoundationDate(response.data.foundation)
+          setGender(response.data.gender)
 
         })
         .catch(err => console.log(err))
@@ -119,6 +125,8 @@ export default function EditProfilePage() {
         formData.append('address', address);
         formData.append('user.username', username);
         formData.append('user.password', password);
+        formData.append('foundation', foundationDate);
+        formData.append('gender', gender);
         if (logoFile) {
           formData.append('logo', logoFile); // Append the file object instead of the URL string
         }
@@ -146,7 +154,7 @@ export default function EditProfilePage() {
 
         useEffect(() => {
         if (parvanehError || phoneNumberError) {
-            setBoxHeight('57%');
+            setBoxHeight('87%');
         } else {
             setBoxHeight('53%');
         }
@@ -171,7 +179,7 @@ export default function EditProfilePage() {
     />
 
 <div>
-   <Typography  className='typo' sx={{color:'#123c69',fontFamily:'Roboto, ',}}> Geneal Information</Typography>
+   <Typography  className='typo' sx={{color:'#123c69',fontFamily:'Roboto, ',}}> General Information</Typography>
     <Box
       component="form"
       sx={{
@@ -253,6 +261,30 @@ export default function EditProfilePage() {
         value={address}
         onChange={(e) => setAddress(e.target.value)}
       />
+      <TextField
+        id="foundation-date"
+        label="Foundation Date"
+        type="date"
+        variant="outlined"
+        value={foundationDate}
+        onChange={(e) => setFoundationDate(e.target.value)}
+        InputLabelProps={{
+          shrink: true,
+        }}
+      />
+      <FormControl variant="outlined">
+      <InputLabel id="gender-label">Gender</InputLabel>
+      <Select
+        labelId="gender-label"
+        id="gender"
+        value={gender}
+        onChange={(e) => setGender(e.target.value)}
+        label="Gender"
+      >
+        <MenuItem value="Female">Female</MenuItem>
+        <MenuItem value="Male">Male</MenuItem>
+      </Select>
+    </FormControl>
         <TextField
         id="username"
         label="Username"
@@ -278,7 +310,7 @@ export default function EditProfilePage() {
 
       <Box sx={{display: "flex",position: "relative", flexDirection: "column", 
       flexWrap: "wrap", gap: "16px", backgroundColor:"#edc7b7 ",
-      height:boxHeight,borderRadius:"10px" ,marginBottom:isLargeScreen ?'-3%':'1.5%',
+      height:boxHeight,borderRadius:"10px" ,marginBottom:isLargeScreen ?'1%':'1.5%',
       boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.7)'
    
       }}  >

@@ -74,11 +74,11 @@ const Footer = () => {
               Resources
             </Typography>
 
-            <FooterLink>Our Travels</FooterLink>
+            <FooterLink>Makeup Salons</FooterLink>
             <br />
-            <FooterLink>Stories</FooterLink>
+            <FooterLink>Barbershops</FooterLink>
             <br />
-            <FooterLink>Video</FooterLink>
+            <FooterLink>Online Reservation</FooterLink>
             <br />
             <FooterLink>Free Trial</FooterLink>
           </Box>
@@ -124,21 +124,27 @@ const Footer = () => {
                 mb: 2,
               }}
             >
-              You’ll find your next destination, in any style you prefer.
+              You’ll find your happiness, in any style you prefer.
             </Typography>
 
             <IconBox>
+            <a href="https://www.facebook.com/President.Mahmoud.Ahmadinejad/" target="_blank" rel="noopener noreferrer">
               <img src={fbIcon} alt="fbIcon" style={{ cursor: "pointer" }} />
+              </a>
+              <a href="https://twitter.com/Ahmadinejad1956">
               <img
                 src={twitterIcon}
                 alt="twitterIcon"
                 style={{ cursor: "pointer" }}
               />
+              </a>
+              <a href="https://www.linkedin.com/in/maryam-behroozi-a50284201" target="_blank" rel="noopener noreferrer">
               <img
                 src={linkedinIcon}
                 alt="linkedinIcon"
                 style={{ cursor: "pointer" }}
               />
+              </a>
             </IconBox>
           </Box>
         </CustomContainer>

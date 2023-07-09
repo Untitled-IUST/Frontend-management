@@ -58,7 +58,30 @@
     transition-duration: 1s;
     transform: scale(1);
   }
-  
+.btnew{
+  background-color: #ac3b61 !important;
+  font-family: "Ubuntu", sans-serif !important;
+  color: #eee2dc !important;
+  text-transform: none !important;
+  animation: shake 1s ease-in-out infinite;
+
+}
+.css-1t1j96h-MuiPaper-root-MuiDialog-paper{
+  background-color: #edc7b7 !important;
+  color: #ac3b61 !important;
+  font-family: "Ubuntu", sans-serif !important;
+}
+.css-qfso29-MuiTypography-root-MuiDialogContentText-root {
+  font-family: "Ubuntu", sans-serif !important;
+  color: #123c69 !important;
+}
+.css-bdhsul-MuiTypography-root-MuiDialogTitle-root {
+  font-family: "Ubuntu", sans-serif !important;
+}
+.abt{
+  font-family: "Ubuntu", sans-serif !important;
+  color: #123c69 !important;
+}
   
 .css-hsfs6p-MuiButtonBase-root-MuiButton-root{
     font-family: "Ubuntu", sans-serif !important;
@@ -83,30 +106,18 @@
       transform: translateX(0);
     }
     to {
-      transform: translateX(100px);
+      transform: translateX(50px);
     }
   }
-.moving-title {
-  animation: move 3s linear infinite;
-}
-@keyframes shake {
-    0% {
-      transform: translateX(0);
-    }
-    25% {
-      transform: translateX(-5px);
-    }
-    50% {
-      transform: translateX(5px);
-    }
-    75% {
-      transform: translateX(-5px);
-    }
-    100% {
-      transform: translateX(0);
-    }
+
+
+  @keyframes shake {
+    0% { transform: translateX(0); }
+    25% { transform: translateX(-10px); }
+    75% { transform: translateX(10px); }
+    100% { transform: translateX(0); }
   }
   
   .shake-button {
-    animation: shake .9s ease-in-out infinite;
+    animation: shake 1s ease-in-out infinite;
   }

@@ -5,10 +5,9 @@
 .whole{
     display: flex;
     flex-direction: row;
-
     justify-content: space-evenly;
     background-color: #eee2dc;
-    height: 100vh;
+    height: 110vh !important;
     width: 100%;
     align-items: center;
 
@@ -35,6 +34,7 @@
 .typo{
     font-family: "Ubuntu", sans-serif !important;
     margin-bottom: 8%!important;
+    margin-top: -3% !important;
 
     font-size: 34px !important;
 }
