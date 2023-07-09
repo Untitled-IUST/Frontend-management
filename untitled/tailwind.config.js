@@ -4,6 +4,7 @@ module.exports = {
   theme: {
     extend: {
       colors:{
+        ac3b61: '#ac3b61',
         "DesertSand": {
           50: "#FDF9F7",
           100: "#FBF2EF",
