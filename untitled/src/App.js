@@ -13,9 +13,12 @@ import EditProfilePage from './Pages/Profile/Profile';
 import Hero from './Pages/Landing/Hero';
 import Footer from "./Pages/Landing/Footer";
 import { SliderData } from './Components/SliderData';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 function App() {
   
   return (
+    <div>
     <Routes>
 
         <Route path="/" element={
@@ -64,7 +67,21 @@ function App() {
       }/>
       <Route path="/payment" Component={Receipt} />
       <Route path="/ForgotPassword" Component={SendEmail} />
+      
     </Routes>
+    <ToastContainer
+    position="bottom-right"
+    autoClose={5000}
+    hideProgressBar={false}
+    newestOnTop={false}
+    closeOnClick
+    rtl={false}
+    pauseOnFocusLoss
+    draggable
+    pauseOnHover
+    theme="colored"
+    />
+</div>
   );
 }
 

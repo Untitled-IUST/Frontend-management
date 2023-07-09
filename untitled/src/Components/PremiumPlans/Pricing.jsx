@@ -15,7 +15,8 @@ import Container from "@mui/material/Container";
 import axios from "axios";
 import "./Pricing.css";
 import { useNavigate } from 'react-router-dom';
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const tiers = [
   {
@@ -91,8 +92,7 @@ function Pricing() {
         })
         .catch((err) => {
           console.log(err)
-
-        }); console.log(access_token)
+        }); 
 
   }, []);
 
@@ -187,7 +187,7 @@ function Pricing() {
     </div>
   );
   function BuyPremium(price, month){
-    console.log(price + ' ' + month + ' ' +premiumId)
+    // console.log(price + ' ' + month + ' ' +premiumId)
       axios({
         method: "put",
         url: "https://amirmohammadkomijani.pythonanywhere.com/barber/buypremium/"+premiumId+"/",
@@ -204,7 +204,9 @@ function Pricing() {
           navigate(`/paymentcard?value=${price}`);
         })
         .catch((error) => {
-          console.warn(error);
+
+        toast.error(error.response.data.account);
+        console.warn(error.response.data.account);
         });
 
       
