@@ -18,7 +18,9 @@ import Box from '@mui/material/Box';
 import Modal from "@mui/material/Modal";
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
-
+import Alert from "@mui/material/Alert";
+import Stack from "@mui/material/Stack";
+import AlertTitle from "@mui/material/AlertTitle";
 
 const styleB = {
   top: "50%",
@@ -32,6 +34,19 @@ const styleB = {
   p: 4,
   position: "absolute",
 
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
+};
+const styleC = {
+  top: "50%",
+  left: "50%",
+  width: 400,
+  transform: "translate(-50%, -50%)",
+  bgcolor: "background.paper",
+  boxShadow: 24,
+  backgroundColor: "#edc7b7",
+  position: "absolute",
   display: "flex",
   flexDirection: "column",
   alignItems: "center",
@@ -110,7 +125,8 @@ function ImageSlider() {
   const [description, setDescription] = useState("");
   const [image, setImage] = useState(null);
   const [imagePreviewUrl, setImagePreviewUrl] = useState(null);
-
+  const [expireDays, setExpireDays] = useState(1);
+  const [expireDate, setExpireDate] = useState();
   //  isFirstPostSuccessful = false;
   const [isFirstPostSuccessful,setISfirstpostSuccessFull] = useState(false);
   // let isFirstPostSuccessful = false;
@@ -165,7 +181,26 @@ function ImageSlider() {
           }
         })
         .catch(err => console.log(err));
+
+        axios
+      .get("https://amirmohammadkomijani.pythonanywhere.com/barber/premium/", {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `JWT ${access_token}`,
+        },
+      })
+      .then((res) => {
+        // setExpireDays(res.data[0].days);
+        setExpireDays(0);
+        setExpireDate(res.data[0].expire_date);
+      })
+      .catch((err) => {
+        // console.log(err)
+      });
+
     }, []);
+
+
   async function handleSubmit(event) {
     event.preventDefault();
     // Create a FormData object to hold the data
@@ -365,7 +400,19 @@ function ImageSlider() {
 
   return (
     <div className="All_Slider">
+      {expireDays == 0 && (
+        <Stack sx={{ width: "100%" }} spacing={2}>
+          <Alert severity="error">
+            <AlertTitle>Error</AlertTitle>
+            Your premium subscription has expired —{" "}
+            <a href="/PremiumPlans">
+              <strong>you will need to renew your subscription!</strong>
+            </a>
+          </Alert>
+        </Stack>
+      )}
       <div className="wholebarber">
+
       {!(isLargeScreen) &&<form onSubmit={handleSubmit}>
                 <br />
                 <input className="inipini" type="submit" value="Update" />
