@@ -190,8 +190,8 @@ function ImageSlider() {
         },
       })
       .then((res) => {
-        // setExpireDays(res.data[0].days);
-        setExpireDays(0);
+        setExpireDays(res.data[0].days);
+        // setExpireDays(0);
         setExpireDate(res.data[0].expire_date);
       })
       .catch((err) => {
